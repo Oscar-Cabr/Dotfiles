@@ -1,0 +1,56 @@
+/* ~/.config/eww/widgets/_bluetooth.scss */
+
+@import "../../theme/_colors-bluetooth-widget";
+
+* {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    font-family: "MesloLGS NF";
+    font-size: 15px;
+    color: $text-color;
+}
+
+.bluetooth-widget {
+    padding: 20px;
+    border-radius: 50px;
+    background: rgba($background-color, 0.85);
+}
+
+.activate-bluetooth-icon {
+    font-size: 30px;
+    color: $activate-bt-icon;
+}
+
+.deactivate-bluetooth-icon {
+    font-size: 30px;
+    color: $deactivate-bt-icon;
+}
+
+.current-bluetooth {
+    padding: 10px;
+    border: solid 2px $current-bt-box;
+    border-radius: 15px;
+    background: rgba($current-bt-box, 0.5);
+}
+
+.available-devices-text {
+    padding-bottom: 10px;
+    font-size: 19px;
+}
+
+.manager-button {
+    border: solid 2px $bt-button-border;
+    border-radius: 15px;
+    padding: 8px;
+    background: rgba($bt-button-border, 0.3);
+}
+
+.scan-button {
+    border: solid 2px $bt-button-border;
+    border-radius: 15px;
+    padding: 5px;
+    background: rgba($bt-button-border, 0.3);
+}

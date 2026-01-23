@@ -1,0 +1,50 @@
+/* ~/.config/eww/widgets/_poweroff.scss */
+
+@import "../../theme/_colors-poweroff-widget";
+
+* {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.poweroff-widget {
+    border-radius: 100px;
+    background: rgba($background-color, 0.85);
+    padding: 0px 10px 40px 10px;
+}
+
+.goodbye-text {
+    font-family: "ProggyClean Nerd Font Mono";
+    margin: 50px 0px 30px 0px;
+    border-radius: 100px;
+    color: $title-color;
+    font-size: 100px;
+}
+
+.button-wrapper {
+    background: rgba($background-color, 0);
+    margin: 20px 20px 40px 20px;
+    padding: 80px 0px 80px 0px;
+    border-radius: 50%;
+    transition: all 0.4s ease-in-out;
+}
+.button-wrapper:hover {
+    background-color: $button-background;
+    transition: all 0.4s ease-in-out;
+}
+.button-wrapper label {
+    margin-top: 20px;
+}
+
+.button-text {
+    color: $text-color;
+    font-size: 40px;
+    transition: all 0.4s ease-in-out;
+}
+.button-wrapper:hover .button-text {
+    color: $active-button-text;
+    transition: all 0.4s ease-in-out;
+}

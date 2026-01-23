@@ -1,0 +1,75 @@
+; ~/.config/eww/widgets/left-bar.yuck
+
+(defvar STD_SZ 50)
+(defvar MINI_SZ 30)
+
+(defwidget icon [img sz]
+    (box :class "icon"
+	(image :path img :image-width sz)
+    )
+)
+
+(defwidget app [img command sz]
+    (button :class "app"
+	:onclick command
+	(image :path img :image-width sz)
+    )
+)
+
+(defwidget separator [h]
+    (box :height h)
+)
+(defwidget line-separator []
+    (box :class "line-separator"
+	:height 2
+    )
+)
+
+(defwidget sidebar []
+    (box :class "sidebar"
+	:orientation "vertical"
+	:space-evenly false
+	:halign "center"
+
+	(separator :h STD_SEP)
+	(icon :img "/home/racso/.config/theme/icon-left-bar.svg" :sz STD_SZ)
+	(separator :h STD_SEP)
+	(line-separator)
+
+	(separator :h STD_SEP)
+	(app :img "${ICON_ROUTE}apps.svg" :command "wofi --show drun &" :sz STD_SZ)
+	(separator :h STD_SEP)
+        (app :img "${ICON_ROUTE}calculator.svg" :command "qalculate-gtk &" :sz STD_SZ)
+        (separator :h STD_SEP)
+	(app :img "${ICON_ROUTE}folder.svg" :command "nemo &" :sz STD_SZ)
+	(separator :h STD_SEP)
+	(app :img "${ICON_ROUTE}gemini-color.svg" :command "chromium --app=https://gemini.google.com --enable-features=UseOzonePlatform --ozone-platform=wayland &" :sz STD_SZ)
+	(separator :h STD_SEP)
+(app :img "${ICON_ROUTE}chatgpt.svg" :command "chromium --app=https://chatgpt.com --enable-features=UseOzonePlatform --ozone-platform=wayland &" :sz STD_SZ)
+	(separator :h STD_SEP)
+	(app :img "${ICON_ROUTE}deepseek.svg" :command "chromium --app=https://chat.deepseek.com --enable-features=UseOzonePlatform --ozone-platform=wayland &" :sz STD_SZ)
+	(separator :h STD_SEP)
+
+	(app :img "${ICON_ROUTE}microsoft-edge.svg" :command "microsoft-edge-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --force-device-scale-factor=1 --profile-directory='Default' &" :sz STD_SZ)
+        (separator :h STD_SEP)
+        (app :img "${ICON_ROUTE}microsoft-edge.svg" :command "microsoft-edge-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --force-device-scale-factor=1 --profile-directory='Profile 1' &" :sz STD_SZ)
+	(separator :h STD_SEP)
+	(line-separator)
+
+	(separator :h STD_SEP)
+	(app :img "${ICON_ROUTE}color-picker.svg" :command "hyprpicker -a &" :sz MINI_SZ)
+	(separator :h STD_SEP)
+	(app :img "${ICON_ROUTE}screenshot.svg" :command "hyprshot -m region -o ~/Images/Screenshots" :sz MINI_SZ)
+	(separator :h STD_SEP)
+	(app :img "${ICON_ROUTE}screenshot.svg" :command "hyprshot -m region -o ~/Images/Screenshots" :sz MINI_SZ)
+    )
+)
+
+(defwindow left-bar
+    :monitor "eDP-1"
+    :focusable false
+    :exclusive true
+    :stacking "fg"
+    :geometry (geometry :anchor "left center" :x "5px" :y "10px" :width "50px" :height "92%")
+    (sidebar)
+)

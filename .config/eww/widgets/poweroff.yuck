@@ -1,0 +1,47 @@
+; ~/.config/eww/widgets/poweroff.yuck
+
+(defwidget goodbye-text [t]
+    (box
+	(label :class "goodbye-text" :text t)
+    )
+)
+
+(defwidget button-wrapper [img command txt]
+    (button
+	:onclick command
+	:class "button-wrapper"
+	(box :orientation "vertical" :space-evenly false
+	    (image :path img :image-height 150)
+	    (label :class "button-text" :text txt)
+	)
+    )
+)
+
+(defwidget button-bar []
+    (box :class "button-bar"
+	:orientation "horizontal"
+	:space-evenly true
+	(button-wrapper :img "${ICON_ROUTE}shutdown.svg" :command "notify-send 'Shutting down...' 'This will take, literally, a minute.' && eww close poweroff-window && shutdown -h +1 &" :txt "Shutdown")
+	(button-wrapper :img "${ICON_ROUTE}reboot.svg" :command "notify-send 'Rebooting...' 'Wait a minute.' && shutdown -r now $$ eww close poweroff-window" :txt "Reboot")
+	(button-wrapper :img "${ICON_ROUTE}hyprland.svg" :command "notify-send 'Quitting Hyprland...' 'Killing active Hyprland session.' && pkill Hyprland && eww close poweroff-window" :txt "Exit Hyprland")
+    )
+)
+
+(defwidget poweroff-widget []
+    (box :class "poweroff-widget"
+	:orientation "vertical"
+	:space-evenly false
+	(goodbye-text :t "Already done?")
+	(button-bar)
+    )
+)
+
+(defwindow poweroff-window
+    :monitor "eDP-1"
+    :focusable false
+    :stacking "fg"
+    :windowtype "dialog"
+    :click-to-close true
+    :geometry (geometry :x "15%" :y "16%" :width "70%" :height "50%")
+    (poweroff-widget)
+)

@@ -1,0 +1,111 @@
+; ~/.config/eww/widgets/bluetooth.yuck
+
+(defpoll CURRENT_BLUETOOTH :interval "1s" "bluetoothctl info | grep 'Name' | cut -d ' ' -f 2-")
+(defpoll firstDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '1p'")
+(defpoll secondDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '2p'")
+(defpoll thirdDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '3p'")
+(defpoll fourthDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '4p'")
+(defpoll fifthDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '5p'")
+(defpoll sixthDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '6p'")
+(defpoll seventhDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '7p'")
+(defpoll eightDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '8p'")
+(defpoll ninethDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '9p'")
+(defpoll tenthDevice :interval "1s" "bluetoothctl devices | awk '{print $3,$4,$5}'|sed -n '10p'")
+
+(defwidget bt-button-bar []
+    (box :class "button-bar"
+	:valign "center"
+	:halign "center"
+	:space-evenly true
+	:orientation "horizontal"
+	:spacing 20
+	(button :class "scan-button"
+	    :onclick "notify-send '󰂯 Bluetooth' 'Scanning for bluetooth devices...'"
+	    "󱉶   Scan"
+	)
+	(button :class "manager-button"
+	    :onclick "notify-send '󰂯 Bluetooth' 'Opening blueman manager...' && eww close bluetooth-window && blueman-manager &"
+	    "󰂰   Manager"
+	)
+    )
+)
+
+(defwidget bluetooth-widget []
+    (box :class "bluetooth-widget"
+	:orientation "vertical"
+	:space-evenly false
+	:halign "center"
+	:valign "center"
+	:spacing 10
+	(box
+	    :orientation "horizontal"
+	    :halign "center"
+	    :valign "center"
+	    :space-evenly true
+	    :spacing 80
+	    (button
+		:onclick "rfkill unblock bluetooth"
+		(label :class "activate-bluetooth-icon" :text "󰂯")
+	    )
+	    (button
+		:onclick "rfkill block bluetooth"
+		(label :class "deactivate-bluetooth-icon" :text "󰂲")
+	    )
+	)
+	(label :text CURRENT_BLUETOOTH
+	    :class "current-bluetooth"
+	    :visible {CURRENT_BLUETOOTH != ""}
+	)
+	(label :text "No device currently connected"
+	    :class "current-bluetooth"
+	    :visible {CURRENT_BLUETOOTH == ""}
+	)
+	(box
+	    :orientation "vertical"
+	    :halign "center"
+	    :valign "center"
+	    :space-evenly false
+	    :spacing 3
+	    (label :text "Available devices:" :class "available-devices-text")
+	    (button :class "bluetoothDevice"
+		:onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 1"
+		firstDevice)
+	    (button :class "bluetoothDevice"
+		:onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 2"
+		secondDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 3"
+                thirdDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 4"
+                fourthDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 5"
+                fifthDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 6"
+                sixthDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 7"
+                seventhDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 8"
+                eightDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 9"
+                ninethDevice)
+            (button :class "bluetoothDevice"
+                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 10"
+                tenthDevice)
+	    (bt-button-bar)
+	)
+    )
+)
+
+(defwindow bluetooth-window
+    :monitor "eDP-1"
+    :focusable false
+    :stacking "fg"
+    :geometry (geometry :x "76%" :y "0%" :width "5%" :height "10%")
+    (bluetooth-widget)
+)

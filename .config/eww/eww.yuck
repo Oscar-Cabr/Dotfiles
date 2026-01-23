@@ -1,0 +1,6 @@
+; ~/.config/eww/eww.yuck
+
+(include "variables.yuck")
+(include "widgets/left-bar.yuck")
+(include "widgets/poweroff.yuck")
+(include "widgets/bluetooth.yuck")

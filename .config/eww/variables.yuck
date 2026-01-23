@@ -1,0 +1,4 @@
+; ~/.config/eww/variables.yuck
+
+(defvar ICON_ROUTE "/home/racso/.config/icons/")
+(defvar STD_SEP 10)

@@ -1,0 +1,25 @@
+/* ~/.config/eww/widgets/_left-bar.scss */
+
+@import "../../theme/_colors-left-bar";
+
+* {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.app {
+    opacity: 0.6;
+    transition: all 0.2s ease-in-out;
+}
+.app:hover {
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+}
+
+.line-separator {
+    background: $separator-line;
+    border-radius: 25%;
+}

@@ -1,0 +1,56 @@
+
+{
+    "position": "top",
+    "layer": "top",
+    "margin-top": 8,
+    "margin-left": 8,
+    "margin-right": 8,
+    "height": 52,
+    "spacing": 5,
+
+    "include": ["~/.config/waybar/modules.jsonc"],
+
+    "modules-left": [	
+        "hyprland/workspaces",
+	"privacy"
+    ],
+    "modules-center": [
+	"group/show-window"
+    ],
+    "modules-right": [
+        "mpd",
+        "power-profiles-daemon",
+	"group/av-control",
+	"group/hardware",
+	"network",
+	"bluetooth",
+        "battery",
+        "tray",
+        "clock",
+	"custom/exit"
+    ],
+    "group/show-window": {
+        "orientation": "horizontal",
+        "modules": [
+	    "hyprland/windowcount",
+	    "hyprland/window"
+	],
+        "spacing": 0,
+        "tooltip": false
+    },
+    "group/av-control": {
+	"orientation": "vertical",
+	"modules": [
+	    "backlight",
+	    "wireplumber"
+	]
+    },
+    "group/hardware": {
+	"orientation": "vertical",
+	"modules": [
+	    "disk",
+	    "cpu",
+	    "memory"
+	]
+    }
+}

@@ -1,0 +1,171 @@
+{
+    "hyprland/workspaces": {
+	 "show-special": true,
+         "format": "{icon}",
+         "format-icons": {
+	     "default": "",
+             "1": "",
+	     "2": "󰲣",
+	     "3": "󰲥",
+	     "4": "󰲧",
+	     "5": "󰲩",
+	     "6": "󰲫",
+	     "7": "󰲭",
+	     "8": "󰈹",
+	     "9": "",
+	     "10": "",
+	     "special": ""
+         }
+     },
+    "hyprland/windowcount": {
+	"format": "{}  's"
+    },
+    "hyprland/window": {
+	"format": "| {}",
+	"icon": true,
+	"icon-size": 20,
+    },
+    "privacy": {
+	"icon-spacing": 4,
+	"icon-size": 18,
+	"transition-duration": 250,
+	"modules": [
+	    {
+		"type": "screenshare",
+		"tooltip": true,
+		"tooltip-icon-size": 24
+	    },
+	    {
+		"type": "audio-out",
+		"tooltip": true,
+		"tooltip-icon-size": 24
+	    },
+	    {
+		"type": "audio-in",
+		"tooltip": true,
+		"tooltip-icon-size": 24
+	    }
+	],
+	"ignore-monitor": true,
+	"ignore": [
+	    {
+		"type": "audio-in",
+		"name": "cava"
+	    },
+	    {
+		"type": "screenshare",
+		"name": "obs"
+	    }
+	]
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+    "wireplumber": {
+	"format": "{icon}  {volume}%",
+	"format-bluetooth": "󰂰  {volume}%",
+	"format-bluetooth-muted": " ",
+	"format-muted": "󰝟 ",
+	"format-source": "{volume}% ",
+	"format-source-muted": "",
+	"format-icons": {
+	    "headphone": "",
+	    "hands-free": "",
+	    "headset": "",
+	    "phone": "",
+	    "portable": "",
+	    "car": "",
+ 	    "default": ["", "", ""]
+	},
+	"on-click": "pavucontrol",
+	"on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+",
+	"on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-"
+    },
+    "backlight": {
+        "device": "eDP-1",
+        "format": "{icon} {percent}%",
+	"on-scroll-up": "brightnessctl -e4 -n2 set 1%-",
+	"on-scroll-down": "brightnessctl -e4 -n2 set 1%+",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "disk": {
+	"format": " {percentage_used}%",
+	"tooltip": false
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {percentage}%",
+	"tooltip": false
+    },
+    "network": {
+        "format-wifi": "{icon} ({signalStrength}%)",
+        "format-ethernet": " ",
+        "format-linked": "(No IP) 󱖣",
+        "format-disconnected": "⚠",
+	"tooltip-format": "{ifname} via {gwaddr}",	//Hover
+        "format-alt": "{essid}: {ipaddr}/{cidr}",	//Click
+	"format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"]
+    },
+    "bluetooth": {
+	"format": "{icon}",
+	"format-disabled": "󰜺",
+	"format-disconnected": "",
+	"format-connected": "{icon}",
+	"format-connected-battery": "{icon}",
+	"tooltip-format": "🔵 Dispositivo: {device_alias}\n🔋 Batería: {device_battery_percentage}%",
+	"tooltip-format-disconnected": "<b>Bluetooth activo</b>\nSin dispositivos conectados",
+	"tooltip-format-disabled": "<b>Bluetooth apagado</b>",
+	"on-click": "~/.config/sh-scripts/toggle-bluetooth.sh",
+	"icon-spacing": 4,
+	"format-icons": {
+	    "disabled": "󰂲",      // apagado
+	    "disconnected": "",  // sin conexión
+	    "connected": "󰂯",     // conectado (neutro)
+	    "headphones": "󰥰 ",     // auriSculares
+	    "audio-card": "󰦢 ",     // altavoz BT
+	    "input-mouse": "󰦋 ",    // mouse BT
+	    "input-keyboard": "", // teclado BT
+	    "phone": "󰏳 ",          // teléfono
+	    "default": ""         // otro genérico
+	},
+	"interval": 5
+    },
+    "battery": {
+        "states": {
+            "below-15": 15,
+	    "below-40": 40,
+	    "below-65": 65,
+	    "below-90": 90,
+	    "below-101": 101
+        },
+        "format": "{icon}{capacity}%",		// Discharging
+        "format-full": "󰁹{capacity}%",		// 100% battery and unplugged
+        "format-charging": "󰢝 {capacity}%",	// Charging
+        "format-plugged": "󰂄{capacity}%",	// 100% battery and connected
+	"format-icons": ["󰂎","󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"]
+    },
+    "tray" : {
+	"icon-size": 20,
+	"spacing": 11
+    },
+    "clock": {
+	"format": " {:%H:%M | %B %d}",
+	"on-click": "gsimplecal"
+    },
+    "custom/exit": {
+	"format": "",
+	"on-click": "~/.config/sh-scripts/toggle-power.sh",
+	"tooltip": false
+    }
+}

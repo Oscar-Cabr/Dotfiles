@@ -1,0 +1,231 @@
+
+@import '/home/racso/.config/theme/colors-waybar.css';
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
+    color: #ffffff;
+    background: transparent;
+}
+
+/* Configs for hyprland/workspaces module */
+#workspaces button {
+    padding-right: 17px;
+    border-radius: 15px 15px 0px 0px;
+    transition: all 0.3s ease-in-out;
+}
+#workspaces button.active {
+    background-color: alpha(@background-active-icon, 0.5);
+    border-bottom: 3px solid @bottom-active-icon;
+    transition: all 0.3s ease-in-out;
+}
+#workspaces button label {
+    font-size: 25px;
+    color: @unactive-icon;
+}
+#workspaces button.active label {
+    color: @active-icon;
+}
+
+/* Config for hyprland/windowcount module */
+#windowcount {
+    padding-left: 10px;
+    border-left: 2px solid @border-window;
+    border-top: 2px solid @border-window;
+    border-bottom: 2px solid @border-window;
+    border-radius: 15px 0px 0px 15px;
+    margin: 10px 0px 10px 0px;
+    background-color: alpha(@background-window, 0.2);
+}
+#windowcount label {
+    font-size: 15px;
+    color: @text-window;
+}
+
+/* Configs for hyprland/window module */
+#window {
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    border-right: 2px solid @border-window;
+    border-top: 2px solid @border-window;
+    border-bottom: 2px solid @border-window;
+    border-radius: 0px 15px 15px 0px;
+    background-color: alpha(@background-window, 0.2);
+}
+#window label {
+    font-size: 15px;
+    color: @text-window;
+}
+
+/* Configs for power-profiles-daemon module */
+#power-profiles-daemon {
+    padding: 0px 20px 0px 10px;
+    border-radius: 15px;
+    color: @text-power-profiles;
+    font-size: 20px;
+    transition: all 0.3s ease-in-out;
+}
+#power-profiles-daemon:hover {
+    background-color: @background-power-profiles;
+    color: @active-text-power-profiles;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Configs for av-control module */
+#backlight {
+    color: @text-backlight;
+    padding: 2px 10px 0px 10px;
+    border-top: 2px solid @border-backlight;
+    border-left: 2px solid @border-backlight;
+    border-right: 2px solid @border-backlight;
+    border-radius: 15px 15px 0px 0px;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+}
+#backlight:hover {
+    background-color: @background-backlight;
+    color: @active-text-backlight;
+    transition: all 0.3s ease-in-out;
+}
+#wireplumber {
+    padding: 0px 10px 2px 10px;
+    border-bottom: 2px solid @border-wireplumber;
+    border-left: 2px solid @border-wireplumber;
+    border-right: 2px solid @border-wireplumber;
+    border-radius: 0px 0px 15px 15px;
+    color: @text-wireplumber;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+}
+#wireplumber:hover {
+    background-color: @background-wireplumber;
+    color: @active-text-wireplumber;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Configs for group/hardware module */
+#disk {
+    color: @disk-color;
+    padding: 0px 10px 0px 10px;
+    font-size: 12px;
+    border-top: 2px solid @border-hardware;
+    border-left: 2px solid @border-hardware;
+    border-right: 2px solid @border-hardware;
+    border-radius: 15px 15px 0px 0px;
+}
+#cpu {
+    color: @cpu-color;
+    padding: 0px 10px 0px 10px;
+    font-size: 12px;
+    border-left: 2px solid @border-hardware;
+    border-right: 2px solid @border-hardware;
+}
+#memory {
+    color: @memory-color;
+    padding: 0px 10px 0px 10px;
+    font-size: 12px;
+    border-bottom: 2px solid @border-hardware;
+    border-left: 2px solid @border-hardware;
+    border-right: 2px solid @border-hardware;
+    border-radius: 0px 0px 15px 15px;
+}
+
+/* Configs for network module */
+#network {
+    color: @text-network;
+    border: 2px solid @border-network;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    font-size: 15px;
+}
+#network.disconnected {
+    font-size: 20px;
+    margin: 5px 0px 5px 0px;
+    color: @network-disconnected;
+}
+#network.ethernet {
+    color: @network-ethernet;
+}
+#network.linked {
+    color: @network-linked;
+}
+
+/* Configs for bluetooth module */
+#bluetooth {
+    color: @text-bluetooth;
+    border: 2px solid @border-bluetooth;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    font-size: 15px;
+    transition: all 0.3s ease-in-out;
+}
+#bluetooth:hover {
+    background-color: @background-bluetooth;
+    color: @active-text-bluetooth;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Configs for battery module */
+#battery {
+    color: @text-clock;
+    border: 2px solid @border-battery;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    font-size: 15px;
+}
+#battery.below-15 {
+    color: @battery-below15;
+}
+#battery.below-40 {
+    color: @battery-below40;
+}
+#battery.below-65 {
+    color: @battery-below65;
+}
+#battery.below-90 {
+    color: @battery-below90;
+}
+#battery.below-101 {
+    color: @battery-below101;
+}
+#battery.full {
+    color: @battery-full;
+}
+#battery.charging {
+    color: @battery-charging;
+}
+#battery.plugged {
+    color: @battery-plugged;
+}
+
+/* Configs for clock module */
+#clock {
+    color: @text-clock;
+    border: 2px solid @border-clock;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    font-size: 15px;
+}
+#clock:hover {
+    color: #f38ba8;
+}
+
+/* Configs for custom/exit module */
+#custom-exit {
+    font-size: 20px;
+    border-radius: 15px;
+    color: @text-poweroff;
+    padding: 0px 20px 0px 10px;
+    margin: 5px 0px 5px 0px;
+    padding-right: 15px;
+    transition: all 0.3s ease-in-out;
+}
+#custom-exit:hover {
+    background-color: @background-poweroff;
+    color: @active-text-poweroff;
+    transition: all 0.3s ease-in-out;
+}
+

@@ -1,0 +1,44 @@
+# Apps that must be hidded manually
+# microsoft-edge.desktop (converted to microsoft-edge-wayland.desktop)
+# chromium.desktop (converted to chromium-wayland.desktop)
+# org.kde.ark.desktop*
+# org.kde.konsole.desktop*
+# lxappearance.desktop (just for changing its name)
+# spotify.desktop (to add wayland support)
+# webcord.desktop (to add wayland support)
+# Alacritty.desktop (needs to be aadded the line in other place than generic one)
+
+# All the apps from ERStudio in: ~/.local/share/applications/wine/Programs/Embarcadero\ ERStudio\ 8.0/
+# except for the main one: ERStudio.desktop
+
+# Apps that are useful, but I don't want them in my wofi
+nvim.desktop
+kitty.desktop
+#Alacritty.desktop
+
+# Apps that I don't know where they came from, or I'm pretty sure I don't need them
+avahi-discover.desktop
+bssh.desktop
+bvnc.desktop
+#chromium.desktop
+#microsoft-edge.desktop
+#mpv.desktop
+qt5ct.desktop
+qt6ct.desktop
+qv4l2.desktop
+xgps.desktop
+xgpsspeed.desktop
+qvidcap.desktop
+electron36.desktop
+org.freedesktop.IBus.Setup.desktop
+qdbusviewer.desktop
+linguist.desktop
+assistant.desktop
+designer.desktop
+kvantummanager.desktop
+cmake-gui.desktop
+xdvi.desktop
+jconsole-java-openjdk.desktop
+jshell-java-openjdk.desktop
+electron37.desktop
+gtk-lshw.desktop

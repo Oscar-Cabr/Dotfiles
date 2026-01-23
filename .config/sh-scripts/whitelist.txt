@@ -1,0 +1,3 @@
+#chromium-wayland.desktop
+#microsoft-edge-wayland.desktop
+mpv.desktop

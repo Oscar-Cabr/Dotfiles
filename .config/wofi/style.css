@@ -1,0 +1,44 @@
+@import url("/home/racso/.config/theme/wofi-colors.css");
+
+window {
+    background-color: @background;
+    border-radius: 12px;
+    border: 2px solid @accent;
+    padding: 10px;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+}
+
+#input {
+    margin: 6px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: @input-bg;
+    color: @input-fg;
+    border: none;
+}
+#input:focus {
+    border: 2px solid @input-accent;
+    box-shadow: none;
+}
+
+#inner-box {
+    margin-top: 8px;
+    spacing: 6px;
+}
+
+#entry {
+    padding: 8px;
+    margin: 4px;
+    border-radius: 8px;
+    background-color: transparent;
+    color: @entry-fg;
+    min-width: 0;
+}
+#entry:selected {
+    background-color: @selection;
+    color: @entry-selected-fg;
+}
+#entry image {
+    padding-right: 8px;
+}

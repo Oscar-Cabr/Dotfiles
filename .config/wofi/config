@@ -1,0 +1,14 @@
+show = drun
+
+location = center
+width = 60%
+lines = 6
+columns = 3
+
+prompt =    Launch:
+term = foot
+hide_scroll = true
+allow_markup = false
+insensitive = true
+no_actions = true
+allow_images = true

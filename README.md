@@ -17,18 +17,18 @@ The general system where this is running:
 
 All the elements this repo manages (that could be also considered as requisites) can be listed as follows:
 
-- Whole modular <pre>Hyprland</pre> base configuration.
-- Hypr-Ecosystem! <pre>hypridle</pre>, <pre>hyprlock</pre> and <pre>hyprpaper</pre>.
-- <pre>nvim</pre> files editor with <pre>lazy.nvim</pre>.
-- <pre>kitty</pre> terminal emulator.
-- <pre>waybar</pre> config.
-- <pre>wofi</pre> configuration for applitacion manager.
-- <pre>fuzzel</pre> configuration to work as clipboard.
-- <pre>starship</pre> prompt.
-- <pre>eww</pre> custom widgets.
-- <pre>theme</pre> directory.
-- Necessary <pre>icons</pre> collection for the theme.
-- Necessary custom <pre>shell scripts</pre> for updating environments.
+- Whole modular `Hyprland` base configuration.
+- Hypr-Ecosystem! `hypridle`, `hyprlock` and `hyprpaper`.
+- `nvim` files editor with `lazy.nvim`.
+- `kitty` terminal emulator.
+- `waybar` config.
+- `wofi` configuration for applitacion manager.
+- `fuzzel` configuration to work as clipboard.
+- `starship` prompt.
+- `eww` custom widgets.
+- `theme` directory.
+- Necessary `icons` collection for the theme.
+- Necessary custom `shell scripts` for updating environments.
 
 ---
 
@@ -101,9 +101,9 @@ dotfiles commit -m "Laptop monitor layout"
 
 ## Info. about bare repos
 
-When managing dotfiles with a bare repository, you cannot use normal <pre>git</pre> commands **directly**, because the working directory is not inside a repository.
+When managing dotfiles with a bare repository, you cannot use normal `git</pre> commands **directly**, because the working directory is not inside a repository.
 
 To solve this, we create a Git alias that tells Git two things every time it runs:
 
-1. Where the bare repository (usually, the <pre>.git</pre> directory) lives. <pre>--git-dir=$HOME/.dotfiles/</pre>
-2. Where the working tree (your real files) is. <pre>--work-tree=$HOME</pre>
+1. Where the bare repository (usually, the `.git` directory) lives. `--git-dir=$HOME/.dotfiles/`
+2. Where the working tree (your real files) is. `--work-tree=$HOME`

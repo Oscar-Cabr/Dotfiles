@@ -1,0 +1,67 @@
+kitty is planned as the default terminal por hyprland, so its useful to make it so.
+
+---------- kitty ----------
+
+If kitty is getting in trouble while starting on hyprland for first time, start with alacritty then, try to execute kitty on alacritty from inside wayland.
+With $WAYLAND_DISPLAY show the graphic library used by kitty: GLFW to connect with the screen. Sometimes this can have trouble with drivers or Wayland configs, so kitty must need specific enviroment or variable components wrong configurated.
+alacritty, other way, uses Wayland from native, making better compatibility with GPUs or controllers. Its simplier and less dependent from specific graphic libraries, making it more stable.
+Thats why kitty can't be launched from outside a graphic enviroment (e.g. TTY, bash, zsh).
+
+Check if wayland is not in trouble executing the following in alacritty:
+echo $WAYLAND_DISPLAY
+echo $XDG_SESSION_TYPE
+They must show 'wayland' or kinda.
+
+Create the doc ~/.config/kitty/kitty.conf with a basic configuration:
+    font_family JetBrains Mono
+    font_size 10.0
+    enable_wayland yes
+For that, first install the font with: sudo pacman -S ttf-jetbrains-mono
+
+And finally, add the line: export KITTY_ENABLE_WAYLAND=1
+In the ~/.zshrc file.
+
+-------- fonts --------
+
+Fonts installed with:
+
+sudo pacman -S ttf-font-awesome
+sudo pacman -S ttf-input-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji
+
+Input nerd is better for modern terminal like Kitty, Alacritty and Starship because has Nerd Fonts.
+Noto Fonts is from Google supporting every language, excellent for internationalization, but without Nerd Fonts.
+    CJK and emoji are source extentions for Noto, designed for covering scripts and icons not included in base font noto-fonts.
+    CJK: Chinese (Simplified and Traditional), Japanese, Korean.
+    Emoji: Full emoji source compatible with Unicode, similar to Android one.
+
+-------- clipboard --------
+
+It is needed to install the following:
+
+sudo pacman -S wl-clipboard
+paru -S paru-bin cliphist
+
+For installing paru you can clone precompiled binary for paru:
+
+git clone https://aur.archlinux.org/paru-bin.git
+cd paru-bin
+
+And install it directly:
+
+makepkg -si
+
+paru-bin contains a precompiled binary from AUR.
+
+With the dependencies now can add the following lines to hyprland.conf:
+
+exec-once = cliphist wipe
+exec-once = cliphist store
+
+That only follows things copied with Ctrl+C, but for track things copied with mouse add the following:
+
+exec-once = wl-paste --watch cliphist store
+exec-once = wl-paste --watch --primary cliphist store
+
+Finally, add the bind to open the clipboard easily with wofi:
+
+bind = SUPER, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy

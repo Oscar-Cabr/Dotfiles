@@ -1,0 +1,60 @@
+To check whenever you have wifi you have to send and receive ping to certain IP's.
+To do so, first you have to type the following command:
+ip a show wlp3s0
+
+And it must appear a line showing something like:
+inet 192.168.1.81/24 ...
+
+Indicating there's an IP assigned to the Wifi manager wlp3s0.
+
+---
+
+Then check if you have connection to the router:
+ping -c 3 192.168.1.1
+
+You have internet without DNS?
+ping -c 3 1.1.1.1
+
+You have internet with DNS working? (can navigate through the internet)
+ping -c 3 archlinux.org
+
+If there are 3 packets transmitted and received, then you're correctly connected to wifi.
+
+--------------------------
+
+The file with the data of the Wifi network you're into is in the route:
+/etc/wpa_supplicant/wpa_supplicant/wpa_supplicant-wlp3s0.conf
+
+Where is an item with the information of the public name of the wifi (ssid) and the password to the network (psk):
+network={
+    ssid="INFINITUM5356"
+    psk="Sp5Kj1Mm3c"
+}
+
+You can change that info if you're changing your network.
+Or even better add another network if you want to automatically connect in other places.
+Once you effectively add the other network, recharge the service for connect to it:
+
+sudo systemctl restart wpa_supplicant@wlp3s0.service
+
+You can add the line:
+    priority=10
+
+Or any number. The higher priorit will have preference over other networks to be connected in case there are more than one at a certain moment.
+
+--------------------------
+
+To allow the auto-connection whenever the device is turned on, the following commands must be executed:
+
+sudo systemctl enable wpa_supplicant@wlp3s0.service
+To run wpa_supplicant automatically for wlp3s0 when initiating.
+
+sudo systemctl enable dhcpcd.service
+To ask the router for the IP whenever it connects.
+
+--------------------------
+
+Doing all this process needed the installation of the following packages:
+dhcpcd wi wpa_supplicant nano
+
+As first configuration after installing Arch on the computer.

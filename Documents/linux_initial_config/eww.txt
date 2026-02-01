@@ -1,0 +1,22 @@
+As the official wiki says (https://elkowar.github.io/eww/), it is neccessary to have the following prerequisites:
+	rustc
+	cargo
+And the packages:
+	gtk3 (libgdk-3, libgtk-3)
+	gtk-layer-shell (only on Wayland)
+	pango (libpango)
+	gdk-pixbuf2 (libgdk_pixbuf-2)
+	libdbusmenu-gtk3
+	cairo (libcairo, libcairo-gobject)
+	glib2 (libgio, libglib-2, libgobject-2)
+	gcc-libs (libgcc)
+	glibc
+
+To check if you have installed correctly the packages try compiling a rust project like:
+
+cargo new test_eww
+cd test_eww
+cargo build
+rm test_eww
+
+

@@ -1,0 +1,7 @@
+Where to see the resolution of the screen:
+    cat /sys/class/graphics/fb0/modes
+
+Where to see pc name:
+    cat /etc/hostname
+To change it execute:
+    sudo hostnamectl set-hostname <nuevo_nombre>

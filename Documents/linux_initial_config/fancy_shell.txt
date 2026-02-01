@@ -1,0 +1,83 @@
+terminal 
+    Originally, a physical device where to interact with a mainframe.
+    Nowadays simules a text interface in modern systems, terminal emulator.
+    Brings an graphic interface to interact with shell.
+    e.g. GNOME Terminal, Konsole, iTerm2, Windows Terminal...
+
+shell
+    Program that interpretes commands sent by the user and execute them in operative system.
+    Acts as an mid term from user and OS kernel.
+    e.g. Bash, Zsh, PowerShell, cmd.exe...
+
+console
+    Old term provenient from the first computers, where the console was a special terminal with administrative privileges (physically connected to the system).
+
+CLI: Comand line interface, (the opposite of GUI) includes terminal and shell.
+
+Tty: Teletype, virtual or physical devices for text input and output.
+
+----------------------------
+
+Necessary packages:
+
+
+zsh:		Modern and extensible shell.
+starhip:	Quick and minimalist prompt, very personalizable.
+git:		Necessary for some pluggins and remote config.
+yay:		AUR package manager, required to install neofetch. (If having too flat installation of Arch, it could be cloned directly with git)
+neofetch:	Shows system info once logged-in.	WARNING: Neofetch must cause error: target not found: neofetch because it no longer exists in habilitated official repos, it was moved to AUR (Arch User Repository).
+fzf:		Fuzzy finder. (history, files)
+fd:		Modern alternative to "find".
+bat:		Alternative to "cat" with sintaxis highlighting.
+ripgrep:	Alternative to "grep", quicker and with better output.
+terminus-font:	Readable font for TTY.
+
+-----------------------------
+
+The first step is change the actual shell to zsh (more customizable) with the following command, then reboot.
+chsh -s /bin/zsh
+reboot
+
+Then, the configuration of the zsh shell must be done in the file:
+~/.zshrc
+The same as:
+/home/racso/.zshrc
+That file gets executed every time a new session is initiated.
+
+After every change, to see them applied you must do the following command:
+source ~/.zshrc
+
+-----------------------------
+
+The zsh file:
+
+"alias" define a word as something else.
+e.g. if you always do "ls -a", you can save time making an alias:
+alias ls='ls -a'
+And everytime you do 'ls', will be the same as writing 'ls -a'.
+
+To change the prompt to starship one, add the following line, "eval" executes the intializing code that starship generates dynamically for zsh.
+eval "$(starship init zsh)"
+
+To change default font can be done as:
+setfont ter-m22n (or any other font available in ls /usr/share/kbd/consolefonts/)
+
+-----------------------------
+
+Starship prompt with toml file
+
+Starship conf must be done in file:
+~/.config/starship.toml
+
+See starship documentation for further details.
+
+-----------------------------
+
+To change default font you can check the available fonts in:
+ls /usr/share/kbd/consolefonts/
+
+Once you choose one, add it to the file:
+sudo nano /etc/vconsole.conf
+
+As:
+FONT=ter-m22n

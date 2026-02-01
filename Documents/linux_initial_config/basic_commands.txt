@@ -1,0 +1,85 @@
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
+-----------------
+
+CONSIDERATIONS
+
+<file> will be used to represent any file (not directory): Such as "/home/racso/myFile.txt" or any other.
+
+<directory/> will be used to represent any directory (that can hold files inside him): Such as "/home/racso/myDirectory/" or any other.
+
+<package> will be used to represent the definition of a package in Arch official repos: Such as "vi", "nano", "vim" or any other.
+
+-----------------
+
+cd <directory/>
+    Changes prompt position to directory if it exists.
+
+chmod <permission> <file>
+    "chmod" changes the permissions for some file based on an alphanumeric code.
+    "600" gives permissions of reading and writing.
+    "+x" make a file executable. Useful for shell scripts.
+
+chsh -s <file>
+    Change shell.
+    -l flag list available shells.
+    -s flag changes login shell.
+
+clear
+    Cleans all the screen (slide it until) getting only visible the cursor on the very first line of the shell screen.
+
+echo <Text>
+    Shows in standard output the text.
+    Can redirect text into a file.
+
+ls
+    List all files in the current directory.
+    -a flag lists dotfiles too. (hidden otherway)
+
+man <package>
+    Shows the the entry for the system manual of that command.
+
+mkdir <directory/>
+    Make directory.
+
+more <file>
+    Shows the content of a file in terminal.
+
+nano <file>
+    Opens an exsiting file to edit it with "nano", or create the file if it doesn't already exist.
+
+pacman -S <package>
+    Requires to be preceed as "sudo".
+    Install a the package "package" from Arch official repos.
+    Consult official Arch wiki to see all the flags and options available for "pacman" default command.
+    -S (sync) flag install also all the dependencies for that package.
+    -Sy (refresh) flag updates package data base, then install package -S. So pacman knows latest available versions before proceeding with the installation.
+    -Syu flag update all packages on the system with just one command.
+
+passwd
+    Changes user password. Fist ask for actual one, then asks for new one.
+
+poweroff
+    Turns off the device.
+
+pkill <process>
+    Kill all the process name "process".
+    e.g. Hyprland
+
+reboot
+    Reboot system from terminal.
+
+rm <file>
+    Remove, delete a file.
+
+rm -r <directory/>
+    Remove recursively, necessary to delete files/.
+
+which <package>
+    Indicates the location of the executable file when you write "package" in the terminal.
+
+pwd
+    Shows the actual directory, where the prompt is.
+
+su - <user>
+    Changes the user in that terminal.

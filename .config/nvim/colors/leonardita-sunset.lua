@@ -56,6 +56,12 @@ local groups = {
   ["@comment"] = { fg = palette.comment, italic = true },
   ["@string"] = { fg = palette.orange },
   ["@parameter"] = { fg = palette.blue },
+  ["@tag"] = { fg = palette.blue },
+  ["@tag.delimiter"] = { fg = palette.gray },
+  ["@tag.attribute"] = { fg = palette.cyan },
+  ["@attribute"] = { fg = palette.cyan },
+  ["@string.special"] = { fg = palette.orange },
+  ["@string.special.url"] = { fg = palette.blue, underline = true },
 
   -- LSP Diagnostics
   DiagnosticError = { fg = palette.red },

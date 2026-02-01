@@ -19,6 +19,7 @@ bluetooth:		bluez, bluez-utils, blueman (blueman-manager?)
 diagram creator:	drawio-desktop, dia				(both are from AUR, and must be installed from yay -S <packages>)
 pdf visalizer: xpdf
 latex workshop: texlive
+latex auto-compile: texlive-binextra  (for using latexmk)
 
 ----------  Miscelanous  -----------
 
@@ -28,3 +29,5 @@ gnome-control-center:	Same as lxappearance, but modern and heavier.
 wl-clipboard:           Sets clipboard and can be managed with Wofi     (includes with it wl-copy wl-paste)
 cliphist:               Daemon that saves history on clipboard
 evtest:                 Shows the explicit name of every key
+libreoffice-fresh:      A linux alternative to microsoft tools (word, excel, pp).
+alsa-utils:             To uso 'alsamixer' sound manager.

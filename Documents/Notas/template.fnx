@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feathernotes nodefont="Noto Sans,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1" txtfont="Monospace,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1">
+ <node name="New Node"></node>
+</feathernotes>

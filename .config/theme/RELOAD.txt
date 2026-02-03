@@ -1,0 +1,19 @@
+The following are the neccesary commands, instructions to change theme colors:
+
+Waybar
+	pkill waybar
+	waybar &
+Kitty
+    kitty @ set-colors -a
+Hyprland
+    (auto)
+Eww
+    eww reload
+ or
+    pkill eww
+    eww daemon
+    eww open left-bar
+Starship
+    (auto)
+Wofi
+    (auto, restart launcher)

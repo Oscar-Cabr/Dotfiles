@@ -20,6 +20,7 @@ diagram creator:	drawio-desktop, dia				(both are from AUR, and must be installe
 pdf visalizer: xpdf
 latex workshop: texlive
 latex auto-compile: texlive-binextra  (for using latexmk)
+notes app: feathernotes
 
 ----------  Miscelanous  -----------
 

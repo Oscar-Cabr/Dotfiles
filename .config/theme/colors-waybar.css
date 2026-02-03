@@ -1,0 +1,58 @@
+@define-color background-active-icon #f6bd60;
+@define-color bottom-active-icon #f9a03f;
+@define-color unactive-icon #ABB557;
+@define-color active-icon #C7270F;
+
+@define-color background-window #291b1b;
+@define-color border-window #2A4D14;
+@define-color text-window #f4e285;
+
+@define-color border-clock #e76f51;
+@define-color text-clock #f4e285;
+
+@define-color border-battery #e76f51;
+@define-color text-battery #f4e285;
+@define-color battery-below15 #c1121f;
+@define-color battery-below40 #e76f51;
+@define-color battery-below65 #f6bd60;
+@define-color battery-below90 #f4e285;
+@define-color battery-below101 #f9a03f;
+@define-color battery-full #588157;
+@define-color battery-charging #9ad0ec;
+@define-color battery-plugged #588157;
+
+@define-color border-network #e76f51;
+@define-color text-network #f4e285;
+@define-color network-disconnected #c1121f;
+@define-color network-ethernet #9ad0ec;
+@define-color network-linked #f9a03f;
+
+@define-color border-poweroff #e76f51;
+@define-color text-poweroff #f4e285;
+@define-color background-poweroff #f9a03f;
+@define-color active-text-poweroff #c1121f;
+
+@define-color border-hardware #e76f51;
+@define-color disk-color #f4e285;
+@define-color cpu-color #f4e285;
+@define-color memory-color #f4e285;
+
+@define-color border-power-profiles #e76f51;
+@define-color text-power-profiles #f4e285;
+@define-color background-power-profiles #f9a03f;
+@define-color active-text-power-profiles #e76f51;
+
+@define-color border-backlight #e76f51;
+@define-color text-backlight #f4e285;
+@define-color background-backlight #f9a03f;
+@define-color active-text-backlight #e76f51;
+
+@define-color border-wireplumber #e76f51;
+@define-color text-wireplumber #f4e285;
+@define-color background-wireplumber #f9a03f;
+@define-color active-text-wireplumber #e76f51;
+
+@define-color border-bluetooth #e76f51;
+@define-color text-bluetooth #f4e285;
+@define-color background-bluetooth #f9a03f;
+@define-color active-text-bluetooth #e76f51;

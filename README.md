@@ -26,9 +26,15 @@ All the elements this repo manages (that could be also considered as requisites)
 - `fuzzel` configuration to work as clipboard.
 - `starship` prompt.
 - `eww` custom widgets.
-- `theme` directory.
-- Necessary `icons` collection for the theme.
-- Necessary custom `shell scripts` for updating environments.
+
+Other necessary things involved in the environment:
+
+- `xpdf` pdf viewer.
+- `feathernotes` note application.
+- `.fnx` feathernotes template. (Documents/Notas/template.fnx)
+- `theme` directory. (.config/theme/)
+- Necessary `icons` collection for the theme. (.config/icons/)
+- Necessary custom `shell scripts` for updating environments. (.config/sh-scripts/)
 
 ---
 
@@ -101,7 +107,7 @@ dotfiles commit -m "Laptop monitor layout"
 
 ## Info. about bare repos
 
-When managing dotfiles with a bare repository, you cannot use normal `git</pre> commands **directly**, because the working directory is not inside a repository.
+When managing dotfiles with a bare repository, you cannot use normal `git` commands **directly**, because the working directory is not inside a repository.
 
 To solve this, we create a Git alias that tells Git two things every time it runs:
 

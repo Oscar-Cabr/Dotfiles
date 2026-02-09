@@ -29,5 +29,6 @@ setfont ter-m22n
 
 export KITTY_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORMTHEME=qt6ct
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 neofetch

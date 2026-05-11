@@ -2,7 +2,7 @@ eval "$(starship init zsh)"
 eval "$(gh completion -s zsh)"
 
 alias ls='ls --color=auto -ahF'
-alias ll='ls -lh'
+alias ll='ls -lht'
 alias cat='bat --paging=never'
 alias find='fd'
 alias update='sudo pacman -Syu'
@@ -30,5 +30,7 @@ setfont ter-m22n
 export KITTY_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORMTHEME=qt6ct
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"
 
 neofetch

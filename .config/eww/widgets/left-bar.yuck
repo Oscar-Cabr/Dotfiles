@@ -57,6 +57,8 @@
   (separator :h STD_SEP)
   (app :img "${ICON_ROUTE}microsoft-edge.svg" :command "microsoft-edge-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --force-device-scale-factor=1 --profile-directory='Profile 1' &" :sz STD_SZ)
 	(separator :h STD_SEP)
+  (app :img "${ICON_ROUTE}firefox.svg" :command "firefox &" :sz STD_SZ)
+	(separator :h STD_SEP)
 	(line-separator)
 
 	(separator :h STD_SEP)

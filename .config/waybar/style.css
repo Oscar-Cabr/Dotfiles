@@ -1,11 +1,11 @@
-
 @import '/home/racso/.config/theme/colors-waybar.css';
 
 * {
-    font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
+    font-family: "CodeNewRoman Nerd Font", "JetBrainsMono Nerd Font", monospace;
     color: #ffffff;
     background: transparent;
 }
+
 
 /* Configs for hyprland/workspaces module */
 #workspaces button {

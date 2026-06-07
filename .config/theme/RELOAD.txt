@@ -17,3 +17,9 @@ Starship
     (auto)
 Wofi
     (auto, restart launcher)
+fuzzel
+    (auto, restart launcher)
+
+The following are modules from where its necessary to change font:
+
+Waybar, Eww (poweroff), fuzzel, wofi

@@ -14,6 +14,8 @@ return {
         "html",
         "css",
         "javascript",
+        "typescript",
+        "tsx",
         "json",
       },
     },

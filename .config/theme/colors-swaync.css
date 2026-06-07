@@ -1,0 +1,17 @@
+/* ~/.config/theme/colors-swaync.css - Leonardita-Sunset */
+
+@define-color background-notification #291b1b;
+@define-color background-notification-hover #3b2a26;
+@define-color background-notification-critical #540b0e;
+
+@define-color border-notification #e76f51;
+@define-color border-notification-low #6a0572;
+@define-color border-notification-critical #c1121f;
+@define-color border-notification-focus #f9a03f;
+
+@define-color text-notification #f4e285;
+@define-color text-notification-muted alpha(#f4e285, 0.55);
+@define-color text-notification-body alpha(#f4e285, 0.85);
+
+@define-color accent-notification #f9a03f;
+@define-color accent-notification-hover #c1121f;

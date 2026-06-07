@@ -1,0 +1,98 @@
+/* ~/.config/swaync/style.css - Leonardita-Sunset theme */
+@import '/home/racso/.config/theme/colors-swaync.css';
+
+* {
+    font-family: "CodeNewRoman Nerd Font", "JetBrainsMono Nerd Font", monospace;
+}
+
+.notification {
+    background: alpha(@background-notification, 0.75);
+    border: 2px solid @border-notification;
+    border-radius: 15px;
+    padding: 6px;
+    margin: 4px;
+    transition: all 0.3s ease-in-out;
+}
+.notification:hover {
+    background: alpha(@background-notification-hover, 0.85);
+    transition: all 0.3s ease-in-out;
+}
+.notification.low {
+    border-color: @border-notification-low;
+    opacity: 0.85;
+}
+.notification.normal {
+    border-color: @border-notification;
+}
+.notification.critical {
+    border-color: @border-notification-critical;
+    background: alpha(@background-notification-critical, 0.75);
+}
+.notification .notification-default-action:hover {
+    background: alpha(@accent-notification, 0.15);
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+}
+.notification-content {
+    padding: 4px 8px;
+}
+.image {
+    margin-right: 12px;
+}
+.app-icon {
+    -gtk-icon-effect: none;
+    margin-right: 12px;
+}
+.text-box {
+    margin: 0;
+}
+.summary {
+    color: @text-notification;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+.time {
+    color: @text-notification-muted;
+    font-size: 12px;
+    font-style: italic;
+}
+.body {
+    color: @text-notification-body;
+    font-size: 14px;
+    margin-top: 4px;
+}
+.close-button {
+    background: transparent;
+    border: 1px solid @border-notification;
+    border-radius: 50%;
+    color: @accent-notification;
+    padding: 0;
+    min-width: 22px;
+    min-height: 22px;
+    transition: all 0.3s ease-in-out;
+}
+.close-button:hover {
+    background: @accent-notification-hover;
+    border-color: @accent-notification-hover;
+    color: @background-notification;
+    transition: all 0.3s ease-in-out;
+}
+progressbar {
+    background: alpha(@text-notification, 0.15);
+    border-radius: 8px;
+    min-height: 6px;
+}
+progressbar progress {
+    background: linear-gradient(to right, @accent-notification, @border-notification);
+    border-radius: 8px;
+    min-height: 6px;
+}
+.notification.critical progressbar progress {
+    background: @border-notification-critical;
+}
+.notification-row:focus .notification-background .notification {
+    border-color: @border-notification-focus;
+    background: alpha(@background-notification-hover, 0.85);
+    transition: all 0.3s ease-in-out;
+}

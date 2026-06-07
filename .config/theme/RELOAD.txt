@@ -1,12 +1,13 @@
 The following are the neccesary commands, instructions to change theme colors:
 
 Waybar
-	pkill waybar
-	waybar &
+	  pkill waybar
+	  waybar &
 Kitty
     kitty @ set-colors -a
 Hyprland
     (auto)
+    (maybe hyprctl reload)
 Eww
     eww reload
  or
@@ -19,6 +20,8 @@ Wofi
     (auto, restart launcher)
 fuzzel
     (auto, restart launcher)
+Swaync
+    pkill -USR1 swaync
 
 The following are modules from where its necessary to change font:
 

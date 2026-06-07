@@ -1,4 +1,5 @@
 show = drun
+style=/home/racso/.config/wofi/style.css
 
 location = center
 width = 60%

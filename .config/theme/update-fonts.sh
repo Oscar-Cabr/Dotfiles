@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # ~/.config/theme/update-fonts.sh
 #
-# Substitutes __MAIN_FONT__ and __FALLBACK_FONT__ placeholders in all CSS
-# files with values from ~/.config/theme/font.conf.
+# Substitutes __MAIN_FONT__, __FALLBACK_FONT__ and __TERMINAL_FONT__ placeholders
+# in all CSS/config files with values from ~/.config/theme/font.
 #
 # ─── USAGE ────────────────────────────────────────────────────────────────
 #
-#   1. Edit ~/.config/theme/font.conf and set:
+#   1. Edit ~/.config/theme/font and set:
 #        MAIN_FONT="Your Font Name"
 #        FALLBACK_FONT="Some Fallback Font"
+#        TERMINAL_FONT="Terminal Font Name"
 #
 #   2. Run this script:
 #        ~/.config/theme/update-fonts.sh
@@ -19,6 +20,7 @@
 #        pkill -USR1 swaync          # reload swaync
 #        pkill waybar; waybar &      # reload waybar
 #        eww reload                  # reload eww (if using)
+#        # kitty: open a new terminal window (each is a new process)
 #
 # ─── OPTIONS ──────────────────────────────────────────────────────────────
 #
@@ -27,22 +29,24 @@
 #
 # ─── HOW IT WORKS ─────────────────────────────────────────────────────────
 #
-#   Reads MAIN_FONT and FALLBACK_FONT from font.conf (sourced as bash vars),
-#   then uses sed to replace every occurrence of:
+#   Reads MAIN_FONT, FALLBACK_FONT and TERMINAL_FONT from font (sourced as bash
+#   vars), then uses sed to replace every occurrence of:
 #       __MAIN_FONT__      →  "CodeNewRoman Nerd Font"
 #       __FALLBACK_FONT__  →  "JetBrainsMono Nerd Font"
+#       __TERMINAL_FONT__     →  "CaskaydiaCove Nerd Font Mono"
 #   in the following files:
 #       ~/.config/waybar/style.css
 #       ~/.config/eww/widgets/_poweroff.scss
 #       ~/.config/swaync/style.css
 #       ~/.config/fuzzel/fuzzel.ini
 #       ~/.config/wofi/style.css
+#       ~/.config/kitty/kitty.conf
 #
 # ─── REQUIREMENTS ─────────────────────────────────────────────────────────
 #
 #   - bash, sed (standard on every Linux distro)
-#   - font.conf must exist at ~/.config/theme/font.conf
-#   - MAIN_FONT and FALLBACK_FONT must be defined and non-empty in font.conf
+#   - font must exist at ~/.config/theme/font
+#   - MAIN_FONT, FALLBACK_FONT and TERMINAL_FONT must be defined and non-empty
 # ──────────────────────────────────────────────────────────────────────────
 
 set -e
@@ -51,7 +55,7 @@ usage() {
     sed -n '2,/^# ─── REQUIREMENTS/p' "$0" | sed 's/^# \{0,1\}//' | head -n -1
 }
 
-CONF="$HOME/.config/theme/font.conf"
+CONF="$HOME/.config/theme/font"
 DRY_RUN=0
 
 for arg in "$@"; do
@@ -80,8 +84,8 @@ fi
 # shellcheck source=/dev/null
 source "$CONF"
 
-if [[ -z "$MAIN_FONT" || -z "$FALLBACK_FONT" ]]; then
-    echo "Error: MAIN_FONT or FALLBACK_FONT not set in $CONF" >&2
+if [[ -z "$MAIN_FONT" || -z "$FALLBACK_FONT" || -z "$TERMINAL_FONT" ]]; then
+    echo "Error: MAIN_FONT, FALLBACK_FONT or TERMINAL_FONT not set in $CONF" >&2
     exit 1
 fi
 
@@ -91,6 +95,7 @@ TARGETS=(
     "$HOME/.config/swaync/style.css"
     "$HOME/.config/fuzzel/fuzzel.ini"
     "$HOME/.config/wofi/style.css"
+    "$HOME/.config/kitty/kitty.conf"
 )
 
 for f in "${TARGETS[@]}"; do
@@ -100,11 +105,12 @@ for f in "${TARGETS[@]}"; do
     fi
     if [[ "$DRY_RUN" -eq 1 ]]; then
         echo "Would update: $f"
-        grep -nE "__MAIN_FONT__|__FALLBACK_FONT__" "$f" || true
+        grep -nE "__MAIN_FONT__|__FALLBACK_FONT__|__TERMINAL_FONT__" "$f" || true
     else
         sed -i \
             -e "s|__MAIN_FONT__|$MAIN_FONT|g" \
             -e "s|__FALLBACK_FONT__|$FALLBACK_FONT|g" \
+            -e "s|__TERMINAL_FONT__|$TERMINAL_FONT|g" \
             "$f"
         echo "Updated: $f"
     fi

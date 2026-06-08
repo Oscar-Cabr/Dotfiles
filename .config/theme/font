@@ -1,0 +1,7 @@
+# ~/.config/theme/font
+# Single source of truth for the main font name.
+# After editing, run: ~/.config/theme/update-fonts.sh
+
+MAIN_FONT="CodeNewRoman Nerd Font"
+FALLBACK_FONT="JetBrainsMono Nerd Font"
+TERMINAL_FONT="RobotoMono Nerd Font"

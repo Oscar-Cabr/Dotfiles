@@ -23,11 +23,11 @@ while true; do
 
         # Detectar binario
         if file "$TMP_FILE" | grep -qE 'image|bitmap|binary'; then
-            notify-send "  Copied to clipboard" "[Binary data]"
+            notify-send "────────   Copied to clipboard ────────" "[Binary data]"
         else
             text=$(cat "$TMP_FILE")
             [[ ${#text} -gt $MAX_LENGTH ]] && preview="${text:0:$MAX_LENGTH}..." || preview="$text"
-            notify-send "  Copied to clipboard" "$preview"
+            notify-send "────────   Copied to clipboard ────────" "$preview"
         fi
     fi
 done

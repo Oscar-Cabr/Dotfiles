@@ -21,9 +21,9 @@
     (box :class "button-bar"
 	:orientation "horizontal"
 	:space-evenly true
-	(button-wrapper :img "${ICON_ROUTE}shutdown.svg" :command "notify-send 'Shutting down...' 'This will take, literally, a minute.' && eww close poweroff-window && shutdown -h +1 &" :txt "Shutdown")
-	(button-wrapper :img "${ICON_ROUTE}reboot.svg" :command "notify-send 'Rebooting...' 'Wait a minute.' && shutdown -r now $$ eww close poweroff-window" :txt "Reboot")
-	(button-wrapper :img "${ICON_ROUTE}hyprland.svg" :command "notify-send 'Quitting Hyprland...' 'Killing active Hyprland session.' && pkill Hyprland && eww close poweroff-window" :txt "Exit Hyprland")
+	(button-wrapper :img "${ICON_ROUTE}shutdown.svg" :command "notify-send '─────────── 󰐥 Shutting down... ──────────' 'This will take, literally, a minute.' && eww close poweroff-window && shutdown -h +1 &" :txt "Shutdown")
+	(button-wrapper :img "${ICON_ROUTE}reboot.svg" :command "notify-send '───────────── 󰐥 Rebooting... ────────────' 'This will take 5 seconds.' && sleep 5 && shutdown -r now $$ eww close poweroff-window" :txt "Reboot")
+	(button-wrapper :img "${ICON_ROUTE}hyprland.svg" :command "notify-send '────────  Quitting Hyprland... ─────────' 'Killing active Hyprland session. This will take 5 seconds.' && sleep 5 && pkill Hyprland && eww close poweroff-window" :txt "Exit Hyprland")
     )
 )
 

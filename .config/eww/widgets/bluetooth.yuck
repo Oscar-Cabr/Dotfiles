@@ -20,11 +20,11 @@
 	:orientation "horizontal"
 	:spacing 20
 	(button :class "scan-button"
-	    :onclick "notify-send '󰂯 Bluetooth' 'Scanning for bluetooth devices...'"
+	    :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Scanning for bluetooth devices...'"
 	    "󱉶   Scan"
 	)
 	(button :class "manager-button"
-	    :onclick "notify-send '󰂯 Bluetooth' 'Opening blueman manager...' && eww close bluetooth-window && blueman-manager &"
+	    :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Opening blueman manager...' && eww close bluetooth-window && blueman-manager &"
 	    "󰂰   Manager"
 	)
     )
@@ -68,34 +68,34 @@
 	    :spacing 3
 	    (label :text "Available devices:" :class "available-devices-text")
 	    (button :class "bluetoothDevice"
-		:onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 1"
+		:onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 1"
 		firstDevice)
 	    (button :class "bluetoothDevice"
-		:onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 2"
+		:onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 2"
 		secondDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 3"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 3"
                 thirdDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 4"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 4"
                 fourthDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 5"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 5"
                 fifthDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 6"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 6"
                 sixthDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 7"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 7"
                 seventhDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 8"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 8"
                 eightDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 9"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 9"
                 ninethDevice)
             (button :class "bluetoothDevice"
-                :onclick "notify-send '󰂯 Bluetooth' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 10"
+                :onclick "notify-send '────────────── 󰂯 Bluetooth ──────────────' 'Trying to connect device...' && ~/.config/sh-scripts/connect-bluetooth.sh 10"
                 tenthDevice)
 	    (bt-button-bar)
 	)

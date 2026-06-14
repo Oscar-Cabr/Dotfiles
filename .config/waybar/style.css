@@ -9,6 +9,7 @@
 
 /* Configs for hyprland/workspaces module */
 #workspaces button {
+    padding-left: 10px;
     padding-right: 17px;
     border-radius: 15px 15px 0px 0px;
     transition: all 0.3s ease-in-out;

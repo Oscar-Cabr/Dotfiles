@@ -7,8 +7,8 @@ vim.o.background = "dark"
 vim.g.colors_name = "leonardita-sunset"
 
 local palette = {
-  bg = "#1e1e1e",
-  fg = "#d4d4d4",
+  bg = "#291b1b",
+  fg = "#f4e285",
   red = "#f44747",
   orange = "#ff8800",
   yellow = "#ffcc00",
@@ -25,13 +25,13 @@ local hl = vim.api.nvim_set_hl
 
 local groups = {
   -- UI Elements
-  Normal = { fg = palette.fg, bg = "NONE" },
-  NormalFloat = { fg = palette.fg, bg = "NONE" },
-  CursorLine = { bg = "#2a2a2a" },
+  Normal = { fg = palette.fg, bg = palette.bg },
+  NormalFloat = { fg = palette.fg, bg = palette.bg },
+  CursorLine = { bg = "#3b2a26" },
   LineNr = { fg = palette.gray },
   CursorLineNr = { fg = palette.yellow, bold = true },
-  Visual = { bg = "#252526", fg = palette.fg },
-  Pmenu = { bg = "#252526", fg = palette.bg },
+  Visual = { bg = "#3b2a26", fg = palette.fg },
+  Pmenu = { bg = "#3b2a26", fg = palette.fg },
   PmenuSel = { bg = palette.blue, fg = palette.bg, bold = true },
   Search = { bg = palette.yellow, fg = palette.bg },
 
@@ -74,11 +74,11 @@ local groups = {
   FloatBorder = { fg = palette.blue },
 
   -- blink.cmp
-  BlinkCmpMenu = { fg = palette.fg, bg = "#252526" },
+  BlinkCmpMenu = { fg = palette.fg, bg = "#3b2a26" },
   BlinkCmpMenuSelection = { fg = palette.bg, bg = palette.blue, bold = true },
   BlinkCmpLabel = { fg = palette.yellow },
   BlinkCmpSource = { fg = palette.gray, italic = true },
-  BlinkCmpDocumentation = { fg = palette.fg, bg = "NONE" },
+  BlinkCmpDocumentation = { fg = palette.fg, bg = palette.bg },
   BlinkCmpDocumentationBorder = { fg = palette.blue },
 }
 

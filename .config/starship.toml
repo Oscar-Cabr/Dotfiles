@@ -1,0 +1,105 @@
+# ~/.config/starship.toml
+
+format = """
+[┌](fg:bg_username)$username\
+[](fg:bg_username bg:bg_directory)$directory\
+[](fg:bg_directory bg:bg_git)$git_branch$git_status$git_metrics\
+[](fg:bg_git bg:bg_cpp)$cpp\
+[](fg:bg_cpp bg:bg_c)$c\
+[](fg:bg_c bg:bg_java)$java\
+[](fg:bg_java bg:bg_cmd_duration)$cmd_duration\
+[](fg:bg_cmd_duration bg:transparent)
+[└─>](fg:bg_username)$character
+"""
+
+scan_timeout = 10
+add_newline = true
+palette = 'LeonarditaSunset'
+
+[username]
+style_user = 'bold bg:bg_username fg:fg_username'
+style_root = 'bold bg:bg_username fg:fg_username'
+format = '[ $user ]($style)'
+disabled = false
+show_always = true
+
+[directory]
+style = 'bold fg:fg_directory bg:bg_directory'
+truncation_length = 100
+format = '[ $path]($style)[$read_only]($style)[ ]($style)'
+read_only = '🔒'
+[directory.substitutions]
+"Documents" = "󰈙"
+"CPCFI" = "󰨦"
+"Desktop" = " "
+"Downloads" = " "
+"Images" = " "
+"Movies" = "󰷝 "
+"Projects" = " "
+
+[git_branch]
+format = '[ $symbol $branch]($style)'
+symbol = '󰘬'
+style = 'bold bg:bg_git fg:fg_git'
+
+[git_status]
+format = '[[( $all_status$ahead_behind )](fg:fg_git bg:bg_git)]($style)'
+style = 'fg:fg_git bg:bg_git'
+
+[git_metrics]
+format = '[+$added]($added_style)[/](bg:bg_git fg:fg_git)[-$deleted]($deleted_style)'
+only_nonzero_diffs = true
+disabled = false
+added_style = 'bold bg:bg_git fg:additions_git'
+deleted_style = 'bold bg:bg_git fg:deletions_git'
+
+[cpp]
+format = '[ ]($style)[$symbol($version(-$name))]($style)[ ]($style)'
+version_format = 'v${raw}'
+symbol = ' '
+style = 'bold bg:bg_cpp fg:fg_cpp'
+disabled = false
+
+[c]
+format = '[ ]($style)[$symbol($version(-$name))]($style)[ ]($style)'
+symbol = ' '
+style = 'bold bg:bg_c fg:fg_c'
+disabled = false
+
+[java]
+format = '[ ]($style)[$symbol ($version(-$name))]($style)[ ]($style)'
+version_format = 'v${raw}'
+symbol = ''
+style = 'bold bg:bg_java fg:fg_java'
+disabled = false
+
+[cmd_duration]
+format = '[ 󰔛 $duration ]($style)'
+style = 'bold bg:bg_cmd_duration fg:fg_cmd_duration'
+min_time = 2_000
+show_notifications = true
+min_time_to_notify = 45_000
+
+[character]
+success_symbol = "[\\$](bold success_prompt_color)"
+error_symbol = "[\\$](bold error_prompt_color)"
+
+[palettes.LeonarditaSunset]
+bg_username = '#da1e37'
+fg_username = '#ffa69e'
+bg_directory = '#003e1f'
+fg_directory = '#aaf683'
+bg_git = '#ff6d00'
+fg_git = '#ffd180'
+additions_git = '#55a630'
+deletions_git = '#d7263d'
+bg_cpp = '#1d3557'
+fg_cpp = '#a8dadc'
+bg_c = '#31587a'
+fg_c = '#f1faee'
+bg_java = '#5382a1'
+fg_java = '#f89820'
+bg_cmd_duration = '#161a1d'
+fg_cmd_duration = '#b1a7a6'
+success_prompt_color = '#55a630'
+error_prompt_color = '#d7263d'

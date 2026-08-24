@@ -1,0 +1,13 @@
+# macOS filesystem noise
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# never commit — credentials and keys
+.git-credentials
+.config/git/credentials
+.gitconfig.local
+.zshrc.local
+.ssh/

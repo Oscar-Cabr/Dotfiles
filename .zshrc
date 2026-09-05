@@ -2,6 +2,7 @@ alias ls='ls --color=auto -ahF'
 alias cat='bat --paging=never'
 
 eval "$(starship init zsh)"
+export PATH="/Library/TeX/texbin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

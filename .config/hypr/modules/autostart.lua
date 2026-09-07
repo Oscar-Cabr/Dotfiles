@@ -1,10 +1,3 @@
--- ~/.config/hypr/modules/autostart.lua
---
--- Old form: exec-once = <cmd>
---           exec-once = [workspace N] <cmd>
--- New form: everything runs on the "hyprland.start" event; the old
---           [workspace N] prefix becomes the rules table on hl.exec_cmd.
-
 local vars = require("variables")
 
 hl.on("hyprland.start", function()

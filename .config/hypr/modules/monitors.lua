@@ -1,8 +1,3 @@
--- ~/.config/hypr/modules/monitors.lua
---
--- Old form: monitor = <output>, <resolution>, <position>, <scale>
--- New form: hl.monitor{} with named fields.
-
 local vars = require("variables")
 
 hl.monitor({

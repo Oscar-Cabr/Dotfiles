@@ -1,19 +1,8 @@
--- ~/.config/hypr/modules/binds.lua
---
--- Old form: bind / bindm / bindel / bindl = MODS, KEY, dispatcher, args
--- New form: hl.bind("MODS + KEY", hl.dsp.<dispatcher>(...), { opts })
---
---   bindm  ->  { mouse = true }
---   bindel ->  { locked = true, repeating = true }
---   bindl  ->  { locked = true }
-
 local vars    = require("variables")
 local mainMod = vars.mainMod
 
--- Restarts waybar + eww and notifies (box-drawing/nerd-font glyphs preserved verbatim).
 local restartBars = [[pkill waybar && waybar & disown && pkill eww && eww open left-bar && notify-send "──────  Waybar and Eww restarted ───────"]]
 
--- Same as vars.webBrowser but without --profile-directory, as in the old config.
 local edgeNoProfile = [[microsoft-edge-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --force-device-scale-factor=1]]
 
 ---------------------------

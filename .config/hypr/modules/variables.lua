@@ -1,8 +1,3 @@
--- ~/.config/hypr/modules/variables.lua
---
--- Replaces the old hyprlang "$var = value" declarations.
--- These are plain Lua values now, so other modules require() this table.
-
 return {
     terminal    = "kitty",
     fileManager = "nemo",

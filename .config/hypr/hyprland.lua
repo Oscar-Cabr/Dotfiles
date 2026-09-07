@@ -1,12 +1,3 @@
--- ~/.config/hypr/hyprland.lua
---
--- Hyprland Lua config (hyprlang/.conf is deprecated since Hyprland 0.55).
--- Docs: https://wiki.hypr.land/Configuring/Start/
---
--- The old hyprland.conf used "source =" to pull in modules; Lua uses require().
--- The module files live in ~/.config/hypr/modules/ and the theme palette in
--- ~/.config/theme/, so both directories are added to package.path below.
-
 local home = os.getenv("HOME") or "/home/racso"
 
 package.path = table.concat({
@@ -15,12 +6,12 @@ package.path = table.concat({
     package.path,
 }, ";")
 
-require("env")        -- environment variables
-require("monitors")   -- monitor layout
-require("autostart")  -- exec-once equivalents
-require("binds")      -- keybindings
-require("decoration") -- general{} + decoration{}, pulls in the theme palette
-require("windows")    -- window rules + persistent workspaces
+require("env")
+require("monitors")
+require("autostart")
+require("binds")
+require("decoration")
+require("windows")
 
 
 -------------------
@@ -52,14 +43,12 @@ hl.config({
     },
 })
 
--- Old form: bezier = NAME, x1, y1, x2, y2
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1}    } })
 hl.curve("linear",         { type = "bezier", points = { {0, 0},       {1, 1}       } })
 hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1.0}  } })
 hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
 
--- Old form: animation = NAME, enabled, speed, curve, style
 hl.animation({ leaf = "global",        enabled = true, speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true, speed = 5.39, bezier = "easeOutQuint" })
 hl.animation({ leaf = "windows",       enabled = true, speed = 4.79, bezier = "easeOutQuint" })
@@ -128,13 +117,6 @@ hl.config({
     },
 })
 
--- The old config's gestures{} block was empty (workspace_swipe was commented
--- out, leaving Hyprland's default of off), so no hl.gesture() is declared here.
--- To enable 3-finger workspace swiping, uncomment:
--- hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
-
--- Example per-device config
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
 hl.device({
     name        = "epic-mouse-v1",
     sensitivity = -0.5,

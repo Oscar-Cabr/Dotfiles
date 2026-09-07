@@ -1,8 +1,3 @@
--- ~/.config/hypr/modules/decoration.lua
---
--- Old form: general { ... } / decoration { ... } blocks with $color vars.
--- New form: hl.config{} with nested tables; colors come from the theme module.
-
 local colors = require("hypr-colors")
 
 hl.config({
@@ -12,7 +7,6 @@ hl.config({
         border_size = 2,
 
         col = {
-            -- Old: col.active_border = $active_border1 $active_border2 40deg
             active_border = {
                 colors = { colors.active_border1, colors.active_border2 },
                 angle  = 40,

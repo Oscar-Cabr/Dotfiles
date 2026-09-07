@@ -1,11 +1,13 @@
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setfont ter-m22n
+# Console font: only meaningful on a real TTY, before the graphical session
+if [[ $TERM == linux ]]; then setfont ter-m22n; fi
 setopt hist_ignore_dups
 setopt share_history
 setopt append_history
 eval "$(starship init zsh)"
+autoload -Uz compinit && compinit
 eval "$(gh completion -s zsh)"
 export KITTY_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORMTHEME=qt6ct
@@ -23,7 +25,7 @@ alias battery='cat /sys/class/power_supply/BAT1/capacity'
 alias wifi1='ping -c 3 192.168.1.254'
 alias wifi2='ping -c 3 1.1.1.1'
 alias wifi3='ping -c 3 archlinux.org'
-alias restartWifi='sudo systemctl restart wpa_supplicant@wlp3s0.service'
+alias restartWifi='sudo systemctl restart NetworkManager.service'
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias check-server='ping -c 3 192.168.100.2'

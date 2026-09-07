@@ -32,4 +32,4 @@ alias connect-server='TERM=xterm-256color ssh racso@192.168.100.2'
 alias whatsapp='chromium --app=https://web.whatsapp.com --enable-features=UseOzonePlatform --ozone-platform=wayland &'
 alias webSpotify='chromium --app=https://open.spotify.com/intl-es --enable-features=UseOzonePlatform --ozone-platform=wayland &'
 
-neofetch
+fastfetch

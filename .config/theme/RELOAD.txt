@@ -8,6 +8,14 @@ Kitty
 Hyprland
     (auto)
     (maybe hyprctl reload)
+
+Hyprland palette
+	Master palette:  ~/.config/theme/hypr-colors.lua
+	Consumed by:     ~/.config/hypr/modules/decoration.lua  (require("hypr-colors"))
+	Edit hypr-colors.lua; borders and shadows update on reload.
+	NOTE: this replaced hypr-colors.conf when the Hyprland config was
+	      migrated to Lua (hyprlang is deprecated since Hyprland 0.55).
+
 Eww
     eww reload
  or

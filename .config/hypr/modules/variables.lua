@@ -1,0 +1,20 @@
+-- ~/.config/hypr/modules/variables.lua
+--
+-- Replaces the old hyprlang "$var = value" declarations.
+-- These are plain Lua values now, so other modules require() this table.
+
+return {
+    terminal    = "kitty",
+    fileManager = "nemo",
+    menu        = "wofi --show drun",
+    mainMod     = "SUPER", -- Win
+
+    -- Long bracket string ([[ ]]) so the embedded double quotes need no escaping.
+    webBrowser  = [[microsoft-edge-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --force-device-scale-factor=1 --profile-directory="Default"]],
+    -- webBrowser = "firefox",
+
+    music       = "chromium --app=https://open.spotify.com/intl-es --enable-features=UseOzonePlatform --ozone-platform=wayland",
+    whatsApp    = "chromium --app=https://web.whatsapp.com --enable-features=UseOzonePlatform --ozone-platform=wayland",
+
+    screen      = "eDP-1",
+}

@@ -21,7 +21,24 @@ Wofi
 fuzzel
     (auto, restart launcher)
 Swaync
-    pkill -USR1 swaync
+	pkill -USR1 swaync
+
+Qalculate
+	pkill qalculate-gtk && qalculate-gtk &
+
+GTK3 theme (affects all GTK3 apps including qalculate-gtk)
+	Theme dir:       ~/.themes/Leonardita-Sunset/   (proper GTK3 theme)
+	Active theme:    set via GSettings (overrides settings.ini):
+	                    gsettings set org.gnome.desktop.interface gtk-theme Leonardita-Sunset
+	                  also writes to ~/.config/gtk-3.0/settings.ini for non-GSettings systems
+	GTK3 reads the theme on app start.
+	Reopen any GTK3 app to see the change.
+
+Qalculate palette
+	Master palette:  ~/.config/theme/colors-qalculate.css
+	GTK3 theme CSS:  ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css (imports palette)
+	Picker colors:   ~/.config/qalculate/qalculate-gtk-colors.conf
+	Edit colors-qalculate.css; theme updates automatically.
 
 The following are modules from where its necessary to change font:
 

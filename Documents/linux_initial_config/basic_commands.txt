@@ -13,15 +13,17 @@ CONSIDERATIONS
 -----------------
 
 cd <directory/>
+    "Change Directory".
     Changes prompt position to directory if it exists.
 
 chmod <permission> <file>
+    "Change Modifcators".
     "chmod" changes the permissions for some file based on an alphanumeric code.
     "600" gives permissions of reading and writing.
     "+x" make a file executable. Useful for shell scripts.
 
 chsh -s <file>
-    Change shell.
+    "Change Shell".
     -l flag list available shells.
     -s flag changes login shell.
 
@@ -33,10 +35,12 @@ echo <Text>
     Can redirect text into a file.
 
 ls
+    "List".
     List all files in the current directory.
     -a flag lists dotfiles too. (hidden otherway)
 
 man <package>
+    "Manual".
     Shows the the entry for the system manual of that command.
 
 mkdir <directory/>
@@ -63,6 +67,7 @@ poweroff
     Turns off the device.
 
 pkill <process>
+    "Process Kill".
     Kill all the process name "process".
     e.g. Hyprland
 
@@ -70,6 +75,7 @@ reboot
     Reboot system from terminal.
 
 rm <file>
+    "Remove".
     Remove, delete a file.
 
 rm -r <directory/>
@@ -83,3 +89,14 @@ pwd
 
 su - <user>
     Changes the user in that terminal.
+
+tee <file>
+    "Tee" refers to 'T' letter, since it split info flow.
+    Can be used like:
+        <command> | tee <flags> <file>
+    To redirect <command> output.
+    The tee command reads from standard input and writes to both standard output (your screen) and one or more files simultaneously.
+    Using it with sudo is a classic Linux workaround. By piping the text into sudo tee, it runs as root and can successfully write to a protected system directory without getting a "Permission denied" error (which may occur with just echo).
+    Can be used with:
+        > /dev/null
+    Since tee normally echoes everything it writes back to your terminal screen, this part takes that screen output and redirects it into /dev/null (the Linux "black hole" where data is discarded). This just keeps your terminal clean since you don't need to read the text you just pasted.

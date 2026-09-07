@@ -33,6 +33,8 @@ Other necessary things involved in the environment:
 - `feathernotes` note application.
 - `.fnx` feathernotes template. (Documents/Notas/template.fnx)
 - `theme` directory. (.config/theme/)
+- Self-hosted `Leonardita-Sunset` GTK3/GTK4 theme. (.themes/Leonardita-Sunset/)
+- `GTK` settings and theme entry points for GTK3 and GTK4. (.config/gtk-3.0/ and .config/gtk-4.0/)
 - Necessary `icons` collection for the theme. (.config/icons/)
 - Necessary custom `shell scripts` for updating environments. (.config/sh-scripts/)
 

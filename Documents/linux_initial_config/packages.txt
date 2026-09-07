@@ -8,7 +8,7 @@ lockscreen:		hyprlock					(hypr ecosystem)
 screenshots:		hyprshot					(hypr ecosystem)
 notification daemon:	swaync						(sway notification center)
 web browser:		microsoft-edge, chromium, brave, tor
-visual theme & icons:	Papirus, Adwaita [GTK3]
+visual theme & icons:	Leonardita-Sunset, Papirus-Dark	(self-hosted in ~/.themes/, no package; Adwaita is the imported base, ships inside gtk3)
 clipboard menu:		fuzzel						(Rofi alternative)
 custom widgets:		eww
 calculator:		qalculate-gtk

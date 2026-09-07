@@ -37,7 +37,8 @@ Qalculate
 GTK3 theme (affects all GTK3 apps: nemo, qalculate-gtk, file choosers, ...)
 	Theme dir:       ~/.themes/Leonardita-Sunset/
 	Stylesheet:      ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css
-	Previous sheet:  ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css.bak  (pre-rewrite backup)
+	Previous sheet:  ~/.themes/.Leonardita-Sunset.gtk3.css.bak  (pre-rewrite backup,
+	                 moved outside the theme dir so it is not tracked with the theme)
 	Theme metadata:  ~/.themes/Leonardita-Sunset/index.theme
 	Settings file:   ~/.config/gtk-3.0/settings.ini
 	Active theme:    set via GSettings, which OVERRIDES settings.ini while a
@@ -83,7 +84,20 @@ Palettes
 	                 content_view_bg, link_color, ...) plus lsu_* derivatives.
 	Picker colors:   ~/.config/qalculate/qalculate-gtk-colors.conf
 	                 flat key=value, must be updated by hand.
-	Edit colors-qalculate.css; GTK3 and GTK4 both update automatically.
+	Edit colors-qalculate.css; GTK3 and GTK4 both update automatically,
+	with two caveats.
+	NOTE: the import paths are asymmetric. The GTK4 sheet
+	      (~/.themes/Leonardita-Sunset/gtk-4.0/gtk.css) imports
+	      colors-qalculate.css DIRECTLY. The GTK3 sheet
+	      (~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css) reaches the same
+	      palette INDIRECTLY through colors-gtk.css, which imports
+	      colors-qalculate.css and then adds the full GTK3 named-color set.
+	NOTE: the GTK4 sheet still carries 7 literal hex values, all of the
+	      form alpha(#000000, <a>) -- shadow / shade / overlay colors on
+	      lines 53, 54, 61, 67, 72, 79 and 82. They are deliberately pure
+	      black (a shadow has no palette hue) and do NOT follow a palette
+	      edit. Every other color in that sheet is an @lsu_* reference and
+	      does follow the edit (55 references on 54 lines).
 
 Checking a GTK stylesheet after editing
 	A CSS parse error makes GTK silently DROP THE REST OF THE FILE, so
@@ -94,6 +108,16 @@ Checking a GTK stylesheet after editing
 	     p.load_from_path('$HOME/.themes/Leonardita-Sunset/gtk-3.0/gtk.css')"
 	GTK4: same with gi.require_version('Gtk','4.0') and load_from_file().
 	No output means the file parsed cleanly.
+
+Dotfiles tracking
+	These files are now tracked in the bare dotfiles repo
+	(git --git-dir=~/.dotfiles --work-tree=~). Before this rebuild NOTHING
+	under ~/.themes/ or ~/.config/gtk-3.0 / ~/.config/gtk-4.0 was tracked.
+	The repo runs with status.showUntrackedFiles=no, so `dotfiles status`
+	does NOT list new files. Any NEW theme file must be added BY NAME:
+	   dotfiles add ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css
+	A file that is never added stays invisible to `dotfiles status` --
+	that is exactly how the original theme sheet went missing.
 
 Retired
 	~/.themes/.Nemo.bak/   was a stray "WarmNemo" sheet in a different brown

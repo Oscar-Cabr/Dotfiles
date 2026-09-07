@@ -1,0 +1,135 @@
+/* ~/.themes/Leonardita-Sunset/gtk-4.0/gtk.css
+ * Leonardita-Sunset - GTK4 / libadwaita recolor
+ *
+ * SCOPE: deliberately minimal. There are currently no GTK4 or libadwaita
+ * applications installed on this machine (libadwaita is present only as a
+ * dependency), so this file does NOT attempt a bespoke GTK4 widget pass the
+ * way the GTK3 sheet does. It redefines libadwaita's named colours so that
+ * the first GTK4 app to be installed is on-palette and readable out of the
+ * box, and nothing more.
+ *
+ * WHY NAMED COLOURS ARE ENOUGH HERE, UNLIKE GTK3
+ *   The GTK3 sheet has to restate every rule because GTK 3.24's shipped
+ *   Adwaita is compiled SASS with hard-coded hex. libadwaita is the
+ *   opposite: its stylesheet is written against these named colours and
+ *   recomputes derived shades from them, so overriding the names really
+ *   does retint the whole widget set.
+ *
+ * WHO LOADS THIS
+ *   - GTK4 apps that honour gtk-theme-name find it at this path.
+ *   - libadwaita apps ignore gtk-theme-name entirely; they are reached via
+ *     ~/.config/gtk-4.0/gtk.css, which @imports this file.
+ *
+ * GTK4 PROPERTIES ONLY. Do not paste GTK3-isms in here (-gtk-icon-effect,
+ * -gtk-secondary-caret-color, wrap-mode, ...): GTK4 logs a parse error and
+ * drops the remainder of the file.
+ *
+ * Palette comes from the master file, same as GTK3.
+ */
+
+/* ============================================================
+ * 1. MASTER PALETTE
+ * ============================================================ */
+@import url("/home/racso/.config/theme/colors-qalculate.css");
+
+/* ============================================================
+ * 2. LIBADWAITA NAMED COLOURS
+ * Names verified against the installed libadwaita 1.9.3.
+ * ============================================================ */
+
+/* --- window and content surfaces --- */
+@define-color window_bg_color       @lsu_bg;
+@define-color window_fg_color       @lsu_text;
+@define-color view_bg_color         @lsu_bg_dark;
+@define-color view_fg_color         @lsu_text;
+@define-color thumbnail_bg_color    @lsu_bg_dark;
+@define-color thumbnail_fg_color    @lsu_text;
+
+/* --- header bars --- */
+@define-color headerbar_bg_color            shade(@lsu_bg, 0.82);
+@define-color headerbar_fg_color            @lsu_text;
+@define-color headerbar_border_color        @lsu_border;
+@define-color headerbar_backdrop_color      @lsu_bg;
+@define-color headerbar_shade_color         alpha(#000000, 0.36);
+@define-color headerbar_darker_shade_color  alpha(#000000, 0.50);
+
+/* --- sidebars. Lighter than the window, matching the GTK3 sheet. --- */
+@define-color sidebar_bg_color         mix(@lsu_bg, @lsu_bg_light, 0.35);
+@define-color sidebar_fg_color         @lsu_text;
+@define-color sidebar_backdrop_color   @lsu_bg;
+@define-color sidebar_border_color     alpha(@lsu_border, 0.40);
+@define-color sidebar_shade_color      alpha(#000000, 0.36);
+
+@define-color secondary_sidebar_bg_color        @lsu_bg;
+@define-color secondary_sidebar_fg_color        @lsu_text;
+@define-color secondary_sidebar_backdrop_color  @lsu_bg;
+@define-color secondary_sidebar_border_color    alpha(@lsu_border, 0.40);
+@define-color secondary_sidebar_shade_color     alpha(#000000, 0.36);
+
+/* --- cards, dialogs, popovers --- */
+@define-color card_bg_color       @lsu_bg_light;
+@define-color card_fg_color       @lsu_text;
+@define-color card_shade_color    alpha(#000000, 0.36);
+
+@define-color dialog_bg_color     @lsu_bg;
+@define-color dialog_fg_color     @lsu_text;
+
+@define-color popover_bg_color    @lsu_bg_dark;
+@define-color popover_fg_color    @lsu_text;
+@define-color popover_shade_color alpha(#000000, 0.36);
+
+/* --- global shading and scrollbars --- */
+@define-color shade_color             alpha(#000000, 0.36);
+@define-color scrollbar_outline_color alpha(@lsu_border, 0.50);
+
+/* --- accent: drives selection, focus rings, switches, links --- */
+@define-color accent_bg_color   @lsu_accent;
+@define-color accent_fg_color   @lsu_bg;
+@define-color accent_color      @lsu_accent;
+
+/* --- semantic --- */
+@define-color destructive_bg_color  @lsu_red;
+@define-color destructive_fg_color  @lsu_text;
+@define-color destructive_color     @lsu_red;
+
+@define-color success_bg_color      @lsu_green;
+@define-color success_fg_color      @lsu_text;
+@define-color success_color         @lsu_green;
+
+@define-color warning_bg_color      @lsu_yellow;
+@define-color warning_fg_color      @lsu_bg;
+@define-color warning_color         @lsu_yellow;
+
+@define-color error_bg_color        @lsu_critical;
+@define-color error_fg_color        @lsu_text;
+@define-color error_color           @lsu_red;
+
+/* ============================================================
+ * 3. GTK4 CORE COMPAT NAMES
+ * Plain GTK4 apps that do not link libadwaita still read these.
+ * ============================================================ */
+@define-color theme_bg_color            @lsu_bg;
+@define-color theme_fg_color            @lsu_text;
+@define-color theme_base_color          @lsu_bg_dark;
+@define-color theme_text_color          @lsu_text;
+@define-color theme_selected_bg_color   @lsu_accent;
+@define-color theme_selected_fg_color   @lsu_bg;
+@define-color insensitive_bg_color      @lsu_bg_light;
+@define-color insensitive_fg_color      @lsu_text_dim;
+@define-color insensitive_base_color    @lsu_bg_dark;
+@define-color borders                   alpha(@lsu_border, 0.40);
+@define-color unfocused_borders         alpha(@lsu_border, 0.25);
+@define-color success_color_backdrop    @lsu_green;
+
+/* ============================================================
+ * 4. THE ONE THING NAMED COLOURS DO NOT COVER
+ * libadwaita derives text selection from the accent colour, but
+ * plain GTK4 (no libadwaita) does not. Restate it so a bare GTK4
+ * app cannot end up with an invisible selection - the exact bug
+ * this whole theme revision was written to fix on the GTK3 side.
+ * ============================================================ */
+selection,
+:selected {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}

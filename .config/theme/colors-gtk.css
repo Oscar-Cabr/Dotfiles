@@ -1,0 +1,99 @@
+/* ~/.config/theme/colors-gtk.css
+ * Leonardita-Sunset - desktop-wide GTK named-color map
+ *
+ * WHAT THIS IS
+ *   colors-qalculate.css is the master palette and MUST stay byte-identical
+ *   (~/.config/qalculate/qalculate-gtk-background.css imports it too).
+ *   This file imports it and ADDS the rest of the named colors that a full
+ *   GTK3 theme is expected to publish - the ones Adwaita defines at the bottom
+ *   of its own stylesheet, plus a handful of lsu_* derivatives used by the
+ *   bespoke widget layer.
+ *
+ * IMPORT CHAIN
+ *   ~/.config/theme/colors-qalculate.css        <- master palette (do not edit here)
+ *     ^-- this file                             <- + full GTK named-color set
+ *           ^-- ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css
+ *
+ * WHY THE NAMED COLORS ALONE ARE NOT ENOUGH
+ *   GTK 3.24's shipped Adwaita (gtk-contained-dark.css) is compiled SASS: its
+ *   rules use hard-coded hex, NOT @theme_* references. Redefining these names
+ *   therefore does NOT retint Adwaita - it only publishes a correct palette to
+ *   apps that read the names directly (Chromium/Brave, GIMP, Firefox, ...).
+ *   The visual retint is done by explicit rules in the theme's gtk.css.
+ *
+ * Palette tokens live in colors-qalculate.css; see its header for the list.
+ */
+
+/* ============================================================
+ * 1. MASTER PALETTE
+ * ============================================================ */
+@import url("/home/racso/.config/theme/colors-qalculate.css");
+
+/* ============================================================
+ * 2. DERIVED SURFACE TOKENS
+ * Extra shades the widget layer needs. lsu_* prefix, same as
+ * the master palette, so they never collide with theme names.
+ * ============================================================ */
+@define-color lsu_bg_hover      shade(@lsu_bg_light, 1.18);  /* raised: button/row hover   */
+@define-color lsu_bg_active     shade(@lsu_bg_dark, 0.80);   /* pressed / sunken           */
+@define-color lsu_bg_header     shade(@lsu_bg, 0.82);        /* headerbar, toolbar, tabs   */
+/* Sidebar reads a step LIGHTER than both the window chrome and the file
+ * view, so the three surfaces separate cleanly. This carries over the one
+ * good idea from the retired ~/.themes/Nemo "WarmNemo" sheet, which used a
+ * lighter sidebar (#704f4f) against a darker window (#3b2f2f). */
+@define-color lsu_bg_sidebar    mix(@lsu_bg, @lsu_bg_light, 0.35);
+@define-color lsu_bg_tooltip    @lsu_bg_dark;
+@define-color lsu_border_dim    alpha(@lsu_border, 0.40);    /* hairlines, inner frames    */
+@define-color lsu_accent_dim    shade(@lsu_accent, 0.78);    /* unfocused selection        */
+@define-color lsu_accent_hot    shade(@lsu_accent, 1.12);    /* hover on accent surfaces   */
+@define-color lsu_shadow        alpha(#000000, 0.45);
+@define-color lsu_slider        alpha(@lsu_accent, 0.55);    /* scrollbar slider           */
+@define-color lsu_slider_hover  @lsu_accent;
+@define-color lsu_drop          @lsu_green;                  /* drag-and-drop target hint  */
+
+/* ============================================================
+ * 3. GTK3 NAMED COLORS - CORE
+ * theme_bg/fg/base/text/selected_*, insensitive_*, borders and
+ * warning/error/success already come from colors-qalculate.css.
+ * Only the ones it does not define are set here.
+ * ============================================================ */
+@define-color insensitive_base_color  shade(@lsu_bg_dark, 1.12);
+
+/* ============================================================
+ * 4. GTK3 NAMED COLORS - BACKDROP (unfocused window)
+ * ============================================================ */
+@define-color theme_unfocused_fg_color            alpha(@lsu_text, 0.65);
+@define-color theme_unfocused_text_color          alpha(@lsu_text, 0.80);
+@define-color theme_unfocused_bg_color            @lsu_bg;
+@define-color theme_unfocused_base_color          @lsu_bg_dark;
+@define-color theme_unfocused_selected_bg_color   @lsu_accent_dim;
+@define-color theme_unfocused_selected_fg_color   @lsu_bg;
+@define-color unfocused_insensitive_color         alpha(@lsu_text, 0.35);
+@define-color unfocused_borders                   @lsu_border_dim;
+
+/* ============================================================
+ * 5. GTK3 NAMED COLORS - CLIENT-SIDE DECORATION (wm_*)
+ * Consumed by Adwaita's decoration/headerbar rules and by any
+ * app that draws its own titlebar.
+ * ============================================================ */
+@define-color wm_title                   @lsu_text;
+@define-color wm_unfocused_title         alpha(@lsu_text, 0.60);
+@define-color wm_highlight               alpha(@lsu_accent, 0.12);
+@define-color wm_borders_edge            alpha(@lsu_border, 0.22);
+@define-color wm_bg_a                    shade(@lsu_bg_header, 1.12);
+@define-color wm_bg_b                    @lsu_bg_header;
+@define-color wm_shadow                  @lsu_shadow;
+@define-color wm_border                  alpha(#000000, 0.25);
+@define-color wm_button_hover_color_a    shade(@lsu_bg_light, 1.20);
+@define-color wm_button_hover_color_b    @lsu_bg_light;
+@define-color wm_button_active_color_a   shade(@lsu_bg_dark, 0.90);
+@define-color wm_button_active_color_b   shade(@lsu_bg_dark, 0.94);
+@define-color wm_button_active_color_c   shade(@lsu_bg_dark, 0.96);
+
+/* ============================================================
+ * 6. GTK3 NAMED COLORS - CONTENT SURFACES AND LINKS
+ * ============================================================ */
+@define-color content_view_bg    @lsu_bg_dark;
+@define-color text_view_bg       @lsu_bg_dark;
+@define-color link_color         @lsu_blue;
+@define-color visited_link_color shade(@lsu_blue, 0.72);

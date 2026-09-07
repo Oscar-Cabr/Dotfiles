@@ -34,19 +34,73 @@ Swaync
 Qalculate
 	pkill qalculate-gtk && qalculate-gtk &
 
-GTK3 theme (affects all GTK3 apps including qalculate-gtk)
-	Theme dir:       ~/.themes/Leonardita-Sunset/   (proper GTK3 theme)
-	Active theme:    set via GSettings (overrides settings.ini):
+GTK3 theme (affects all GTK3 apps: nemo, qalculate-gtk, file choosers, ...)
+	Theme dir:       ~/.themes/Leonardita-Sunset/
+	Stylesheet:      ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css
+	Previous sheet:  ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css.bak  (pre-rewrite backup)
+	Theme metadata:  ~/.themes/Leonardita-Sunset/index.theme
+	Settings file:   ~/.config/gtk-3.0/settings.ini
+	Active theme:    set via GSettings, which OVERRIDES settings.ini while a
+	                 settings portal is running (it is, under Hyprland):
 	                    gsettings set org.gnome.desktop.interface gtk-theme Leonardita-Sunset
-	                  also writes to ~/.config/gtk-3.0/settings.ini for non-GSettings systems
+	                    gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+	                    gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark
+	                 Keep settings.ini in sync for apps that bypass the portal.
 	GTK3 reads the theme on app start.
 	Reopen any GTK3 app to see the change.
 
-Qalculate palette
+GTK3 stylesheet layout (~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css)
+	1. imports GTK's built-in Adwaita dark from the gresource:
+	     resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css
+	   GTK3 loads a named theme INSTEAD OF Adwaita, not on top of it, so
+	   without this import every unstyled widget goes transparent.
+	2. imports the palette: ~/.config/theme/colors-gtk.css
+	3. bespoke widget layer (sections 2-16) + a Nemo section (17)
+	4. the old qalculate-only sheet, preserved verbatim (section 18)
+	GTK 3.24's Adwaita is compiled SASS with hard-coded hex and does NOT
+	read @theme_* names, so redefining colours alone changes nothing --
+	the bespoke layer has to restate each rule. Do not "simplify" it away.
+
+GTK4 / libadwaita
+	Stylesheet:      ~/.themes/Leonardita-Sunset/gtk-4.0/gtk.css
+	Entry point:     ~/.config/gtk-4.0/gtk.css   (one @import of the above)
+	Settings file:   ~/.config/gtk-4.0/settings.ini
+	libadwaita apps ignore gtk-theme-name; ~/.config/gtk-4.0/gtk.css is the
+	only hook they honour, which is why the indirection exists.
+	This is a named-colour recolor only - no bespoke GTK4 widget rules.
+	GTK4 properties ONLY in the GTK4 files (no -gtk-icon-effect, max-width,
+	wrap-mode, ...); a GTK3-ism there silently truncates the stylesheet.
+	Reopen the app to see the change.
+
+Palettes
 	Master palette:  ~/.config/theme/colors-qalculate.css
-	GTK3 theme CSS:  ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css (imports palette)
+	                 SINGLE SOURCE OF TRUTH. Edit colours here.
+	                 Also imported by ~/.config/qalculate/qalculate-gtk-background.css,
+	                 so keep its @define-color names stable.
+	Desktop map:     ~/.config/theme/colors-gtk.css
+	                 imports the master palette and adds the full GTK3
+	                 named-colour set (theme_unfocused_*, wm_*, borders,
+	                 content_view_bg, link_color, ...) plus lsu_* derivatives.
 	Picker colors:   ~/.config/qalculate/qalculate-gtk-colors.conf
-	Edit colors-qalculate.css; theme updates automatically.
+	                 flat key=value, must be updated by hand.
+	Edit colors-qalculate.css; GTK3 and GTK4 both update automatically.
+
+Checking a GTK stylesheet after editing
+	A CSS parse error makes GTK silently DROP THE REST OF THE FILE, so
+	validate explicitly. GTK3:
+	   python3 -c "import gi;gi.require_version('Gtk','3.0');\
+	     from gi.repository import Gtk;Gtk.init([]);p=Gtk.CssProvider();\
+	     p.connect('parsing-error',lambda a,s,e:print('ERR line',s.get_start_line()+1,e.message));\
+	     p.load_from_path('$HOME/.themes/Leonardita-Sunset/gtk-3.0/gtk.css')"
+	GTK4: same with gi.require_version('Gtk','4.0') and load_from_file().
+	No output means the file parsed cleanly.
+
+Retired
+	~/.themes/.Nemo.bak/   was a stray "WarmNemo" sheet in a different brown
+	                       palette, referenced by nothing. Its intent (distinct
+	                       sidebar, accent buttons, accent scrollbar, orange
+	                       toolbar rule) is now covered by the Nemo section of
+	                       the Leonardita-Sunset GTK3 sheet.
 
 The following are modules from where its necessary to change font:
 

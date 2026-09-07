@@ -1,0 +1,12 @@
+/* ~/.config/gtk-4.0/gtk.css
+ * Leonardita-Sunset - GTK4 / libadwaita entry point
+ *
+ * libadwaita applications hard-code the Adwaita stylesheet and ignore
+ * gtk-theme-name, so they never look inside ~/.themes. This file is the one
+ * hook they do honour: GTK4 loads it as a user stylesheet at
+ * GTK_STYLE_PROVIDER_PRIORITY_USER, above the app's own theme.
+ *
+ * Everything real lives in the theme so the two paths cannot drift.
+ * Edit ~/.themes/Leonardita-Sunset/gtk-4.0/gtk.css, not this file.
+ */
+@import url("/home/racso/.themes/Leonardita-Sunset/gtk-4.0/gtk.css");

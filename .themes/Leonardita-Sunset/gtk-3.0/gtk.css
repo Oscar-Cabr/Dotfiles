@@ -1,0 +1,3526 @@
+/* ~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css
+ * Leonardita-Sunset - GTK3 desktop theme
+ * Dark sunset: cream/orange/red on dark wine.
+ *
+ * ------------------------------------------------------------------
+ * HOW THIS FILE IS ASSEMBLED
+ *
+ *   1. Adwaita is imported from GTK's own gresource. GTK3 loads a named
+ *      theme's gtk.css INSTEAD OF Adwaita, not on top of it, so without
+ *      this import every widget we do not explicitly style falls through
+ *      to GTK's bare built-in CSS and computes to a transparent
+ *      background. That was the bug this file was written to fix
+ *      (invisible text selection in Chromium/Brave, unstyled Nemo).
+ *      Adwaita is the structural safety net: metrics, borders, icon
+ *      assets, and a readable fallback for anything not covered below.
+ *
+ *   2. The palette is imported from ~/.config/theme/colors-gtk.css,
+ *      which in turn imports the master ~/.config/theme/colors-qalculate.css.
+ *
+ *   3. The bespoke widget layer re-tints Adwaita. NOTE: GTK 3.24's shipped
+ *      Adwaita is compiled SASS with hard-coded hex values and does NOT
+ *      reference @theme_* names, so redefining named colors alone changes
+ *      nothing visually. Every rule below therefore restates the colour
+ *      explicitly, and mirrors Adwaita's own selector shapes so that
+ *      specificity ties and document order decides in our favour.
+ *
+ *   4. The qalculate-gtk section from the previous revision of this file
+ *      is preserved verbatim at the very end. It is scoped to
+ *      qalculate's widget IDs (#main_window, #historyview, ...), which
+ *      outrank everything in the general layer, so qalculate is
+ *      unaffected by items 1-3. Do not reorder it.
+ *
+ * IMPORT CHAIN
+ *   resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css
+ *   ~/.config/theme/colors-gtk.css -> ~/.config/theme/colors-qalculate.css
+ *
+ * RELATED FILES
+ *   ~/.themes/Leonardita-Sunset/gtk-4.0/gtk.css   minimal libadwaita recolor
+ *   ~/.config/gtk-3.0/settings.ini                theme + icon theme + dark hint
+ *   ~/.config/theme/RELOAD.txt                    how to reload
+ *
+ * A GTK CSS parse error silently drops the REMAINDER of this file. After
+ * editing, verify with:
+ *   python3 -c "import gi;gi.require_version('Gtk','3.0');from gi.repository \
+ *     import Gtk;Gtk.init([]);p=Gtk.CssProvider();\
+ *     p.connect('parsing-error',lambda *a:print('ERR',a[1].get_start_line()+1));\
+ *     p.load_from_path('$HOME/.themes/Leonardita-Sunset/gtk-3.0/gtk.css')"
+ */
+
+/* ============================================================
+ * 1. BASE + PALETTE
+ * Order matters: Adwaita first so our rules come later in
+ * document order, palette second so our @define-color wins.
+ * ============================================================ */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+@import url("/home/racso/.config/theme/colors-gtk.css");
+
+/* ============================================================
+ * 2. GLOBAL SURFACES
+ * The floor: after this, no widget can compute to a transparent
+ * or unreadable background.
+ * ============================================================ */
+
+.background {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+}
+
+.background:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg;
+}
+
+window,
+window.background,
+.gtkstyle-fallback {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+}
+
+.gtkstyle-fallback:hover    { color: @lsu_text; background-color: @lsu_bg_hover; }
+.gtkstyle-fallback:active   { color: @lsu_text; background-color: @lsu_bg_active; }
+.gtkstyle-fallback:disabled { color: @insensitive_fg_color; background-color: @insensitive_bg_color; }
+.gtkstyle-fallback:selected { color: @lsu_bg;   background-color: @lsu_accent; }
+
+/* Content surfaces: text views, icon views, tree views, lists. */
+.view,
+iconview,
+.view text,
+iconview text,
+textview text {
+    color: @lsu_text;
+    caret-color: @lsu_accent;
+    -gtk-secondary-caret-color: @lsu_border;
+    background-color: @lsu_bg_dark;
+}
+
+.view:backdrop,
+iconview:backdrop,
+.view text:backdrop,
+iconview text:backdrop,
+textview text:backdrop {
+    color: @theme_unfocused_text_color;
+    background-color: @lsu_bg_dark;
+}
+
+.view:disabled,
+iconview:disabled,
+.view text:disabled,
+iconview text:disabled,
+textview text:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_base_color;
+}
+
+textview border {
+    background-color: @lsu_bg;
+    color: @lsu_text_dim;
+}
+
+/* ============================================================
+ * 3. SELECTION
+ * THE core fix. Adwaita's master selection rule (one long
+ * selector list ending in `row:selected, calendar:selected`)
+ * hard-codes #15539e; this restates it in palette colours with
+ * the same specificity, later in the document.
+ *
+ * The two low-specificity floors at the end guarantee that a
+ * widget nobody listed still gets an opaque selection, which is
+ * what Chromium/Brave read when they mirror the GTK palette.
+ * ============================================================ */
+
+.view:selected:focus,
+.view:selected,
+.view text:selected:focus,
+.view text:selected,
+.view text selection:focus,
+.view text selection,
+textview text:selected:focus,
+textview text:selected,
+textview text selection:focus,
+textview text selection,
+iconview:selected:focus,
+iconview:selected,
+iconview text selection:focus,
+iconview text selection,
+flowbox flowboxchild:selected,
+entry selection,
+spinbutton:not(.vertical) selection,
+modelbutton.flat:selected,
+.menuitem.button.flat:selected,
+treeview.view:selected:focus,
+treeview.view:selected,
+row:selected,
+calendar:selected,
+label:selected,
+label selection {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+/* Unfocused window keeps the selection visible, just quieter.
+ * The `.view text selection:backdrop` style entries are required verbatim:
+ * Adwaita lists them at (0,2,2) specificity, so the shorter
+ * `textview text selection:backdrop` alone would lose and leak #d6d6d6. */
+.view:backdrop:selected,
+.view text:backdrop:selected,
+.view text selection:backdrop,
+.view text selection:backdrop:focus,
+textview text:backdrop:selected,
+textview text selection:backdrop,
+textview text selection:backdrop:focus,
+iconview:backdrop:selected,
+iconview text selection:backdrop,
+flowbox flowboxchild:backdrop:selected,
+entry selection:backdrop,
+spinbutton:not(.vertical) selection:backdrop,
+modelbutton.flat:backdrop:selected,
+treeview.view:backdrop:selected,
+row:backdrop:selected,
+calendar:backdrop:selected,
+label:backdrop:selected,
+label:backdrop selection {
+    background-color: @lsu_accent_dim;
+    color: @lsu_bg;
+}
+
+.view:disabled:selected,
+.view text:disabled:selected,
+.view text selection:disabled,
+textview text:disabled:selected,
+textview text selection:disabled,
+textview text selection:disabled:focus,
+iconview:disabled:selected,
+iconview text selection:disabled,
+flowbox flowboxchild:disabled:selected,
+entry selection:disabled,
+spinbutton:not(.vertical) selection:disabled,
+modelbutton.flat:disabled:selected,
+treeview.view:disabled:selected,
+row:disabled:selected,
+calendar:disabled:selected,
+label:disabled:selected,
+label:disabled selection {
+    background-color: @lsu_accent_dim;
+    color: alpha(@lsu_bg, 0.7);
+}
+
+/* Floors. Deliberately low specificity so every rule above wins. */
+selection {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+*:selected {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+.rubberband,
+rubberband,
+.content-view rubberband,
+treeview.view rubberband,
+flowbox rubberband {
+    border: 1px solid @lsu_accent;
+    background-color: alpha(@lsu_accent, 0.25);
+}
+
+.content-view .tile           { background-color: @lsu_bg_dark; }
+.content-view .tile:active,
+.content-view .tile:selected  { background-color: @lsu_accent; }
+.content-view .tile:disabled  { background-color: @insensitive_bg_color; }
+
+/* ============================================================
+ * 4. TEXT, LABELS, LINKS
+ * ============================================================ */
+
+label {
+    caret-color: currentColor;
+}
+
+label:disabled,
+label:disabled:backdrop {
+    color: @insensitive_fg_color;
+}
+
+.dim-label,
+label.dim-label,
+label.separator,
+.dim-label:backdrop {
+    color: @lsu_text_dim;
+}
+
+label.subtitle,
+headerbar .subtitle {
+    color: @lsu_text_dim;
+}
+
+/* Adwaita hard-codes #3584e4 for links; restate in palette blue. */
+button:link > label,
+button:visited > label,
+button:link,
+button:visited,
+*:link {
+    color: @link_color;
+}
+
+button:visited > label:visited,
+button:visited,
+*:link:visited {
+    color: @visited_link_color;
+}
+
+*:link:hover  { color: @lsu_accent; }
+*:link:active { color: @lsu_border; }
+
+*:link:disabled,
+*:link:disabled:backdrop {
+    color: alpha(@lsu_blue, 0.45);
+}
+
+*:selected *:link,
+*:selected button:link,
+*:link:selected {
+    color: @lsu_bg;
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+/* ============================================================
+ * 5. BUTTONS
+ * Adwaita paints buttons with linear-gradient background-images,
+ * so every override must also reset background-image.
+ * ============================================================ */
+
+button,
+button.titlebutton,
+notebook > header > tabs > arrow {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    border-radius: 5px;
+    box-shadow: none;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
+    outline-color: alpha(@lsu_accent, 0.5);
+}
+
+button:hover,
+notebook > header > tabs > arrow:hover {
+    color: @lsu_text;
+    background-color: @lsu_bg_hover;
+    background-image: none;
+    border-color: @lsu_border;
+    box-shadow: none;
+}
+
+button:active,
+button:checked,
+notebook > header > tabs > arrow:active,
+notebook > header > tabs > arrow:checked {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+    box-shadow: none;
+}
+
+button:checked:hover {
+    background-color: @lsu_accent_hot;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+button:disabled,
+button:disabled:active,
+button:disabled:checked,
+notebook > header > tabs > arrow:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+    border-color: @lsu_border_dim;
+    box-shadow: none;
+}
+
+button:backdrop,
+button:backdrop.flat,
+notebook > header > tabs > arrow:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border-color: @unfocused_borders;
+    box-shadow: none;
+}
+
+button:backdrop:active,
+button:backdrop:checked,
+button:backdrop.flat:checked {
+    color: @lsu_bg;
+    background-color: @lsu_accent_dim;
+    background-image: none;
+    border-color: @lsu_accent_dim;
+}
+
+button:backdrop:disabled,
+button:backdrop.flat:disabled {
+    color: @unfocused_insensitive_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+    border-color: @unfocused_borders;
+}
+
+/* Flat / borderless buttons: toolbars, sidebars, titlebars, tabs. */
+button.flat,
+button.titlebutton,
+button.sidebar-button,
+notebook > header > tabs > arrow.flat,
+.titlebar button.titlebutton {
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+button.flat:hover,
+button.titlebutton:hover,
+button.sidebar-button:hover {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border-color: transparent;
+}
+
+button.flat:active,
+button.flat:checked,
+button.titlebutton:active,
+button.sidebar-button:active {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: transparent;
+}
+
+button.flat:disabled,
+button.titlebutton:disabled,
+button.sidebar-button:disabled {
+    color: @insensitive_fg_color;
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+}
+
+/* `button.flat` forces a transparent background, which would otherwise
+ * leave the *:selected floor in section 3 setting a dark foreground over
+ * nothing. Restate both halves so the pair stays consistent. */
+button.flat:selected,
+button.titlebutton:selected,
+button.sidebar-button:selected {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+/* Semantic buttons. */
+button.suggested-action {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+}
+
+button.suggested-action:hover,
+button.suggested-action:active,
+button.suggested-action:checked,
+button.suggested-action:backdrop {
+    color: @lsu_bg;
+    background-color: @lsu_accent_hot;
+    background-image: none;
+    border-color: @lsu_accent_hot;
+}
+
+button.suggested-action:backdrop {
+    background-color: @lsu_accent_dim;
+    border-color: @lsu_accent_dim;
+}
+
+button.suggested-action:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+button.destructive-action {
+    color: @lsu_text;
+    background-color: @lsu_critical;
+    background-image: none;
+    border-color: @lsu_red;
+}
+
+button.destructive-action:hover,
+button.destructive-action:active,
+button.destructive-action:checked,
+button.destructive-action:backdrop {
+    color: @lsu_text;
+    background-color: @lsu_red;
+    background-image: none;
+    border-color: @lsu_red;
+}
+
+button.destructive-action:backdrop {
+    background-color: @lsu_critical;
+    border-color: @lsu_red;
+}
+
+button.destructive-action:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+/* OSD / overlay buttons (Nemo's floating bar, video overlays). */
+button.osd {
+    color: @lsu_text;
+    background-color: alpha(@lsu_bg_dark, 0.9);
+    background-image: none;
+    border-color: @lsu_border_dim;
+    box-shadow: none;
+}
+
+button.osd:hover {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+button.osd:active,
+button.osd:checked {
+    color: @lsu_bg;
+    background-color: @lsu_accent_hot;
+    background-image: none;
+}
+
+button.osd:disabled,
+button.osd:disabled:backdrop {
+    color: @insensitive_fg_color;
+    background-color: alpha(@lsu_bg_dark, 0.7);
+    background-image: none;
+}
+
+/* Buttons sitting on an accent-coloured selected row must stay legible. */
+row:selected button.flat:not(:hover):not(:active):not(:checked),
+row:selected button.sidebar-button:not(:hover):not(:active):not(:checked) {
+    color: @lsu_bg;
+    border-color: transparent;
+}
+
+button:drop(active),
+notebook > header > tabs > arrow:drop(active) {
+    color: @lsu_drop;
+    border-color: @lsu_drop;
+    box-shadow: inset 0 0 0 1px @lsu_drop;
+}
+
+/* ============================================================
+ * 6. ENTRIES, SPINBUTTONS, SEARCH
+ * ============================================================ */
+
+entry,
+spinbutton:not(.vertical) {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    border-radius: 5px;
+    box-shadow: none;
+    caret-color: @lsu_accent;
+    -gtk-secondary-caret-color: @lsu_border;
+}
+
+entry:focus,
+spinbutton:focus:not(.vertical) {
+    border-color: @lsu_accent;
+    box-shadow: inset 0 0 0 1px @lsu_accent;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+}
+
+entry:disabled,
+spinbutton:disabled:not(.vertical) {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_base_color;
+    background-image: none;
+    border-color: @lsu_border_dim;
+    box-shadow: none;
+}
+
+entry:backdrop,
+spinbutton:backdrop:not(.vertical) {
+    color: @theme_unfocused_text_color;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border-color: @unfocused_borders;
+    box-shadow: none;
+}
+
+entry image,
+entry image.left,
+entry image.right {
+    color: @lsu_text_dim;
+}
+
+entry image:hover {
+    color: @lsu_accent;
+}
+
+entry.error,
+entry.error:focus {
+    color: @lsu_text;
+    border-color: @lsu_red;
+    box-shadow: inset 0 0 0 1px @lsu_red;
+}
+
+entry.error selection,
+spinbutton.error:not(.vertical) selection {
+    background-color: @lsu_red;
+    color: @lsu_text;
+}
+
+entry.warning,
+entry.warning:focus {
+    color: @lsu_text;
+    border-color: @lsu_yellow;
+    box-shadow: inset 0 0 0 1px @lsu_yellow;
+}
+
+entry.warning selection,
+spinbutton.warning:not(.vertical) selection {
+    background-color: @lsu_yellow;
+    color: @lsu_bg;
+}
+
+entry progress,
+entry progress trough {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+}
+
+entry progress progress {
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+/* Search entry: Nemo's "search files" field, GTK file chooser search. */
+entry.search,
+entry.search:focus {
+    border-radius: 5px;
+}
+
+/* Spinbutton +/- affordances. */
+spinbutton button,
+spinbutton button.up,
+spinbutton button.down {
+    color: @lsu_text;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+spinbutton button:hover {
+    color: @lsu_accent;
+    background-color: transparent;
+    background-image: none;
+}
+
+spinbutton button:active {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+spinbutton button:disabled {
+    color: @insensitive_fg_color;
+}
+
+/* Placeholder/completion popup for entries. */
+window.background.csd > entry,
+entry.flat {
+    background-image: none;
+}
+
+/* ============================================================
+ * 7. LISTS, ROWS, TREEVIEW, ICONVIEW, FLOWBOX
+ * The single most important group for Nemo's list and icon views.
+ * ============================================================ */
+
+list,
+list.frame {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    border-color: @lsu_border_dim;
+}
+
+list:backdrop {
+    color: @theme_unfocused_text_color;
+    background-color: @lsu_bg_dark;
+    border-color: @unfocused_borders;
+}
+
+row {
+    color: @lsu_text;
+}
+
+row.activatable:hover,
+row.activatable.has-open-popup {
+    background-color: @lsu_bg_light;
+}
+
+row.activatable:active {
+    background-color: @lsu_bg_active;
+    box-shadow: none;
+}
+
+row.activatable:selected:hover,
+row.activatable:selected.has-open-popup {
+    background-color: @lsu_accent_hot;
+    color: @lsu_bg;
+}
+
+row.activatable:selected:active {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+    box-shadow: none;
+}
+
+row.activatable:selected:backdrop {
+    background-color: @lsu_accent_dim;
+    color: @lsu_bg;
+}
+
+row:disabled {
+    color: @insensitive_fg_color;
+}
+
+/* Tree view body. */
+treeview.view {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    border-left-color: @lsu_border_dim;
+    border-top-color: @lsu_bg_light;
+    outline-color: alpha(@lsu_accent, 0.5);
+}
+
+treeview.view:hover {
+    background-color: @lsu_bg_light;
+}
+
+treeview.view:selected:hover {
+    background-color: @lsu_accent_hot;
+    color: @lsu_bg;
+}
+
+treeview.view:selected,
+treeview.view:selected:focus {
+    border-left-color: alpha(@lsu_bg, 0.25);
+    border-top-color: alpha(@lsu_bg, 0.15);
+    border-radius: 0;
+}
+
+treeview.view:disabled          { color: @insensitive_fg_color; }
+treeview.view:disabled:selected { color: alpha(@lsu_bg, 0.6); }
+
+treeview.view.separator {
+    color: @lsu_border_dim;
+    background-color: @lsu_border_dim;
+}
+
+treeview.view:drop(active) {
+    border-color: @lsu_drop;
+    border-style: solid none;
+    border-width: 1px;
+}
+
+/* Expander triangles in the tree / places sidebar. */
+treeview.view.expander           { color: @lsu_text_dim; }
+treeview.view.expander:hover     { color: @lsu_accent; }
+treeview.view.expander:selected  { color: @lsu_bg; }
+treeview.view.expander:selected:hover { color: @lsu_bg; }
+treeview.view.expander:backdrop  { color: alpha(@lsu_text, 0.35); }
+
+/* Column headers: Nemo's Name / Size / Type / Modified bar. */
+treeview.view header button,
+treeview.view header button:hover,
+treeview.view header button:active {
+    color: @lsu_text_dim;
+    background-color: @lsu_bg;
+    background-image: none;
+    border-style: none solid solid none;
+    border-color: @lsu_border_dim;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+    font-weight: bold;
+}
+
+treeview.view header button:hover  { color: @lsu_text; background-color: @lsu_bg_light; }
+treeview.view header button:active { color: @lsu_accent; }
+
+treeview.view header button:disabled {
+    color: @insensitive_fg_color;
+    background-color: @lsu_bg;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+treeview.view header button:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg;
+    background-image: none;
+    border-color: @unfocused_borders;
+}
+
+treeview.view header button:last-child {
+    border-right-style: none;
+}
+
+/* Column drag indicator while reordering headers. */
+treeview.view button.dnd,
+treeview.view header.button.dnd {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-style: none;
+    box-shadow: inset 0 0 0 1px @lsu_bg_dark;
+}
+
+/* In-cell progress (Nemo shows deep-count / copy progress in cells). */
+treeview.view.progressbar {
+    background-color: @lsu_accent;
+    background-image: none;
+    box-shadow: none;
+}
+
+treeview.view.progressbar:selected {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+}
+
+treeview.view.trough {
+    background-color: alpha(@lsu_text, 0.12);
+}
+
+treeview.view.trough:selected {
+    background-color: alpha(@lsu_bg, 0.35);
+}
+
+/* In-place rename editor inside a tree/icon view. */
+treeview entry,
+treeview entry.flat,
+treeview entry:focus {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border-radius: 0;
+    border-color: @lsu_accent;
+}
+
+/* Icon and flow views. */
+iconview:selected,
+iconview:selected:focus {
+    border-radius: 3px;
+}
+
+flowbox flowboxchild {
+    border-radius: 3px;
+    outline-color: alpha(@lsu_accent, 0.5);
+}
+
+flowbox flowboxchild:selected {
+    outline-color: alpha(@lsu_bg, 0.6);
+}
+
+/* ============================================================
+ * 8. SIDEBARS AND PLACES LISTS
+ * ============================================================ */
+
+.sidebar,
+stacksidebar.sidebar {
+    color: @lsu_text;
+    background-color: @lsu_bg_sidebar;
+    border-style: none;
+}
+
+.sidebar:backdrop {
+    background-color: @lsu_bg_sidebar;
+    border-color: @unfocused_borders;
+}
+
+.sidebar list,
+stacksidebar.sidebar list {
+    background-color: transparent;
+}
+
+.sidebar:not(separator):dir(ltr),
+.sidebar:not(separator).left,
+stacksidebar.sidebar:dir(ltr) list,
+stacksidebar.sidebar.left list {
+    border-right: 1px solid @lsu_border_dim;
+    border-left-style: none;
+}
+
+.sidebar:not(separator):dir(rtl),
+.sidebar:not(separator).right,
+stacksidebar.sidebar:dir(rtl) list,
+stacksidebar.sidebar.right list {
+    border-left: 1px solid @lsu_border_dim;
+    border-right-style: none;
+}
+
+separator.sidebar {
+    background-color: @lsu_border_dim;
+}
+
+placessidebar,
+placessidebar list {
+    background-color: @lsu_bg_sidebar;
+}
+
+placessidebar > viewport.frame {
+    border-style: none;
+    background-color: @lsu_bg_sidebar;
+}
+
+placessidebar row {
+    color: @lsu_text;
+    min-height: 32px;
+}
+
+placessidebar row:hover {
+    background-color: @lsu_bg_light;
+}
+
+placessidebar row:selected {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+}
+
+placessidebar row:selected:hover {
+    background-color: @lsu_accent_hot;
+}
+
+placessidebar row:disabled {
+    color: @insensitive_fg_color;
+}
+
+placessidebar row:backdrop {
+    color: @theme_unfocused_fg_color;
+}
+
+placessidebar row:backdrop:selected {
+    color: @lsu_bg;
+    background-color: @lsu_accent_dim;
+}
+
+placessidebar row image.sidebar-icon {
+    color: @lsu_accent;
+    opacity: 0.85;
+}
+
+placessidebar row:selected image.sidebar-icon {
+    color: @lsu_bg;
+    opacity: 1;
+}
+
+placessidebar row.sidebar-new-bookmark-row {
+    color: @lsu_accent;
+}
+
+placessidebar row.sidebar-placeholder-row {
+    background-image: image(@lsu_drop);
+}
+
+placessidebar row:drop(active):not(:disabled) {
+    color: @lsu_drop;
+    box-shadow: inset 0 1px @lsu_drop, inset 0 -1px @lsu_drop;
+}
+
+placessidebar row:drop(active):not(:disabled):selected {
+    color: @lsu_bg;
+    background-color: @lsu_drop;
+}
+
+/* ============================================================
+ * 9. HEADERBARS, TITLEBARS, TOOLBARS, ACTION BARS, PATHBARS
+ * ============================================================ */
+
+headerbar,
+.titlebar:not(headerbar) {
+    color: @lsu_text;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-bottom: 1px solid @lsu_border;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+headerbar:backdrop,
+.titlebar:not(headerbar):backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-bottom-color: @unfocused_borders;
+}
+
+headerbar .title {
+    color: @lsu_text;
+    font-weight: bold;
+}
+
+headerbar .subtitle {
+    color: @lsu_text_dim;
+}
+
+headerbar separator {
+    background-color: @lsu_border_dim;
+}
+
+headerbar entry,
+headerbar spinbutton,
+headerbar button {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+/* CSD window frame + shadow. */
+decoration {
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 3px 9px 1px @lsu_shadow,
+                0 0 0 1px @lsu_border_dim;
+}
+
+decoration:backdrop {
+    box-shadow: 0 2px 6px 1px alpha(#000000, 0.3),
+                0 0 0 1px @unfocused_borders;
+}
+
+.solid-csd decoration {
+    border-radius: 0;
+    box-shadow: none;
+    background-color: @lsu_bg_header;
+}
+
+/* Toolbars. `primary-toolbar` is Nemo's main toolbar class. */
+toolbar,
+.toolbar,
+.primary-toolbar,
+toolbar.primary-toolbar {
+    color: @lsu_text;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+toolbar:backdrop,
+.toolbar:backdrop,
+.primary-toolbar:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg_header;
+    background-image: none;
+}
+
+.inline-toolbar,
+toolbar.inline-toolbar {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    border-top-style: none;
+}
+
+searchbar > revealer > box,
+.search-bar {
+    color: @lsu_text;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-bottom: 1px solid @lsu_border_dim;
+    box-shadow: none;
+}
+
+actionbar > revealer > box {
+    color: @lsu_text;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-top: 1px solid @lsu_border_dim;
+}
+
+/* Statusbar. */
+statusbar,
+.statusbar {
+    color: @lsu_text_dim;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-top: 1px solid @lsu_border_dim;
+    padding: 2px 6px;
+}
+
+/* Breadcrumb / path bar. Linked buttons that show the current folder. */
+.path-bar button,
+.path-bar button.text-button,
+.path-bar button.image-button {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+    background-image: none;
+    border-color: @lsu_border_dim;
+    box-shadow: none;
+}
+
+.path-bar button:hover {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+}
+
+.path-bar button:checked,
+.path-bar button:active {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+}
+
+.path-bar button:checked label,
+.path-bar button:active label {
+    color: @lsu_bg;
+}
+
+.path-bar button:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+}
+
+.path-bar button.slider-button {
+    background-color: @lsu_bg_header;
+    background-image: none;
+}
+
+filechooser #pathbarbox {
+    border-bottom: 1px solid @lsu_border_dim;
+    background-color: @lsu_bg_header;
+}
+
+filechooser stack.view,
+filechooser .dialog-action-box {
+    background-color: @lsu_bg;
+}
+
+/* ============================================================
+ * 10. NOTEBOOKS AND STACK SWITCHERS
+ * The general notebook/tab colours are set by the preserved
+ * qalculate section at the end of this file (its selectors are
+ * global, on-palette, and land later in document order). Only
+ * the parts it does not cover are handled here.
+ * ============================================================ */
+
+notebook > header > tabs > tab:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg_header;
+}
+
+notebook > header > tabs > tab button.flat,
+notebook > header > tabs > tab button.close-button {
+    color: @lsu_text_dim;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    padding: 0;
+}
+
+notebook > header > tabs > tab button.flat:hover,
+notebook > header > tabs > tab button.close-button:hover {
+    color: @lsu_red;
+    background-color: transparent;
+}
+
+notebook > header > tabs > tab:checked button.flat {
+    color: @lsu_text;
+}
+
+notebook > header.top    { box-shadow: inset 0 -1px @lsu_border_dim; }
+notebook > header.bottom { box-shadow: inset 0  1px @lsu_border_dim; }
+
+stackswitcher button {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+}
+
+stackswitcher button:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+stackswitcher button.needs-attention > label {
+    color: @lsu_accent;
+}
+
+/* ============================================================
+ * 11. MENUS, POPOVERS, CONTEXT MENUS
+ * Nemo's right-click menus live here.
+ * ============================================================ */
+
+menubar,
+.menubar {
+    color: @lsu_text;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    box-shadow: none;
+    border-bottom: 1px solid @lsu_border_dim;
+}
+
+menubar > menuitem {
+    color: @lsu_text;
+    background-color: transparent;
+    padding: 4px 8px;
+}
+
+menubar > menuitem:hover {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    box-shadow: none;
+}
+
+menubar > menuitem:disabled {
+    color: @insensitive_fg_color;
+}
+
+menu,
+.menu,
+.context-menu,
+popover.background menu {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 5px;
+    padding: 2px 0;
+}
+
+menu menuitem,
+.menu menuitem {
+    color: @lsu_text;
+    background-color: transparent;
+    min-height: 20px;
+    padding: 4px 8px;
+    text-shadow: none;
+}
+
+menu menuitem:hover,
+.menu menuitem:hover {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+menu menuitem:disabled,
+.menu menuitem:disabled {
+    color: @insensitive_fg_color;
+}
+
+menu menuitem:backdrop,
+.menu menuitem:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: transparent;
+}
+
+menu menuitem:backdrop:disabled,
+.menu menuitem:backdrop:disabled {
+    color: @unfocused_insensitive_color;
+}
+
+menu menuitem arrow,
+menu menuitem check,
+menu menuitem radio {
+    color: @lsu_text;
+}
+
+menu menuitem:hover arrow,
+menu menuitem:hover check,
+menu menuitem:hover radio {
+    color: @lsu_bg;
+}
+
+menu separator,
+.menu separator {
+    background-color: @lsu_border_dim;
+    margin: 2px 0;
+}
+
+menu > arrow {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    border-color: transparent;
+}
+
+menu > arrow:hover {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+}
+
+menu > arrow:disabled {
+    color: transparent;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+popover,
+popover.background {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px @lsu_shadow;
+    padding: 2px;
+}
+
+popover.background:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg_dark;
+    border-color: @unfocused_borders;
+}
+
+popover.background separator {
+    background-color: @lsu_border_dim;
+}
+
+popover.background label.separator {
+    color: @lsu_text_dim;
+}
+
+popover.background list,
+popover.background listview,
+popover.background scrolledwindow {
+    background-color: transparent;
+}
+
+modelbutton.flat,
+.menuitem.button.flat {
+    color: @lsu_text;
+    background-color: transparent;
+    background-image: none;
+    border-radius: 4px;
+    min-height: 26px;
+    padding: 4px 8px;
+    outline-color: alpha(@lsu_accent, 0.5);
+}
+
+modelbutton.flat:hover,
+.menuitem.button.flat:hover {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+modelbutton.flat:disabled,
+.menuitem.button.flat:disabled {
+    color: @insensitive_fg_color;
+}
+
+modelbutton.flat arrow.left  { -gtk-icon-source: -gtk-icontheme("pan-start-symbolic"); }
+modelbutton.flat arrow.right { -gtk-icon-source: -gtk-icontheme("pan-end-symbolic"); }
+
+/* Popover-hosted OSD variants (touch selection, magnifier). */
+.osd popover,
+popover.background.osd,
+.csd popover.background.osd {
+    color: @lsu_text;
+    background-color: alpha(@lsu_bg_dark, 0.92);
+    border-color: @lsu_border_dim;
+}
+
+/* ============================================================
+ * 12. SCROLLBARS, SCROLLED WINDOWS, PANES, SEPARATORS, FRAMES
+ * ============================================================ */
+
+scrollbar,
+scrollbar.horizontal,
+scrollbar.vertical {
+    background-color: @lsu_bg_dark;
+    border-color: @lsu_border_dim;
+}
+
+scrollbar trough {
+    background-color: transparent;
+    border: none;
+}
+
+scrollbar slider {
+    color: @lsu_text;
+    background-color: @lsu_slider;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    min-width: 8px;
+    min-height: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: @lsu_slider_hover;
+}
+
+scrollbar slider:active {
+    background-color: @lsu_border;
+}
+
+scrollbar slider:disabled {
+    background-color: alpha(@lsu_text, 0.15);
+}
+
+scrollbar:backdrop slider,
+scrollbar slider:backdrop {
+    background-color: alpha(@lsu_accent, 0.35);
+}
+
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider {
+    background-color: alpha(@lsu_accent, 0.7);
+}
+
+scrollbar button {
+    color: @lsu_text_dim;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+}
+
+scrollbar button:hover  { color: @lsu_accent; }
+scrollbar button:active { color: @lsu_border; }
+
+treeview ~ scrollbar.vertical {
+    border-top: 1px solid @lsu_border_dim;
+}
+
+scrolledwindow viewport.frame {
+    border-style: none;
+}
+
+scrolledwindow overshoot.top,
+scrolledwindow overshoot.bottom,
+scrolledwindow overshoot.left,
+scrolledwindow overshoot.right {
+    background-image: none;
+    background-color: alpha(@lsu_accent, 0.12);
+}
+
+scrolledwindow undershoot.top,
+scrolledwindow undershoot.bottom,
+scrolledwindow undershoot.left,
+scrolledwindow undershoot.right {
+    background-image: none;
+    background-color: transparent;
+}
+
+paned > separator {
+    background-color: @lsu_border_dim;
+    background-image: none;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+paned > separator:hover,
+paned > separator:selected {
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+paned > separator.wide {
+    background-color: @lsu_bg;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+separator {
+    background-color: @lsu_border_dim;
+    color: @lsu_border_dim;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+frame > border,
+.frame {
+    border: 1px solid @lsu_border_dim;
+    box-shadow: none;
+}
+
+frame > border.flat,
+.frame.flat {
+    border-style: none;
+}
+
+viewport {
+    background-color: @lsu_bg;
+}
+
+expander title > label {
+    color: @lsu_text;
+}
+
+expander arrow {
+    color: @lsu_text_dim;
+    -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+}
+
+expander arrow:hover    { color: @lsu_accent; }
+expander arrow:checked  { -gtk-icon-source: -gtk-icontheme("pan-down-symbolic"); }
+
+/* ============================================================
+ * 13. CHECKS, RADIOS, SWITCHES, SCALES, PROGRESS, SPINNERS
+ * Adwaita supplies the icon assets; only the colours change.
+ * ============================================================ */
+
+check,
+radio {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    box-shadow: none;
+}
+
+check:hover,
+radio:hover {
+    border-color: @lsu_border;
+    background-color: @lsu_bg_light;
+    background-image: none;
+}
+
+check:checked,
+check:indeterminate,
+radio:checked,
+radio:indeterminate {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+}
+
+check:disabled,
+radio:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+check:checked:disabled,
+radio:checked:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+}
+
+check:backdrop,
+radio:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border-color: @unfocused_borders;
+}
+
+check:backdrop:checked,
+radio:backdrop:checked,
+check:backdrop:indeterminate,
+radio:backdrop:indeterminate {
+    color: @lsu_bg;
+    background-color: @lsu_accent_dim;
+    background-image: none;
+    border-color: @lsu_accent_dim;
+}
+
+/* Inside a selected row the accent is the row colour; invert. */
+treeview.view check:selected,
+treeview.view radio:selected,
+row:selected check,
+row:selected radio {
+    color: @lsu_bg;
+    border-color: @lsu_bg;
+}
+
+switch {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    border-radius: 14px;
+    color: @lsu_text;
+    box-shadow: none;
+}
+
+switch:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+switch:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+switch:backdrop {
+    color: @theme_unfocused_fg_color;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border-color: @unfocused_borders;
+}
+
+switch:backdrop:checked {
+    color: @lsu_bg;
+    background-color: @lsu_accent_dim;
+    background-image: none;
+    border-color: @lsu_accent_dim;
+}
+
+switch:backdrop slider {
+    background-color: @theme_unfocused_text_color;
+    background-image: none;
+    border-color: @unfocused_borders;
+}
+
+switch slider {
+    background-color: @lsu_text;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+switch:checked slider {
+    background-color: @lsu_bg;
+    background-image: none;
+    border-color: @lsu_bg;
+}
+
+switch:disabled slider {
+    background-color: @insensitive_fg_color;
+    background-image: none;
+}
+
+scale trough {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+scale highlight,
+scale fill {
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+    border-radius: 4px;
+}
+
+scale slider {
+    background-color: @lsu_text;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 50%;
+    box-shadow: none;
+}
+
+scale slider:hover {
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+scale slider:disabled {
+    background-color: @insensitive_fg_color;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+scale value,
+scale marks label {
+    color: @lsu_text_dim;
+}
+
+progressbar {
+    color: @lsu_text_dim;
+}
+
+progressbar trough {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    border-radius: 4px;
+}
+
+progressbar progress {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border: none;
+    border-radius: 4px;
+}
+
+progressbar:disabled progress,
+progressbar progress:disabled {
+    background-color: @insensitive_fg_color;
+    background-image: none;
+}
+
+progressbar:backdrop progress,
+progressbar progress:backdrop {
+    background-color: @lsu_accent_dim;
+    background-image: none;
+}
+
+progressbar.osd trough  { background-color: alpha(@lsu_bg_dark, 0.8); border: none; }
+progressbar.osd progress { background-color: @lsu_accent; }
+
+levelbar block.filled,
+levelbar block.high {
+    color: @lsu_text;
+    background-color: @lsu_green;
+    background-image: none;
+    border-color: @lsu_green;
+}
+
+levelbar block.low {
+    background-color: @lsu_yellow;
+    background-image: none;
+    border-color: @lsu_yellow;
+}
+
+levelbar block.full {
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+}
+
+levelbar block.empty {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+spinner {
+    color: @lsu_accent;
+}
+
+/* ============================================================
+ * 14. TOOLTIPS, INFO BARS, OVERLAYS
+ * ============================================================ */
+
+tooltip,
+tooltip.background,
+.tooltip {
+    color: @lsu_text;
+    background-color: @lsu_bg_tooltip;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px @lsu_shadow;
+    text-shadow: none;
+}
+
+tooltip label,
+tooltip.background label,
+.tooltip label {
+    color: @lsu_text;
+    background-color: transparent;
+    padding: 4px;
+}
+
+tooltip decoration {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+infobar {
+    border-bottom: 1px solid @lsu_border_dim;
+}
+
+infobar.info,
+infobar.question {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+}
+
+infobar.warning {
+    color: @lsu_bg;
+    background-color: @lsu_yellow;
+    background-image: none;
+}
+
+infobar.error {
+    color: @lsu_text;
+    background-color: @lsu_critical;
+    background-image: none;
+}
+
+infobar.info *:link,
+infobar.question *:link,
+infobar.warning *:link,
+infobar.error *:link {
+    color: @link_color;
+}
+
+infobar.warning *:link {
+    color: @lsu_magenta;
+}
+
+.osd,
+.osd .toolbar {
+    color: @lsu_text;
+    background-color: alpha(@lsu_bg_dark, 0.9);
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+/* ============================================================
+ * 15. CALENDAR, COLOR CHOOSER, ASSISTANT, MISC DIALOG CHROME
+ * ============================================================ */
+
+calendar {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    border: 1px solid @lsu_border_dim;
+}
+
+calendar:selected {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+    border-radius: 3px;
+}
+
+calendar.header {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+    border-bottom: 1px solid @lsu_border_dim;
+}
+
+calendar.button        { color: @lsu_text_dim; background-image: none; }
+calendar.button:hover  { color: @lsu_accent; }
+calendar.highlight     { color: @lsu_accent; font-weight: bold; }
+calendar:indeterminate { color: @insensitive_fg_color; }
+
+colorswatch.color-dark  { color: @lsu_text; }
+colorswatch.color-light { color: @lsu_bg; }
+
+colorswatch overlay {
+    border: 1px solid @lsu_border_dim;
+}
+
+colorswatch:hover overlay {
+    border-color: @lsu_accent;
+}
+
+row:selected colorswatch {
+    box-shadow: 0 0 0 2px @lsu_bg;
+}
+
+assistant .sidebar {
+    background-color: @lsu_bg_dark;
+    border-top: 1px solid @lsu_border_dim;
+}
+
+assistant .sidebar label.highlight {
+    background-color: @lsu_bg_light;
+    color: @lsu_accent;
+}
+
+.keycap {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    border: 1px solid @lsu_border_dim;
+    box-shadow: inset 0 -3px @lsu_bg_dark;
+}
+
+/* Drop-target highlight, theme-wide. */
+:not(decoration):not(window):drop(active),
+:not(decoration):not(window):drop(active):focus {
+    border-color: @lsu_drop;
+    box-shadow: inset 0 0 0 1px @lsu_drop;
+    caret-color: @lsu_drop;
+}
+
+/* ============================================================
+ * 16. DIALOGS
+ * Kept intentionally light: the preserved qalculate section at
+ * the end of this file carries global `dialog ...` rules in the
+ * same palette that land later in document order. Only the
+ * pieces it does not touch are set here.
+ * ============================================================ */
+
+messagedialog .dialog-action-area button {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+messagedialog .dialog-action-area button:hover {
+    background-color: @lsu_bg_hover;
+    background-image: none;
+}
+
+messagedialog .dialog-action-area button.suggested-action {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+}
+
+messagedialog .dialog-action-area button.destructive-action {
+    color: @lsu_text;
+    background-color: @lsu_critical;
+    background-image: none;
+}
+
+/* ============================================================
+ * 17. NEMO (nemo 6.6)
+ * Nemo is one of the two daily drivers, so it gets first-class
+ * coverage. Class names below were read out of the nemo binary:
+ *   .nemo-window            toplevel
+ *   .nemo-window-pane       one pane of a split view
+ *   .nemo-inactive-pane     the non-focused pane in dual-pane mode
+ *   .nemo-places-sidebar    the places tree (a GtkTreeView, NOT
+ *                           a GtkPlacesSidebar - section 8 does
+ *                           not reach it)
+ *   .nemo-desktop-window / .nemo-desktop-icon-view   desktop mode
+ *   .nemo-canvas-item       icon-view item label
+ *   .nemo-cluebar-label     trash / thumbnail / x-content notice bars
+ *   #nemo-tab-close-button  per-tab close affordance (a widget NAME,
+ *                           not a class - it is set with gtk_widget_set_name)
+ *   .primary-toolbar        the main toolbar
+ *   .floating-bar           the overlay showing selection info
+ * Each name was checked against /usr/bin/nemo 6.6.4 by disassembly, so
+ * the class-vs-name distinction above is verified, not guessed - every
+ * entry is an argument to gtk_style_context_add_class except
+ * #nemo-tab-close-button, which goes to gtk_widget_set_name.
+ *
+ * Section 17 is refinement, not foundation: even if a future Nemo drops
+ * one of these classes, sections 2-16 already cover every widget Nemo
+ * uses (toolbar, pathbar, sidebar, treeview, iconview, tabs, statusbar,
+ * menus, popovers) on-palette. Nothing here is load-bearing.
+ *
+ * All rules are scoped to Nemo and therefore cannot reach qalculate.
+ * ============================================================ */
+
+/* --- window shell --- */
+.nemo-window,
+.nemo-window.background {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+}
+
+.nemo-window-pane {
+    background-color: @lsu_bg;
+}
+
+/* Dual-pane mode: dim the pane that does not have focus.
+ * Scoped through .nemo-window so it outranks the `.nemo-window .view`
+ * rule further down in this section, which is equally specific but later. */
+.nemo-window .nemo-inactive-pane .view,
+.nemo-window .nemo-inactive-pane treeview.view,
+.nemo-window .nemo-inactive-pane iconview {
+    background-color: shade(@lsu_bg_dark, 1.15);
+}
+
+.nemo-window .nemo-inactive-pane .view:selected,
+.nemo-window .nemo-inactive-pane treeview.view:selected {
+    background-color: @lsu_accent_dim;
+    color: @lsu_bg;
+}
+
+/* --- toolbar and breadcrumb pathbar --- */
+.nemo-window toolbar,
+.nemo-window .primary-toolbar,
+.nemo-window toolbar.primary-toolbar {
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-bottom: 1px solid @lsu_border_dim;
+    box-shadow: none;
+    padding: 3px 4px;
+}
+
+.nemo-window toolbar button,
+.nemo-window .primary-toolbar button {
+    color: @lsu_text;
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.nemo-window toolbar button:hover,
+.nemo-window .primary-toolbar button:hover {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+.nemo-window toolbar button:active,
+.nemo-window toolbar button:checked,
+.nemo-window .primary-toolbar button:checked {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+}
+
+.nemo-window toolbar button:disabled,
+.nemo-window .primary-toolbar button:disabled {
+    color: @insensitive_fg_color;
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+}
+
+.nemo-window .path-bar,
+.nemo-window .path-bar.linked {
+    background-color: transparent;
+}
+
+.nemo-window .path-bar button {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    box-shadow: none;
+}
+
+.nemo-window .path-bar button:hover {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border-color: @lsu_border;
+}
+
+/* The current folder is the checked crumb. */
+.nemo-window .path-bar button:checked,
+.nemo-window .path-bar button:checked:hover {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+    font-weight: bold;
+}
+
+.nemo-window .path-bar button:checked label {
+    color: @lsu_bg;
+}
+
+.nemo-window .path-bar button:disabled {
+    color: @insensitive_fg_color;
+    background-color: @insensitive_bg_color;
+    background-image: none;
+}
+
+/* Typed-location entry (Ctrl+L) and the search field. */
+.nemo-window entry,
+.nemo-window entry.search,
+.nemo-window .search-bar entry {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    caret-color: @lsu_accent;
+}
+
+.nemo-window entry:focus,
+.nemo-window entry.search:focus {
+    border-color: @lsu_accent;
+    box-shadow: inset 0 0 0 1px @lsu_accent;
+}
+
+.nemo-window entry selection {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+.nemo-window entry image {
+    color: @lsu_text_dim;
+}
+
+/* --- places sidebar (a treeview named nemo-places-sidebar) --- */
+.nemo-places-sidebar,
+.nemo-window .sidebar {
+    color: @lsu_text;
+    background-color: @lsu_bg_sidebar;
+    border-right: 1px solid @lsu_border_dim;
+}
+
+.nemo-places-sidebar.view,
+.nemo-places-sidebar treeview.view {
+    background-color: @lsu_bg_sidebar;
+    color: @lsu_text;
+}
+
+.nemo-places-sidebar.view:hover {
+    background-color: @lsu_bg_light;
+}
+
+.nemo-places-sidebar.view:selected,
+.nemo-places-sidebar.view:selected:focus,
+.nemo-places-sidebar treeview.view:selected {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+.nemo-places-sidebar.view:backdrop:selected {
+    background-color: @lsu_accent_dim;
+    color: @lsu_bg;
+}
+
+/* Section headings ("Devices", "Network", "Bookmarks"). */
+.nemo-places-sidebar .view.separator {
+    color: @lsu_border_dim;
+}
+
+.nemo-places-sidebar .expander {
+    color: @lsu_text_dim;
+}
+
+.nemo-places-sidebar .expander:selected {
+    color: @lsu_bg;
+}
+
+/* Space-used level bars next to mounted volumes. */
+.nemo-places-sidebar levelbar block.filled {
+    background-color: @lsu_accent;
+    border-color: @lsu_accent;
+}
+
+/* Sidebar "hide" button and the sidebar chooser at its foot. */
+.nemo-window .sidebar button {
+    color: @lsu_text_dim;
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+}
+
+.nemo-window .sidebar button:hover {
+    color: @lsu_accent;
+    background-color: @lsu_bg_light;
+    background-image: none;
+}
+
+/* --- main file views: list/tree and icon/compact --- */
+.nemo-window .view,
+.nemo-window treeview.view,
+.nemo-window iconview,
+.nemo-window .nemo-default-view {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+}
+
+.nemo-window treeview.view:hover,
+.nemo-window iconview:hover {
+    background-color: @lsu_bg_light;
+}
+
+.nemo-window .view:selected,
+.nemo-window .view:selected:focus,
+.nemo-window treeview.view:selected,
+.nemo-window treeview.view:selected:focus,
+.nemo-window iconview:selected,
+.nemo-window iconview:selected:focus {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+.nemo-window .view:backdrop:selected,
+.nemo-window treeview.view:backdrop:selected,
+.nemo-window iconview:backdrop:selected {
+    background-color: @lsu_accent_dim;
+    color: @lsu_bg;
+}
+
+/* Icon-view item labels (EelCanvas draws these from the style context). */
+.nemo-canvas-item {
+    color: @lsu_text;
+    background-color: transparent;
+    border-radius: 3px;
+}
+
+.nemo-canvas-item:selected,
+.nemo-canvas-item:selected:focus {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+}
+
+/* List-view column headers. */
+.nemo-window treeview.view header button,
+.nemo-window treeview.view header button:hover,
+.nemo-window treeview.view header button:active {
+    color: @lsu_text_dim;
+    background-color: @lsu_bg;
+    background-image: none;
+    border-color: @lsu_border_dim;
+    border-style: none solid solid none;
+    box-shadow: none;
+}
+
+.nemo-window treeview.view header button:hover {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+}
+
+/* Inline rename inside a view. */
+.nemo-window treeview entry,
+.nemo-window iconview entry,
+.nemo-window .view entry {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_accent;
+    caret-color: @lsu_accent;
+}
+
+/* Drag-and-drop onto a folder row. */
+.nemo-window treeview.view:drop(active),
+.nemo-window iconview:drop(active) {
+    border-color: @lsu_drop;
+    box-shadow: inset 0 0 0 1px @lsu_drop;
+}
+
+/* --- tabs --- */
+.nemo-window notebook > header {
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-bottom: 1px solid @lsu_border_dim;
+}
+
+.nemo-window notebook > header > tabs > tab {
+    color: @lsu_text_dim;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 4px 4px 0 0;
+    padding: 5px 10px;
+}
+
+.nemo-window notebook > header > tabs > tab:hover {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+}
+
+.nemo-window notebook > header > tabs > tab:checked {
+    color: @lsu_text;
+    background-color: @lsu_bg;
+    border-bottom: 2px solid @lsu_accent;
+}
+
+#nemo-tab-close-button,
+.nemo-window notebook tab button.flat {
+    color: @lsu_text_dim;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    padding: 0;
+    min-width: 16px;
+    min-height: 16px;
+}
+
+#nemo-tab-close-button:hover,
+.nemo-window notebook tab button.flat:hover {
+    color: @lsu_red;
+    background-color: transparent;
+}
+
+#nemo-tab-close-button:backdrop,
+.nemo-window notebook tab button.flat:backdrop,
+.nemo-window notebook tab button.flat:disabled {
+    color: @theme_unfocused_fg_color;
+    background-color: transparent;
+    background-image: none;
+}
+
+/* --- statusbar and the floating selection-info bar --- */
+.nemo-window statusbar,
+.nemo-window .statusbar {
+    color: @lsu_text_dim;
+    background-color: @lsu_bg_header;
+    background-image: none;
+    border-top: 1px solid @lsu_border_dim;
+    padding: 2px 6px;
+}
+
+.nemo-window statusbar label,
+.nemo-window .statusbar label {
+    color: @lsu_text_dim;
+}
+
+/* Zoom slider in the statusbar. */
+.nemo-window statusbar scale trough {
+    background-color: @lsu_bg_dark;
+    border-color: @lsu_border_dim;
+}
+
+.nemo-window statusbar scale highlight {
+    background-color: @lsu_accent;
+}
+
+.floating-bar,
+.nemo-window .floating-bar {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 4px 4px 0 0;
+    padding: 2px 8px;
+}
+
+.floating-bar label,
+.nemo-window .floating-bar label {
+    color: @lsu_text;
+}
+
+.floating-bar button,
+.nemo-window .floating-bar button {
+    color: @lsu_text_dim;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+}
+
+.floating-bar button:hover,
+.nemo-window .floating-bar button:hover {
+    color: @lsu_accent;
+}
+
+/* --- notice bars: trash, "this folder is a template", thumbnails --- */
+.nemo-cluebar-label,
+.nemo-window infobar label {
+    color: @lsu_text;
+}
+
+.nemo-window infobar,
+.nemo-window infobar.info {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border-bottom: 1px solid @lsu_border_dim;
+}
+
+.nemo-window infobar.warning {
+    color: @lsu_bg;
+    background-color: @lsu_yellow;
+    background-image: none;
+}
+
+.nemo-window infobar.warning label {
+    color: @lsu_bg;
+}
+
+.nemo-window infobar.error {
+    color: @lsu_text;
+    background-color: @lsu_critical;
+    background-image: none;
+}
+
+/* --- context menus --- */
+.nemo-window menu,
+.nemo-window .context-menu,
+menu.nemo-menu {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    border: 1px solid @lsu_border;
+}
+
+.nemo-window menu menuitem:hover,
+menu.nemo-menu menuitem:hover {
+    color: @lsu_bg;
+    background-color: @lsu_accent;
+}
+
+/* --- progress popover (copy / move / delete) --- */
+.nemo-window popover,
+.nemo-window popover.background {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    border: 1px solid @lsu_border;
+}
+
+.nemo-window popover progressbar trough {
+    background-color: @lsu_bg;
+    border-color: @lsu_border_dim;
+}
+
+.nemo-window popover progressbar progress {
+    background-color: @lsu_accent;
+}
+
+.nemo-window popover label {
+    color: @lsu_text;
+}
+
+.nemo-window popover button {
+    color: @lsu_text;
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border-color: @lsu_border_dim;
+}
+
+.nemo-window popover button:hover {
+    background-color: @lsu_bg_hover;
+    background-image: none;
+}
+
+/* --- desktop mode (unused under Hyprland, kept for completeness) --- */
+.nemo-desktop-window,
+.nemo-desktop-icon-view {
+    background-color: transparent;
+    color: @lsu_text;
+    text-shadow: 1px 1px 3px @lsu_bg_dark;
+}
+
+.nemo-desktop-icon-view .nemo-canvas-item:selected {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+    text-shadow: none;
+}
+
+/* --- properties / rename / preferences dialogs --- */
+/* The generic `dialog ...` rules in the preserved qalculate section
+ * below already paint these on-palette; these fill the gaps it leaves. */
+dialog notebook > header > tabs > tab:checked {
+    border-bottom: 2px solid @lsu_accent;
+}
+
+dialog treeview.view,
+dialog list {
+    background-color: @lsu_bg_dark;
+    color: @lsu_text;
+}
+
+dialog treeview.view:selected,
+dialog list row:selected {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+dialog entry {
+    color: @lsu_text;
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border_dim;
+    caret-color: @lsu_accent;
+}
+
+dialog entry:focus {
+    border-color: @lsu_accent;
+    box-shadow: inset 0 0 0 1px @lsu_accent;
+}
+
+dialog entry selection {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+dialog scrollbar slider {
+    background-color: @lsu_slider;
+}
+
+dialog scrollbar slider:hover {
+    background-color: @lsu_slider_hover;
+}
+
+/* ============================================================
+ * 18. QALCULATE-GTK - PRESERVED VERBATIM
+ *
+ * Everything below this banner is the previous revision of this
+ * file, byte-for-byte, minus its own header comment and its
+ * @import of colors-qalculate.css (now pulled in via
+ * colors-gtk.css in section 1). Its rules are keyed on
+ * qalculate's widget IDs and therefore outrank the general layer
+ * above. Its handful of global selectors (`notebook`, `dialog`,
+ * `.overlaybox`, `.app-notification`) are on-palette and are
+ * deliberately allowed to win - sections 10 and 16 above are
+ * written around them.
+ *
+ * DO NOT insert general-purpose rules after this point.
+ * ============================================================ */
+
+/* ============================================================
+ * 2. QALCULATE-GTK MAIN WINDOW (id=main_window)
+ * Scope all broad rules to #main_window so wofi is unaffected.
+ * wofi's window has a different id and won't match these.
+ * ============================================================ */
+
+/* Window background - override .background class painted by Adwaita */
+#main_window,
+#main_window.background,
+#main_window > box,
+#main_window > grid,
+#mainbox {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#main_window *:backdrop {
+    background-color: @lsu_bg;
+    color: @lsu_text;
+}
+
+/* Menubar */
+#main_window menubar,
+#main_window .menubar,
+#main_window menubar > menuitem,
+#main_window menubar > menuitem:hover {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+#main_window menubar > menuitem:hover {
+    background-color: @lsu_bg_light;
+    color: @lsu_text;
+}
+
+/* Generic buttons inside main window (history actions, RPN box, etc.) */
+#main_window button,
+#main_window button.flat {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 4px 10px;
+}
+
+#main_window button:hover {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+    border-color: @lsu_accent;
+}
+
+#main_window button:active,
+#main_window button:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+    border-color: @lsu_accent;
+}
+
+#main_window button:disabled {
+    background-color: alpha(@lsu_bg_light, 0.5);
+    background-image: none;
+    color: @lsu_text_dim;
+}
+
+#main_window button.suggested-action {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+    border-color: @lsu_accent;
+    font-weight: bold;
+}
+
+#main_window button.destructive-action {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+    border-color: @lsu_red;
+    font-weight: bold;
+}
+
+/* Generic entries inside main window (rare - main one is #expressiontext) */
+#main_window entry,
+#main_window .entry,
+#main_window spinbutton {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    caret-color: @lsu_text;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 4px 8px;
+}
+
+#main_window entry:focus,
+#main_window spinbutton:focus {
+    border-color: @lsu_accent;
+    box-shadow: 0 0 0 1px @lsu_accent;
+}
+
+#main_window entry selection,
+#main_window spinbutton selection {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+/* List/treeview rows inside main window */
+#main_window list,
+#main_window listview,
+#main_window treeview,
+#main_window .view,
+#main_window iconview {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#main_window list row,
+#main_window listview row,
+#main_window treeview row,
+#main_window iconview row,
+#main_window .view row {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    padding: 2px 4px;
+}
+
+#main_window list row:hover,
+#main_window listview row:hover,
+#main_window treeview row:hover,
+#main_window .view row:hover {
+    background-color: @lsu_bg_light;
+}
+
+#main_window list row:selected,
+#main_window listview row:selected,
+#main_window treeview row:selected,
+#main_window .view row:selected {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+#main_window treeview header,
+#main_window treeview header button {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    border-bottom: 1px solid @lsu_border;
+    border-right: 1px solid @lsu_border;
+    box-shadow: none;
+    padding: 4px 8px;
+}
+
+/* Frames */
+#main_window frame,
+#main_window .frame,
+#main_window frame > border {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+}
+
+#main_window frame > label,
+#main_window .frame > label {
+    background-color: transparent;
+    color: @lsu_text;
+    font-weight: bold;
+    padding: 0 6px;
+}
+
+/* Infobars / message bars */
+#main_window infobar,
+#main_window .info,
+#main_window .question,
+#main_window .warning,
+#main_window .error {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+#main_window .warning { border-color: @lsu_accent; color: @lsu_yellow; }
+#main_window .error   { border-color: @lsu_red; color: @lsu_red; }
+#main_window .info    { border-color: @lsu_blue; color: @lsu_blue; }
+
+/* Switches, checks, radios in main window */
+#main_window switch {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 12px;
+    min-width: 40px;
+    min-height: 20px;
+}
+
+#main_window switch:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+}
+
+#main_window switch slider {
+    background-color: @lsu_text;
+    background-image: none;
+    border: none;
+    border-radius: 50%;
+    min-width: 16px;
+    min-height: 16px;
+}
+
+#main_window switch:checked slider {
+    background-color: @lsu_bg;
+}
+
+#main_window check,
+#main_window radio {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#main_window check:checked,
+#main_window radio:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+    border-color: @lsu_accent;
+}
+
+/* Progress + scale in main window */
+#main_window progressbar,
+#main_window .progressbar {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 2px;
+}
+
+#main_window progressbar progress,
+#main_window .progressbar progress {
+    background-color: @lsu_accent;
+    background-image: none;
+    border: none;
+    border-radius: 2px;
+}
+
+#main_window scale {
+    background-color: transparent;
+    background-image: none;
+}
+
+#main_window scale slider {
+    background-color: @lsu_accent;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 50%;
+}
+
+#main_window scale trough {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border: none;
+}
+
+/* Comboboxes in main window */
+#main_window combobox,
+#main_window combobox box,
+#main_window combobox button {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 2px 6px;
+}
+
+#main_window combobox button:hover {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#main_window combobox menu,
+#main_window combobox menu menuitem {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+}
+
+#main_window combobox menu menuitem:hover {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+/* Spinbutton buttons */
+#main_window spinbutton button {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 2px;
+}
+
+#main_window spinbutton button:hover {
+    background-color: @lsu_red;
+    color: @lsu_text;
+    border-color: @lsu_accent;
+}
+
+/* Scrollbars inside main window */
+#main_window scrollbar,
+#main_window scrollbar.vertical,
+#main_window scrollbar.horizontal {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: none;
+}
+
+#main_window scrollbar slider {
+    background-color: @lsu_border;
+    background-image: none;
+    border: none;
+    border-radius: 4px;
+    min-width: 8px;
+    min-height: 8px;
+}
+
+#main_window scrollbar slider:hover {
+    background-color: @lsu_accent;
+}
+
+#main_window scrollbar slider:active {
+    background-color: @lsu_yellow;
+}
+
+#main_window scrollbar trough {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+}
+
+/* Separators */
+#main_window separator {
+    background-color: @lsu_border;
+    background-image: none;
+    min-width: 1px;
+    min-height: 1px;
+}
+
+/* Tooltips */
+#main_window tooltip,
+#main_window .tooltip {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_accent;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+/* Labels */
+#main_window label,
+#main_window .label {
+    background-color: transparent;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#main_window label.heading,
+#main_window .label.heading {
+    color: @lsu_accent;
+    font-weight: bold;
+}
+
+#main_window label.dim,
+#main_window .label.dim {
+    color: @lsu_text_dim;
+}
+
+/* Tabs (notebook) */
+#tabs,
+notebook {
+    background-color: @lsu_bg;
+    background-image: none;
+    border: none;
+}
+
+notebook > header {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: none;
+    border-bottom: 1px solid @lsu_border;
+}
+
+notebook > header > tabs > tab {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text_dim;
+    border: 1px solid transparent;
+    border-bottom: none;
+    padding: 6px 12px;
+    border-radius: 4px 4px 0 0;
+}
+
+notebook > header > tabs > tab:hover {
+    background-color: @lsu_bg_light;
+    color: @lsu_text;
+}
+
+notebook > header > tabs > tab:checked,
+notebook > header > tabs > tab.selected {
+    background-color: @lsu_bg;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-bottom: 2px solid @lsu_accent;
+}
+
+/* Top frame around expression entry */
+#topframe,
+#topframebox,
+#topframe > border {
+    background-color: @lsu_bg;
+    background-image: none;
+    border: 1px solid @lsu_border;
+}
+
+/* Expression entry text view + scroll containers */
+#expressiontext,
+#expressiontext text,
+#expressionscrolled,
+#expressionbox,
+#expressionoverlay {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    caret-color: @lsu_text;
+}
+
+#expressiontext {
+    font-size: 18pt;
+    padding: 8px;
+}
+
+#expressiontext text selection {
+    background-color: @lsu_accent;
+    color: @lsu_bg;
+}
+
+/* Result view (GtkDrawingArea) + its scroll containers */
+#resultview,
+#resulteventbox,
+#resultport,
+#scrolled_result,
+#resultoverlay {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+}
+
+#resultview {
+    font-size: 16pt;
+    padding: 8px;
+}
+
+/* History treeview + its scroll/grid/button boxes */
+#historyview,
+#historyscrolled,
+#grid_history,
+#box_hi,
+#box_ho,
+#historyactions {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#historyview {
+    font-size: 11pt;
+    background-image: none;
+}
+
+#historyview row,
+#historyview row:backdrop {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    padding: 2px 4px;
+}
+
+#historyview row:hover {
+    background-color: @lsu_bg_light;
+}
+
+#historyview row:selected,
+#historyview row:selected:focus {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+#historyview header,
+#historyview header button {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    border-bottom: 1px solid @lsu_border;
+    border-right: 1px solid @lsu_border;
+    box-shadow: none;
+    padding: 4px 8px;
+}
+
+#historyview header button:hover {
+    background-color: @lsu_bg_light;
+    color: @lsu_text;
+}
+
+/* RPN stack */
+#stackview,
+#scrolledwindow2,
+#box_rpnl,
+#box_rpnr {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#stackview {
+    background-image: none;
+}
+
+#stackview row {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    padding: 2px 4px;
+}
+
+#stackview row:selected,
+#stackview row:selected:focus {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+/* Status label (under expression entry) */
+#statusframe,
+#statusbox {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    border: none;
+    border-top: 1px solid @lsu_border;
+    padding: 2px 6px;
+}
+
+#label_status_left,
+#label_status_right {
+    background-color: transparent;
+    background-image: none;
+    color: @lsu_text;
+    font-size: 9pt;
+}
+
+#label_status_left.selection-error,
+#label_status_right.selection-error {
+    color: @lsu_red;
+}
+
+#label_status_left.selection-warning,
+#label_status_right.selection-warning {
+    color: @lsu_accent;
+}
+
+/* Keypad container */
+#buttons,
+#grid_buttons {
+    background-color: @lsu_bg;
+    background-image: none;
+    padding: 4px;
+}
+
+/* Keypad buttons - tight + match palette */
+#buttons > button,
+#grid_buttons > button {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 6px;
+    min-width: 48px;
+    min-height: 36px;
+    font-size: 12pt;
+    font-weight: 500;
+    padding: 4px;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#buttons > button:hover,
+#grid_buttons > button:hover {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+    border-color: @lsu_accent;
+}
+
+#buttons > button:active,
+#grid_buttons > button:active,
+#buttons > button:checked,
+#grid_buttons > button:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+    border-color: @lsu_accent;
+}
+
+#buttons > button:disabled,
+#grid_buttons > button:disabled {
+    background-color: alpha(@lsu_bg_light, 0.5);
+    background-image: none;
+    color: @lsu_text_dim;
+    border-color: alpha(@lsu_border, 0.4);
+}
+
+/* Keypad toggle button (P, exact, fraction) - use #id from main.ui */
+#button_programmers_keypad,
+#button_exact,
+#button_fraction {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+#button_programmers_keypad:checked,
+#button_exact:checked,
+#button_fraction:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+/* Comboboxes in the keypad top bar */
+#combobox_numerical_display,
+#combobox_base {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    padding: 2px 6px;
+    box-shadow: none;
+}
+
+/* Conversion view */
+#convert,
+#paned_convert,
+#convert_treeview_category,
+#convert_treeview_unit {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#convert_treeview_category,
+#convert_treeview_unit {
+    background-image: none;
+}
+
+#convert_treeview_category row,
+#convert_treeview_unit row {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    padding: 2px 4px;
+}
+
+#convert_treeview_category row:hover,
+#convert_treeview_unit row:hover {
+    background-color: @lsu_bg_light;
+}
+
+#convert_treeview_category row:selected,
+#convert_treeview_unit row:selected,
+#convert_treeview_category row:selected:focus,
+#convert_treeview_unit row:selected:focus {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+#convert_label_unit {
+    background-color: transparent;
+    background-image: none;
+    color: @lsu_text;
+}
+
+#convert_entry_search,
+#convert_entry_unit {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    padding: 4px 8px;
+    caret-color: @lsu_text;
+}
+
+#convert_entry_search:focus,
+#convert_entry_unit:focus {
+    border-color: @lsu_accent;
+    box-shadow: 0 0 0 1px @lsu_accent;
+}
+
+#convert_button_convert,
+#convert_button_continuous_conversion,
+#convert_button_set_missing_prefixes {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    padding: 4px 10px;
+    box-shadow: none;
+}
+
+#convert_button_convert:hover,
+#convert_button_continuous_conversion:hover,
+#convert_button_set_missing_prefixes:hover {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+    border-color: @lsu_accent;
+}
+
+#convert_button_convert:checked,
+#convert_button_continuous_conversion:checked,
+#convert_button_set_missing_prefixes:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+/* Completion popup */
+#completionwindow,
+#completionview,
+#completionwindow scrolledwindow {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+}
+
+#completionview row {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    padding: 2px 4px;
+}
+
+#completionview row:hover {
+    background-color: @lsu_bg_light;
+}
+
+#completionview row:selected,
+#completionview row:selected:focus {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+/* Notification overlay */
+.overlaybox,
+.app-notification {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_accent;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+/* Dialogs (preferences, variable manager, function manager, etc.) */
+dialog,
+dialog.background,
+messagedialog {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+}
+
+dialog .titlebar,
+dialog headerbar {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: none;
+    border-bottom: 1px solid @lsu_border;
+    box-shadow: none;
+}
+
+/* Notebook pages (the tab bodies themselves) */
+notebook > stack {
+    background-color: @lsu_bg;
+    background-image: none;
+}
+
+/* Frames and info bars (in dialogs) */
+dialog frame,
+dialog .frame,
+dialog GtkFrame {
+    background-color: @lsu_bg;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+}
+
+dialog frame > border,
+dialog .frame > border {
+    border: 1px solid @lsu_border;
+}
+
+dialog infobar,
+dialog .info,
+dialog .question,
+dialog .warning,
+dialog .error {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    padding: 6px 10px;
+}
+
+dialog .warning { border-color: @lsu_accent; color: @lsu_yellow; }
+dialog .error   { border-color: @lsu_red; color: @lsu_red; }
+dialog .info    { border-color: @lsu_blue; color: @lsu_blue; }
+
+/* Labels in dialogs */
+dialog label,
+dialog .label {
+    background-color: transparent;
+    background-image: none;
+    color: @lsu_text;
+}
+
+dialog label.heading,
+dialog .label.heading {
+    color: @lsu_accent;
+    font-weight: bold;
+}
+
+dialog label.dim,
+dialog .label.dim {
+    color: @lsu_text_dim;
+}
+
+/* Spin buttons, check/radio buttons in dialogs */
+dialog spinbutton {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    caret-color: @lsu_text;
+    padding: 2px 6px;
+}
+
+dialog spinbutton:focus {
+    border-color: @lsu_accent;
+    box-shadow: 0 0 0 1px @lsu_accent;
+}
+
+dialog check,
+dialog radio {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+}
+
+dialog check:checked,
+dialog radio:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+    border-color: @lsu_accent;
+}
+
+/* Switch in dialogs (preferences) */
+dialog switch {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 12px;
+    min-width: 40px;
+    min-height: 20px;
+}
+
+dialog switch:checked {
+    background-color: @lsu_accent;
+    background-image: none;
+    border-color: @lsu_accent;
+}
+
+dialog switch slider {
+    background-color: @lsu_text;
+    background-image: none;
+    border: none;
+    border-radius: 50%;
+    min-width: 16px;
+    min-height: 16px;
+}
+
+dialog switch:checked slider {
+    background-color: @lsu_bg;
+}
+
+/* ComboBox in dialogs */
+dialog combobox,
+dialog combobox box,
+dialog combobox button {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 2px 6px;
+}
+
+dialog combobox button:hover {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+}
+
+dialog combobox menu,
+dialog combobox menu menuitem {
+    background-color: @lsu_bg_dark;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+}
+
+dialog combobox menu menuitem:hover {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+}
+
+/* Scale/slider in dialogs */
+dialog scale {
+    background-color: transparent;
+    background-image: none;
+}
+
+dialog scale slider {
+    background-color: @lsu_accent;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 50%;
+}
+
+dialog scale trough {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border: none;
+}
+
+/* Progress bar in dialogs */
+dialog progressbar {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    border: 1px solid @lsu_border;
+    border-radius: 2px;
+}
+
+dialog progressbar progress {
+    background-color: @lsu_accent;
+    background-image: none;
+    border: none;
+    border-radius: 2px;
+}
+
+/* Separators in dialogs */
+dialog separator {
+    background-color: @lsu_border;
+    background-image: none;
+    min-height: 1px;
+    min-width: 1px;
+}
+
+/* Action buttons at bottom of dialogs (OK, Cancel, Apply) */
+dialog .dialog-action-box button,
+dialog button.text-button,
+dialog button.destructive-action {
+    background-color: @lsu_bg_light;
+    background-image: none;
+    color: @lsu_text;
+    border: 1px solid @lsu_border;
+    border-radius: 4px;
+    padding: 6px 16px;
+    box-shadow: none;
+}
+
+dialog button.destructive-action {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+    border-color: @lsu_red;
+    font-weight: bold;
+}
+
+dialog .dialog-action-box button:hover,
+dialog button.text-button:hover {
+    background-color: @lsu_red;
+    background-image: none;
+    color: @lsu_text;
+    border-color: @lsu_accent;
+}
+
+dialog .dialog-action-box button.suggested-action {
+    background-color: @lsu_accent;
+    background-image: none;
+    color: @lsu_bg;
+    border-color: @lsu_accent;
+    font-weight: bold;
+}
+
+dialog .dialog-action-box button.suggested-action:hover {
+    background-color: @lsu_yellow;
+    background-image: none;
+    color: @lsu_bg;
+}

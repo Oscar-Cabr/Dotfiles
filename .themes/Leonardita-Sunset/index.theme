@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Leonardita-Sunset
+Comment=Dark sunset palette (cream/orange/red on dark wine)
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Leonardita-Sunset
+IconTheme=Papirus-Dark

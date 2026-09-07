@@ -1,0 +1,52 @@
+/* ~/.config/theme/colors-qalculate.css
+ * Leonardita-Sunset - qalculate-gtk master palette
+ *
+ * SINGLE SOURCE OF TRUTH for the qalculate-gtk color scheme.
+ * Edit values here and ALL importers (gtk.css, qalculate-gtk-background.css)
+ * pick up the change automatically.
+ *
+ * Importers:
+ *   ~/.config/gtk-3.0/gtk.css                        - full GTK3 override
+ *   ~/.config/qalculate/qalculate-gtk-background.css - qalculate-specific IDs
+ *
+ * The .conf file at ~/.config/qalculate/qalculate-gtk-colors.conf
+ * uses raw hex values (it is a flat key=value format) and must be
+ * updated manually when this palette changes.
+ *
+ * Palette tokens (Leonardita-Sunset):
+ *   bg          #291b1b   text         #f4e285
+ *   bg-darker   #1e1616   accent-org   #f9a03f
+ *   bg-lighter  #3b2a26   border-org   #e76f51
+ *   yellow      #f6bd60   red          #c1121f
+ *   critical    #540b0e   green        #588157
+ *   blue        #9ad0ec   magenta      #6a0572
+ */
+
+/* App palette (lsu_* prefix so they don't collide with theme tokens) */
+@define-color lsu_bg            #291b1b;
+@define-color lsu_bg_dark       #1e1616;
+@define-color lsu_bg_light      #3b2a26;
+@define-color lsu_text          #f4e285;
+@define-color lsu_text_dim      alpha(#f4e285, 0.6);
+@define-color lsu_accent        #f9a03f;
+@define-color lsu_border        #e76f51;
+@define-color lsu_yellow        #f6bd60;
+@define-color lsu_red           #c1121f;
+@define-color lsu_critical      #540b0e;
+@define-color lsu_green         #588157;
+@define-color lsu_blue          #9ad0ec;
+@define-color lsu_magenta       #6a0572;
+
+/* GTK3 named colors - some apps read these directly */
+@define-color theme_bg_color          @lsu_bg;
+@define-color theme_fg_color          @lsu_text;
+@define-color theme_base_color        @lsu_bg_dark;
+@define-color theme_text_color        @lsu_text;
+@define-color theme_selected_bg_color @lsu_accent;
+@define-color theme_selected_fg_color @lsu_bg;
+@define-color insensitive_bg_color    @lsu_bg_light;
+@define-color insensitive_fg_color    @lsu_text_dim;
+@define-color borders                 @lsu_border;
+@define-color warning_color           @lsu_accent;
+@define-color error_color             @lsu_red;
+@define-color success_color           @lsu_green;

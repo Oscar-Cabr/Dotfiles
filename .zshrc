@@ -26,8 +26,8 @@ alias wifi3='ping -c 3 archlinux.org'
 alias restartWifi='sudo systemctl restart wpa_supplicant@wlp3s0.service'
 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias check-server='ping -c 3 192.168.100.186'
-alias connect-server='ssh racso@192.168.100.186'
+alias check-server='ping -c 3 192.168.100.2'
+alias connect-server='TERM=xterm-256color ssh racso@192.168.100.2'
 
 alias whatsapp='chromium --app=https://web.whatsapp.com --enable-features=UseOzonePlatform --ozone-platform=wayland &'
 alias webSpotify='chromium --app=https://open.spotify.com/intl-es --enable-features=UseOzonePlatform --ozone-platform=wayland &'

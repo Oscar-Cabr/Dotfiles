@@ -57,7 +57,10 @@ GTK3 stylesheet layout (~/.themes/Leonardita-Sunset/gtk-3.0/gtk.css)
 	   without this import every unstyled widget goes transparent.
 	2. imports the palette: ~/.config/theme/colors-gtk.css
 	3. bespoke widget layer (sections 2-16) + a Nemo section (17)
-	4. the old qalculate-only sheet, preserved verbatim (section 18)
+	4. the old qalculate-only sheet (section 18). Structure preserved,
+	   but its 86 background tokens are relinked to lsu_qalc_* so
+	   qalculate can sit lighter than the global ramp -- see section
+	   2b of colors-gtk.css. No selector or property was changed.
 	GTK 3.24's Adwaita is compiled SASS with hard-coded hex and does NOT
 	read @theme_* names, so redefining colours alone changes nothing --
 	the bespoke layer has to restate each rule. Do not "simplify" it away.
@@ -98,6 +101,17 @@ Palettes
 	      black (a shadow has no palette hue) and do NOT follow a palette
 	      edit. Every other color in that sheet is an @lsu_* reference and
 	      does follow the edit (55 references on 54 lines).
+	NOTE: two apps deliberately sit OFF the global ramp, through the
+	      lsu_qalc_* and lsu_nemo_* tokens in section 2b of
+	      colors-gtk.css. qalculate is lifted (it is all large flat
+	      panels, so it read darker than the rest of the desktop);
+	      Nemo is softened (it ran at 13.6:1 text-on-view, now ~7.8:1).
+	      Both still derive from the master palette, so a retheme is
+	      still just the 13 lsu_* lines in colors-qalculate.css.
+	      Lift with mix(), NEVER shade(): shade() multiplies HSL
+	      lightness and drags saturation up with it on dark colours
+	      (measured 63% against the ramp's 43-45%, which read as
+	      vivid blood red instead of a lighter red).
 
 Checking a GTK stylesheet after editing
 	A CSS parse error makes GTK silently DROP THE REST OF THE FILE, so

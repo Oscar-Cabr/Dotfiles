@@ -1924,7 +1924,7 @@ messagedialog .dialog-action-area button.destructive-action {
 /* --- window shell --- */
 .nemo-window,
 .nemo-window.background {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg;
 }
 
@@ -1938,7 +1938,7 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window .nemo-inactive-pane .view,
 .nemo-window .nemo-inactive-pane treeview.view,
 .nemo-window .nemo-inactive-pane iconview {
-    background-color: shade(@lsu_bg_dark, 1.15);
+    background-color: shade(@lsu_nemo_view, 1.15);
 }
 
 .nemo-window .nemo-inactive-pane .view:selected,
@@ -1960,7 +1960,7 @@ messagedialog .dialog-action-area button.destructive-action {
 
 .nemo-window toolbar button,
 .nemo-window .primary-toolbar button {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: transparent;
     background-image: none;
     border-color: transparent;
@@ -1969,7 +1969,7 @@ messagedialog .dialog-action-area button.destructive-action {
 
 .nemo-window toolbar button:hover,
 .nemo-window .primary-toolbar button:hover {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg_light;
     background-image: none;
     border-color: @lsu_border_dim;
@@ -1979,9 +1979,9 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window toolbar button:checked,
 .nemo-window .primary-toolbar button:checked {
     color: @lsu_bg;
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     background-image: none;
-    border-color: @lsu_accent;
+    border-color: @lsu_nemo_sel;
 }
 
 .nemo-window toolbar button:disabled,
@@ -1998,7 +1998,7 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-window .path-bar button {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg;
     background-image: none;
     border: 1px solid @lsu_border_dim;
@@ -2015,9 +2015,9 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window .path-bar button:checked,
 .nemo-window .path-bar button:checked:hover {
     color: @lsu_bg;
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     background-image: none;
-    border-color: @lsu_accent;
+    border-color: @lsu_nemo_sel;
     font-weight: bold;
 }
 
@@ -2035,32 +2035,32 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window entry,
 .nemo-window entry.search,
 .nemo-window .search-bar entry {
-    color: @lsu_text;
-    background-color: @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    background-color: @lsu_nemo_view;
     background-image: none;
     border: 1px solid @lsu_border_dim;
-    caret-color: @lsu_accent;
+    caret-color: @lsu_nemo_sel;
 }
 
 .nemo-window entry:focus,
 .nemo-window entry.search:focus {
-    border-color: @lsu_accent;
-    box-shadow: inset 0 0 0 1px @lsu_accent;
+    border-color: @lsu_nemo_sel;
+    box-shadow: inset 0 0 0 1px @lsu_nemo_sel;
 }
 
 .nemo-window entry selection {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     color: @lsu_bg;
 }
 
 .nemo-window entry image {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
 }
 
 /* --- places sidebar (a treeview named nemo-places-sidebar) --- */
 .nemo-places-sidebar,
 .nemo-window .sidebar {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg_sidebar;
     border-right: 1px solid @lsu_border_dim;
 }
@@ -2068,7 +2068,7 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-places-sidebar.view,
 .nemo-places-sidebar treeview.view {
     background-color: @lsu_bg_sidebar;
-    color: @lsu_text;
+    color: @lsu_nemo_text;
 }
 
 .nemo-places-sidebar.view:hover {
@@ -2078,7 +2078,7 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-places-sidebar.view:selected,
 .nemo-places-sidebar.view:selected:focus,
 .nemo-places-sidebar treeview.view:selected {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     color: @lsu_bg;
 }
 
@@ -2093,7 +2093,7 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-places-sidebar .expander {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
 }
 
 .nemo-places-sidebar .expander:selected {
@@ -2102,20 +2102,20 @@ messagedialog .dialog-action-area button.destructive-action {
 
 /* Space-used level bars next to mounted volumes. */
 .nemo-places-sidebar levelbar block.filled {
-    background-color: @lsu_accent;
-    border-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
+    border-color: @lsu_nemo_sel;
 }
 
 /* Sidebar "hide" button and the sidebar chooser at its foot. */
 .nemo-window .sidebar button {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
     background-color: transparent;
     background-image: none;
     border-color: transparent;
 }
 
 .nemo-window .sidebar button:hover {
-    color: @lsu_accent;
+    color: @lsu_nemo_sel;
     background-color: @lsu_bg_light;
     background-image: none;
 }
@@ -2125,8 +2125,8 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window treeview.view,
 .nemo-window iconview,
 .nemo-window .nemo-default-view {
-    color: @lsu_text;
-    background-color: @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    background-color: @lsu_nemo_view;
 }
 
 .nemo-window treeview.view:hover,
@@ -2140,7 +2140,7 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window treeview.view:selected:focus,
 .nemo-window iconview:selected,
 .nemo-window iconview:selected:focus {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     color: @lsu_bg;
 }
 
@@ -2153,7 +2153,7 @@ messagedialog .dialog-action-area button.destructive-action {
 
 /* Icon-view item labels (EelCanvas draws these from the style context). */
 .nemo-canvas-item {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: transparent;
     border-radius: 3px;
 }
@@ -2161,14 +2161,14 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-canvas-item:selected,
 .nemo-canvas-item:selected:focus {
     color: @lsu_bg;
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
 }
 
 /* List-view column headers. */
 .nemo-window treeview.view header button,
 .nemo-window treeview.view header button:hover,
 .nemo-window treeview.view header button:active {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
     background-color: @lsu_bg;
     background-image: none;
     border-color: @lsu_border_dim;
@@ -2177,7 +2177,7 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-window treeview.view header button:hover {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg_light;
 }
 
@@ -2185,11 +2185,11 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window treeview entry,
 .nemo-window iconview entry,
 .nemo-window .view entry {
-    color: @lsu_text;
-    background-color: @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    background-color: @lsu_nemo_view;
     background-image: none;
-    border: 1px solid @lsu_accent;
-    caret-color: @lsu_accent;
+    border: 1px solid @lsu_nemo_sel;
+    caret-color: @lsu_nemo_sel;
 }
 
 /* Drag-and-drop onto a folder row. */
@@ -2207,7 +2207,7 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-window notebook > header > tabs > tab {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
     background-color: @lsu_bg_header;
     background-image: none;
     border-bottom: 2px solid transparent;
@@ -2216,19 +2216,19 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-window notebook > header > tabs > tab:hover {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg_light;
 }
 
 .nemo-window notebook > header > tabs > tab:checked {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg;
-    border-bottom: 2px solid @lsu_accent;
+    border-bottom: 2px solid @lsu_nemo_sel;
 }
 
 #nemo-tab-close-button,
 .nemo-window notebook tab button.flat {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
     background-color: transparent;
     background-image: none;
     border: none;
@@ -2254,7 +2254,7 @@ messagedialog .dialog-action-area button.destructive-action {
 /* --- statusbar and the floating selection-info bar --- */
 .nemo-window statusbar,
 .nemo-window .statusbar {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
     background-color: @lsu_bg_header;
     background-image: none;
     border-top: 1px solid @lsu_border_dim;
@@ -2263,23 +2263,23 @@ messagedialog .dialog-action-area button.destructive-action {
 
 .nemo-window statusbar label,
 .nemo-window .statusbar label {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
 }
 
 /* Zoom slider in the statusbar. */
 .nemo-window statusbar scale trough {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_nemo_view;
     border-color: @lsu_border_dim;
 }
 
 .nemo-window statusbar scale highlight {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
 }
 
 .floating-bar,
 .nemo-window .floating-bar {
-    color: @lsu_text;
-    background-color: @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    background-color: @lsu_nemo_view;
     background-image: none;
     border: 1px solid @lsu_border;
     border-radius: 4px 4px 0 0;
@@ -2288,12 +2288,12 @@ messagedialog .dialog-action-area button.destructive-action {
 
 .floating-bar label,
 .nemo-window .floating-bar label {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
 }
 
 .floating-bar button,
 .nemo-window .floating-bar button {
-    color: @lsu_text_dim;
+    color: @lsu_nemo_text_dim;
     background-color: transparent;
     background-image: none;
     border: none;
@@ -2301,18 +2301,18 @@ messagedialog .dialog-action-area button.destructive-action {
 
 .floating-bar button:hover,
 .nemo-window .floating-bar button:hover {
-    color: @lsu_accent;
+    color: @lsu_nemo_sel;
 }
 
 /* --- notice bars: trash, "this folder is a template", thumbnails --- */
 .nemo-cluebar-label,
 .nemo-window infobar label {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
 }
 
 .nemo-window infobar,
 .nemo-window infobar.info {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg_light;
     background-image: none;
     border-bottom: 1px solid @lsu_border_dim;
@@ -2329,7 +2329,7 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-window infobar.error {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_critical;
     background-image: none;
 }
@@ -2338,22 +2338,22 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window menu,
 .nemo-window .context-menu,
 menu.nemo-menu {
-    color: @lsu_text;
-    background-color: @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    background-color: @lsu_nemo_view;
     border: 1px solid @lsu_border;
 }
 
 .nemo-window menu menuitem:hover,
 menu.nemo-menu menuitem:hover {
     color: @lsu_bg;
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
 }
 
 /* --- progress popover (copy / move / delete) --- */
 .nemo-window popover,
 .nemo-window popover.background {
-    color: @lsu_text;
-    background-color: @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    background-color: @lsu_nemo_view;
     border: 1px solid @lsu_border;
 }
 
@@ -2363,15 +2363,15 @@ menu.nemo-menu menuitem:hover {
 }
 
 .nemo-window popover progressbar progress {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
 }
 
 .nemo-window popover label {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
 }
 
 .nemo-window popover button {
-    color: @lsu_text;
+    color: @lsu_nemo_text;
     background-color: @lsu_bg_light;
     background-image: none;
     border-color: @lsu_border_dim;
@@ -2386,12 +2386,12 @@ menu.nemo-menu menuitem:hover {
 .nemo-desktop-window,
 .nemo-desktop-icon-view {
     background-color: transparent;
-    color: @lsu_text;
-    text-shadow: 1px 1px 3px @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    text-shadow: 1px 1px 3px @lsu_nemo_view;
 }
 
 .nemo-desktop-icon-view .nemo-canvas-item:selected {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     color: @lsu_bg;
     text-shadow: none;
 }
@@ -2400,36 +2400,36 @@ menu.nemo-menu menuitem:hover {
 /* The generic `dialog ...` rules in the preserved qalculate section
  * below already paint these on-palette; these fill the gaps it leaves. */
 dialog notebook > header > tabs > tab:checked {
-    border-bottom: 2px solid @lsu_accent;
+    border-bottom: 2px solid @lsu_nemo_sel;
 }
 
 dialog treeview.view,
 dialog list {
-    background-color: @lsu_bg_dark;
-    color: @lsu_text;
+    background-color: @lsu_nemo_view;
+    color: @lsu_nemo_text;
 }
 
 dialog treeview.view:selected,
 dialog list row:selected {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     color: @lsu_bg;
 }
 
 dialog entry {
-    color: @lsu_text;
-    background-color: @lsu_bg_dark;
+    color: @lsu_nemo_text;
+    background-color: @lsu_nemo_view;
     background-image: none;
     border: 1px solid @lsu_border_dim;
-    caret-color: @lsu_accent;
+    caret-color: @lsu_nemo_sel;
 }
 
 dialog entry:focus {
-    border-color: @lsu_accent;
-    box-shadow: inset 0 0 0 1px @lsu_accent;
+    border-color: @lsu_nemo_sel;
+    box-shadow: inset 0 0 0 1px @lsu_nemo_sel;
 }
 
 dialog entry selection {
-    background-color: @lsu_accent;
+    background-color: @lsu_nemo_sel;
     color: @lsu_bg;
 }
 
@@ -2442,12 +2442,23 @@ dialog scrollbar slider:hover {
 }
 
 /* ============================================================
- * 18. QALCULATE-GTK - PRESERVED VERBATIM
+ * 18. QALCULATE-GTK - STRUCTURE PRESERVED, PALETTE RELINKED
  *
  * Everything below this banner is the previous revision of this
- * file, byte-for-byte, minus its own header comment and its
+ * file, minus its own header comment and its
  * @import of colors-qalculate.css (now pulled in via
- * colors-gtk.css in section 1). Its rules are keyed on
+ * colors-gtk.css in section 1).
+ *
+ * NOT byte-for-byte any more. qalculate read far darker than the
+ * rest of the desktop, so its 86 background-token references were
+ * relinked to the lifted lsu_qalc_* tokens (section 2b of
+ * colors-gtk.css): lsu_bg -> lsu_qalc_bg, lsu_bg_dark ->
+ * lsu_qalc_bg_dark, lsu_bg_light -> lsu_qalc_bg_light. Nothing
+ * else changed - no selector, no property, no accent colour. To
+ * put qalculate back on the global ramp, point those three tokens
+ * at their originals instead of editing this block.
+ *
+ * Its rules are keyed on
  * qalculate's widget IDs and therefore outrank the general layer
  * above. Its handful of global selectors (`notebook`, `dialog`,
  * `.overlaybox`, `.app-notification`) are on-palette and are
@@ -2469,13 +2480,13 @@ dialog scrollbar slider:hover {
 #main_window > box,
 #main_window > grid,
 #mainbox {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
 }
 
 #main_window *:backdrop {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     color: @lsu_text;
 }
 
@@ -2484,7 +2495,7 @@ dialog scrollbar slider:hover {
 #main_window .menubar,
 #main_window menubar > menuitem,
 #main_window menubar > menuitem:hover {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -2493,14 +2504,14 @@ dialog scrollbar slider:hover {
 }
 
 #main_window menubar > menuitem:hover {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     color: @lsu_text;
 }
 
 /* Generic buttons inside main window (history actions, RPN box, etc.) */
 #main_window button,
 #main_window button.flat {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2521,12 +2532,12 @@ dialog scrollbar slider:hover {
 #main_window button:checked {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
     border-color: @lsu_accent;
 }
 
 #main_window button:disabled {
-    background-color: alpha(@lsu_bg_light, 0.5);
+    background-color: alpha(@lsu_qalc_bg_light, 0.5);
     background-image: none;
     color: @lsu_text_dim;
 }
@@ -2534,7 +2545,7 @@ dialog scrollbar slider:hover {
 #main_window button.suggested-action {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
     border-color: @lsu_accent;
     font-weight: bold;
 }
@@ -2551,7 +2562,7 @@ dialog scrollbar slider:hover {
 #main_window entry,
 #main_window .entry,
 #main_window spinbutton {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2571,7 +2582,7 @@ dialog scrollbar slider:hover {
 #main_window entry selection,
 #main_window spinbutton selection {
     background-color: @lsu_accent;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* List/treeview rows inside main window */
@@ -2580,7 +2591,7 @@ dialog scrollbar slider:hover {
 #main_window treeview,
 #main_window .view,
 #main_window iconview {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
 }
@@ -2590,7 +2601,7 @@ dialog scrollbar slider:hover {
 #main_window treeview row,
 #main_window iconview row,
 #main_window .view row {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -2601,7 +2612,7 @@ dialog scrollbar slider:hover {
 #main_window listview row:hover,
 #main_window treeview row:hover,
 #main_window .view row:hover {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
 }
 
 #main_window list row:selected,
@@ -2610,12 +2621,12 @@ dialog scrollbar slider:hover {
 #main_window .view row:selected {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 #main_window treeview header,
 #main_window treeview header button {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -2629,7 +2640,7 @@ dialog scrollbar slider:hover {
 #main_window frame,
 #main_window .frame,
 #main_window frame > border {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2649,7 +2660,7 @@ dialog scrollbar slider:hover {
 #main_window .question,
 #main_window .warning,
 #main_window .error {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2663,7 +2674,7 @@ dialog scrollbar slider:hover {
 
 /* Switches, checks, radios in main window */
 #main_window switch {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     border: 1px solid @lsu_border;
     border-radius: 12px;
@@ -2687,12 +2698,12 @@ dialog scrollbar slider:hover {
 }
 
 #main_window switch:checked slider {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
 }
 
 #main_window check,
 #main_window radio {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
 }
@@ -2701,14 +2712,14 @@ dialog scrollbar slider:hover {
 #main_window radio:checked {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
     border-color: @lsu_accent;
 }
 
 /* Progress + scale in main window */
 #main_window progressbar,
 #main_window .progressbar {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     border: 1px solid @lsu_border;
     border-radius: 2px;
@@ -2735,7 +2746,7 @@ dialog scrollbar slider:hover {
 }
 
 #main_window scale trough {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     border: none;
 }
@@ -2744,7 +2755,7 @@ dialog scrollbar slider:hover {
 #main_window combobox,
 #main_window combobox box,
 #main_window combobox button {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2762,7 +2773,7 @@ dialog scrollbar slider:hover {
 
 #main_window combobox menu,
 #main_window combobox menu menuitem {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2771,12 +2782,12 @@ dialog scrollbar slider:hover {
 #main_window combobox menu menuitem:hover {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* Spinbutton buttons */
 #main_window spinbutton button {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2793,7 +2804,7 @@ dialog scrollbar slider:hover {
 #main_window scrollbar,
 #main_window scrollbar.vertical,
 #main_window scrollbar.horizontal {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     border: none;
 }
@@ -2816,7 +2827,7 @@ dialog scrollbar slider:hover {
 }
 
 #main_window scrollbar trough {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
 }
 
@@ -2831,7 +2842,7 @@ dialog scrollbar slider:hover {
 /* Tooltips */
 #main_window tooltip,
 #main_window .tooltip {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_accent;
@@ -2861,20 +2872,20 @@ dialog scrollbar slider:hover {
 /* Tabs (notebook) */
 #tabs,
 notebook {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     border: none;
 }
 
 notebook > header {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     border: none;
     border-bottom: 1px solid @lsu_border;
 }
 
 notebook > header > tabs > tab {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text_dim;
     border: 1px solid transparent;
@@ -2884,13 +2895,13 @@ notebook > header > tabs > tab {
 }
 
 notebook > header > tabs > tab:hover {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     color: @lsu_text;
 }
 
 notebook > header > tabs > tab:checked,
 notebook > header > tabs > tab.selected {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     color: @lsu_text;
     border: 1px solid @lsu_border;
     border-bottom: 2px solid @lsu_accent;
@@ -2900,7 +2911,7 @@ notebook > header > tabs > tab.selected {
 #topframe,
 #topframebox,
 #topframe > border {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     border: 1px solid @lsu_border;
 }
@@ -2911,7 +2922,7 @@ notebook > header > tabs > tab.selected {
 #expressionscrolled,
 #expressionbox,
 #expressionoverlay {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -2926,7 +2937,7 @@ notebook > header > tabs > tab.selected {
 
 #expressiontext text selection {
     background-color: @lsu_accent;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* Result view (GtkDrawingArea) + its scroll containers */
@@ -2935,7 +2946,7 @@ notebook > header > tabs > tab.selected {
 #resultport,
 #scrolled_result,
 #resultoverlay {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -2953,7 +2964,7 @@ notebook > header > tabs > tab.selected {
 #box_hi,
 #box_ho,
 #historyactions {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
 }
@@ -2965,7 +2976,7 @@ notebook > header > tabs > tab.selected {
 
 #historyview row,
 #historyview row:backdrop {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -2973,19 +2984,19 @@ notebook > header > tabs > tab.selected {
 }
 
 #historyview row:hover {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
 }
 
 #historyview row:selected,
 #historyview row:selected:focus {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 #historyview header,
 #historyview header button {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -2996,7 +3007,7 @@ notebook > header > tabs > tab.selected {
 }
 
 #historyview header button:hover {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     color: @lsu_text;
 }
 
@@ -3005,7 +3016,7 @@ notebook > header > tabs > tab.selected {
 #scrolledwindow2,
 #box_rpnl,
 #box_rpnr {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
 }
@@ -3015,7 +3026,7 @@ notebook > header > tabs > tab.selected {
 }
 
 #stackview row {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -3026,13 +3037,13 @@ notebook > header > tabs > tab.selected {
 #stackview row:selected:focus {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* Status label (under expression entry) */
 #statusframe,
 #statusbox {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     border: none;
     border-top: 1px solid @lsu_border;
@@ -3060,7 +3071,7 @@ notebook > header > tabs > tab.selected {
 /* Keypad container */
 #buttons,
 #grid_buttons {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     padding: 4px;
 }
@@ -3068,7 +3079,7 @@ notebook > header > tabs > tab.selected {
 /* Keypad buttons - tight + match palette */
 #buttons > button,
 #grid_buttons > button {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3096,13 +3107,13 @@ notebook > header > tabs > tab.selected {
 #grid_buttons > button:checked {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
     border-color: @lsu_accent;
 }
 
 #buttons > button:disabled,
 #grid_buttons > button:disabled {
-    background-color: alpha(@lsu_bg_light, 0.5);
+    background-color: alpha(@lsu_qalc_bg_light, 0.5);
     background-image: none;
     color: @lsu_text_dim;
     border-color: alpha(@lsu_border, 0.4);
@@ -3112,7 +3123,7 @@ notebook > header > tabs > tab.selected {
 #button_programmers_keypad,
 #button_exact,
 #button_fraction {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3125,13 +3136,13 @@ notebook > header > tabs > tab.selected {
 #button_fraction:checked {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* Comboboxes in the keypad top bar */
 #combobox_numerical_display,
 #combobox_base {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3145,7 +3156,7 @@ notebook > header > tabs > tab.selected {
 #paned_convert,
 #convert_treeview_category,
 #convert_treeview_unit {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
 }
@@ -3157,7 +3168,7 @@ notebook > header > tabs > tab.selected {
 
 #convert_treeview_category row,
 #convert_treeview_unit row {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -3166,7 +3177,7 @@ notebook > header > tabs > tab.selected {
 
 #convert_treeview_category row:hover,
 #convert_treeview_unit row:hover {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
 }
 
 #convert_treeview_category row:selected,
@@ -3175,7 +3186,7 @@ notebook > header > tabs > tab.selected {
 #convert_treeview_unit row:selected:focus {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 #convert_label_unit {
@@ -3186,7 +3197,7 @@ notebook > header > tabs > tab.selected {
 
 #convert_entry_search,
 #convert_entry_unit {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3204,7 +3215,7 @@ notebook > header > tabs > tab.selected {
 #convert_button_convert,
 #convert_button_continuous_conversion,
 #convert_button_set_missing_prefixes {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3227,21 +3238,21 @@ notebook > header > tabs > tab.selected {
 #convert_button_set_missing_prefixes:checked {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* Completion popup */
 #completionwindow,
 #completionview,
 #completionwindow scrolledwindow {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
 }
 
 #completionview row {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -3249,20 +3260,20 @@ notebook > header > tabs > tab.selected {
 }
 
 #completionview row:hover {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
 }
 
 #completionview row:selected,
 #completionview row:selected:focus {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* Notification overlay */
 .overlaybox,
 .app-notification {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_accent;
@@ -3274,14 +3285,14 @@ notebook > header > tabs > tab.selected {
 dialog,
 dialog.background,
 messagedialog {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
 }
 
 dialog .titlebar,
 dialog headerbar {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: none;
@@ -3291,7 +3302,7 @@ dialog headerbar {
 
 /* Notebook pages (the tab bodies themselves) */
 notebook > stack {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
 }
 
@@ -3299,7 +3310,7 @@ notebook > stack {
 dialog frame,
 dialog .frame,
 dialog GtkFrame {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3315,7 +3326,7 @@ dialog .info,
 dialog .question,
 dialog .warning,
 dialog .error {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3348,7 +3359,7 @@ dialog .label.dim {
 
 /* Spin buttons, check/radio buttons in dialogs */
 dialog spinbutton {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3364,7 +3375,7 @@ dialog spinbutton:focus {
 
 dialog check,
 dialog radio {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
 }
@@ -3373,13 +3384,13 @@ dialog check:checked,
 dialog radio:checked {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
     border-color: @lsu_accent;
 }
 
 /* Switch in dialogs (preferences) */
 dialog switch {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     border: 1px solid @lsu_border;
     border-radius: 12px;
@@ -3403,14 +3414,14 @@ dialog switch slider {
 }
 
 dialog switch:checked slider {
-    background-color: @lsu_bg;
+    background-color: @lsu_qalc_bg;
 }
 
 /* ComboBox in dialogs */
 dialog combobox,
 dialog combobox box,
 dialog combobox button {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3428,7 +3439,7 @@ dialog combobox button:hover {
 
 dialog combobox menu,
 dialog combobox menu menuitem {
-    background-color: @lsu_bg_dark;
+    background-color: @lsu_qalc_bg_dark;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3437,7 +3448,7 @@ dialog combobox menu menuitem {
 dialog combobox menu menuitem:hover {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }
 
 /* Scale/slider in dialogs */
@@ -3454,14 +3465,14 @@ dialog scale slider {
 }
 
 dialog scale trough {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     border: none;
 }
 
 /* Progress bar in dialogs */
 dialog progressbar {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     border: 1px solid @lsu_border;
     border-radius: 2px;
@@ -3486,7 +3497,7 @@ dialog separator {
 dialog .dialog-action-box button,
 dialog button.text-button,
 dialog button.destructive-action {
-    background-color: @lsu_bg_light;
+    background-color: @lsu_qalc_bg_light;
     background-image: none;
     color: @lsu_text;
     border: 1px solid @lsu_border;
@@ -3514,7 +3525,7 @@ dialog button.text-button:hover {
 dialog .dialog-action-box button.suggested-action {
     background-color: @lsu_accent;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
     border-color: @lsu_accent;
     font-weight: bold;
 }
@@ -3522,5 +3533,5 @@ dialog .dialog-action-box button.suggested-action {
 dialog .dialog-action-box button.suggested-action:hover {
     background-color: @lsu_yellow;
     background-image: none;
-    color: @lsu_bg;
+    color: @lsu_qalc_bg;
 }

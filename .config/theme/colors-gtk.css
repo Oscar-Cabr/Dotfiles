@@ -51,6 +51,38 @@
 @define-color lsu_slider_hover  @lsu_accent;
 @define-color lsu_drop          @lsu_green;                  /* drag-and-drop target hint  */
 
+
+/* ============================================================
+ * 2b. PER-APP TONE TOKENS
+ * The two daily-driver apps needed adjusting away from the
+ * global ramp. Both derive from the master palette, so a
+ * retheme still only means editing colors-qalculate.css.
+ * ============================================================ */
+
+/* qalculate-gtk reads much darker than the rest of the desktop: it is
+ * almost entirely large flat panels (history, result, keypad), so the
+ * window background dominates instead of being framed by chrome. Lift
+ * its surfaces one step; the keypad and accents are untouched. */
+/* Use mix(), NOT shade(), for every lift below. GTK's shade() multiplies
+ * HSL lightness, and on a dark saturated colour that drags saturation up
+ * with it: shade(@lsu_bg_dark, 1.40) measured 63% saturation against the
+ * 43-45% of the global ramp, so the panel read as vivid blood red instead
+ * of a lighter version of the desktop. mix() lerps in RGB and holds the
+ * family. Measured, not assumed. */
+@define-color lsu_qalc_bg        mix(@lsu_bg, @lsu_bg_light, 0.55);
+@define-color lsu_qalc_bg_dark   mix(@lsu_bg_dark, @lsu_bg, 0.75);
+@define-color lsu_qalc_bg_light  shade(@lsu_bg_light, 1.12);
+
+/* Nemo ran at ~13.6:1 text-on-view, well past WCAG AAA (7:1) and harsh
+ * over a whole screen of file rows. Soften from both ends: lift the view
+ * background and pull the cream back toward the palette. Selection loses
+ * a little punch too, since a whole column of selected rows at full
+ * accent was the other half of the glare. */
+@define-color lsu_nemo_view      mix(@lsu_bg_dark, @lsu_bg_light, 0.30);
+@define-color lsu_nemo_text      mix(@lsu_text, @lsu_bg_light, 0.26);
+@define-color lsu_nemo_text_dim  alpha(@lsu_nemo_text, 0.62);
+@define-color lsu_nemo_sel       shade(@lsu_accent, 0.90);
+
 /* ============================================================
  * 3. GTK3 NAMED COLORS - CORE
  * theme_bg/fg/base/text/selected_*, insensitive_*, borders and

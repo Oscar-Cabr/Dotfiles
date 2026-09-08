@@ -114,8 +114,15 @@ Palettes
 	      vivid blood red instead of a lighter red).
 
 Checking a GTK stylesheet after editing
-	A CSS parse error makes GTK silently DROP THE REST OF THE FILE, so
-	validate explicitly. GTK3:
+	Easiest: run the inspector after any palette edit --
+	   python3 ~/.config/theme/check-colors.py
+	It catches parse errors AND prints every key surface as GTK actually
+	computes it, with contrast ratio and hue/saturation/lightness, so you
+	can see the effect of an edit without reopening a single app.
+	It exits 1 on a parse error.
+
+	By hand, a CSS parse error makes GTK silently DROP THE REST OF THE
+	FILE, so validate explicitly. GTK3:
 	   python3 -c "import gi;gi.require_version('Gtk','3.0');\
 	     from gi.repository import Gtk;Gtk.init([]);p=Gtk.CssProvider();\
 	     p.connect('parsing-error',lambda a,s,e:print('ERR line',s.get_start_line()+1,e.message));\

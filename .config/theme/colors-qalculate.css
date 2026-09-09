@@ -14,7 +14,7 @@
  * updated manually when this palette changes.
  *
  * Palette tokens (Leonardita-Sunset):
- *   bg          #3a171b   text         #f4e285
+ *   bg          #3a171b   text         #faf1c2
  *   bg-darker   #2a1013   accent-org   #f9a03f
  *   bg-lighter  #522126   border-org   #e76f51
  *   yellow      #f6bd60   red          #c1121f
@@ -23,13 +23,13 @@
  */
 
 /* App palette (lsu_* prefix so they don't collide with theme tokens) */
-@define-color lsu_bg            #3a171b;
-@define-color lsu_bg_dark       #2a1013;
-@define-color lsu_bg_light      #522126;
-@define-color lsu_text          #f4e285;
-@define-color lsu_text_dim      alpha(#f4e285, 0.6);
-@define-color lsu_accent        #f9a03f;
-@define-color lsu_border        #e76f51;
+@define-color lsu_bg_dark       #24080D;
+@define-color lsu_bg            #5E1522;
+@define-color lsu_bg_light      #7C1425;
+@define-color lsu_text          #faf1c2;
+@define-color lsu_text_dim      alpha(#faf1c2, 0.6);
+@define-color lsu_accent        #d98d96;      /* accent (was orange, now focused pink) */
+@define-color lsu_border        #9F4250;
 @define-color lsu_yellow        #f6bd60;
 @define-color lsu_red           #c1121f;
 @define-color lsu_critical      #540b0e;

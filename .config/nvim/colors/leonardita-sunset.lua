@@ -8,7 +8,7 @@ vim.g.colors_name = "leonardita-sunset"
 
 local palette = {
   bg = "#291b1b",
-  fg = "#f4e285",
+  fg = "#faf1c2",
   red = "#f44747",
   orange = "#ff8800",
   yellow = "#ffcc00",

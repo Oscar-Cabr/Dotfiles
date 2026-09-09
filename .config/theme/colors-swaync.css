@@ -9,9 +9,9 @@
 @define-color border-notification-critical #c1121f;
 @define-color border-notification-focus #f9a03f;
 
-@define-color text-notification #f4e285;
-@define-color text-notification-muted alpha(#f4e285, 0.55);
-@define-color text-notification-body alpha(#f4e285, 0.85);
+@define-color text-notification #faf1c2;
+@define-color text-notification-muted alpha(#faf1c2, 0.55);
+@define-color text-notification-body alpha(#faf1c2, 0.85);
 
 @define-color accent-notification #f9a03f;
 @define-color accent-notification-hover #c1121f;

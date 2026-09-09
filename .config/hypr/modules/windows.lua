@@ -55,6 +55,20 @@ hl.window_rule({
     size   = "1200 800",
 })
 
+hl.window_rule({
+    name      = "whatsapp-ws9",
+    match     = { class = "^(chrome-web\\.whatsapp\\.com__.*)$" },
+
+    workspace = "9 silent",
+})
+
+hl.window_rule({
+    name      = "spotify-ws10",
+    match     = { class = "^(chrome-open\\.spotify\\.com__.*)$" },
+
+    workspace = "10 silent",
+})
+
 hl.workspace_rule({ workspace = "1",  persistent = true }) -- Terminal
 hl.workspace_rule({ workspace = "8",  persistent = true }) -- Browser
 hl.workspace_rule({ workspace = "9",  persistent = true }) -- WhatsApp

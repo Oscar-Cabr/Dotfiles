@@ -156,7 +156,7 @@ calendar:selected,
 label:selected,
 label selection {
     background-color: @lsu_accent;
-    color: @lsu_bg;
+    color: #3a0a12;
 }
 
 /* Unfocused window keeps the selection visible, just quieter.
@@ -182,7 +182,7 @@ calendar:backdrop:selected,
 label:backdrop:selected,
 label:backdrop selection {
     background-color: @lsu_accent_dim;
-    color: @lsu_bg;
+    color: #3a0a12;
 }
 
 .view:disabled:selected,
@@ -1978,7 +1978,7 @@ messagedialog .dialog-action-area button.destructive-action {
 .nemo-window toolbar button:active,
 .nemo-window toolbar button:checked,
 .nemo-window .primary-toolbar button:checked {
-    color: @lsu_bg;
+    color: #3a0a12;
     background-color: @lsu_nemo_sel;
     background-image: none;
     border-color: @lsu_nemo_sel;
@@ -2014,7 +2014,7 @@ messagedialog .dialog-action-area button.destructive-action {
 /* The current folder is the checked crumb. */
 .nemo-window .path-bar button:checked,
 .nemo-window .path-bar button:checked:hover {
-    color: @lsu_bg;
+    color: #3a0a12;
     background-color: @lsu_nemo_sel;
     background-image: none;
     border-color: @lsu_nemo_sel;
@@ -2022,7 +2022,7 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-window .path-bar button:checked label {
-    color: @lsu_bg;
+    color: #3a0a12;
 }
 
 .nemo-window .path-bar button:disabled {
@@ -2273,7 +2273,19 @@ messagedialog .dialog-action-area button.destructive-action {
 }
 
 .nemo-window statusbar scale highlight {
+    background-color: @lsu_border;
+}
+
+.nemo-window statusbar scale slider {
+    background-color: @lsu_border;
+    border: 1px solid @lsu_border_dim;
+}
+
+.nemo-window statusbar button:checked {
+    color: #3a0a12;
     background-color: @lsu_nemo_sel;
+    background-image: none;
+    border-color: @lsu_nemo_sel;
 }
 
 .floating-bar,

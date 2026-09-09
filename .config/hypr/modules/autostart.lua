@@ -4,7 +4,10 @@ hl.on("hyprland.start", function()
     -- Desktop shell
     hl.exec_cmd("hyprpaper")
     hl.exec_cmd("hypridle")
-    hl.exec_cmd("waybar")
+    -- Waybar goes through waybar-launch.sh, which starts the Hyprland IPC
+    -- shim first: Waybar still speaks the pre-Lua dispatcher syntax, so its
+    -- workspace clicks need translating (see hypr-ipc-shim.py).
+    hl.exec_cmd("~/.config/sh-scripts/waybar-launch.sh")
     hl.exec_cmd("eww daemon")
     hl.exec_cmd("eww open left-bar")
 

@@ -1,7 +1,7 @@
 local vars    = require("variables")
 local mainMod = vars.mainMod
 
-local restartBars = [[pkill waybar && waybar & disown && pkill eww && eww open left-bar && notify-send "──────  Waybar and Eww restarted ───────"]]
+local restartBars = [[~/.config/sh-scripts/waybar-launch.sh & disown && pkill eww && eww open left-bar && notify-send "──────  Waybar and Eww restarted ───────"]]
 
 local edgeNoProfile = [[microsoft-edge-stable --ozone-platform=wayland --enable-features=UseOzonePlatform --force-device-scale-factor=1]]
 

@@ -1,7 +1,17 @@
 @import url("/home/racso/.config/theme/wofi-colors.css");
 
+/* Wofi loads this file at GTK_STYLE_PROVIDER_PRIORITY_APPLICATION (600), so
+ * every rule here outranks the Leonardita-Sunset GTK theme (priority 200) --
+ * but only on the nodes it actually names. The theme paints every surface it
+ * can reach, so any node left unstyled below falls through to it; that is how
+ * the list background became theme wine (#5E1522 on the viewport) instead of
+ * @background. Claim the whole chain window -> outer-box -> scroll -> viewport
+ * -> inner-box -> entry, and the leaf label/image, or the theme reclaims them.
+ * Widget tree: wofi(7), WIDGET LAYOUT. */
+
 window {
     background-color: @background;
+    color: @entry-fg;
     border-radius: 12px;
     border: 2px solid @accent;
     padding: 10px;
@@ -9,23 +19,40 @@ window {
     font-size: 14px;
 }
 
+#outer-box,
+#scroll,
+#scroll viewport,
+#inner-box {
+    background-color: transparent;
+    border: none;
+}
+
 #input {
     margin: 6px;
     padding: 10px;
     border-radius: 8px;
     background-color: @input-bg;
+    background-image: none;
     color: @input-fg;
     border: none;
+    box-shadow: none;
+    caret-color: @input-accent;
     font-family: "CodeNewRoman Nerd Font", "JetBrainsMono Nerd Font", monospace;
 }
 #input:focus {
     border: 2px solid @input-accent;
     box-shadow: none;
 }
+#input image {
+    color: @input-fg;
+}
+#input selection {
+    background-color: @selection;
+    color: @entry-selected-fg;
+}
 
 #inner-box {
     margin-top: 8px;
-    spacing: 6px;
 }
 
 #entry {
@@ -37,8 +64,18 @@ window {
     min-width: 0;
     font-family: "CodeNewRoman Nerd Font", "JetBrainsMono Nerd Font", monospace;
 }
+#entry label,
+#entry image {
+    background-color: transparent;
+    color: @entry-fg;
+}
 #entry:selected {
     background-color: @selection;
+    color: @entry-selected-fg;
+}
+#entry:selected label,
+#entry:selected image {
+    background-color: transparent;
     color: @entry-selected-fg;
 }
 #entry image {

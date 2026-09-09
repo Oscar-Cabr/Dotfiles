@@ -1,5 +1,10 @@
 show = drun
 style=/home/racso/.config/wofi/style.css
+# No color= line: wofi's colors file is a pywal-style list of bare #RRGGBB,
+# one per line, substituted into the stylesheet as --wofi-colorN. Pointing it
+# at the GTK @define-color palette makes wofi reject every line ("What color
+# format is this, try #FFFFFF, kthxbi"). The palette reaches wofi through the
+# @import at the top of style.css instead.
 
 location = center
 width = 60%

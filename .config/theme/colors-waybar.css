@@ -52,6 +52,11 @@
 @define-color background-wireplumber #f9a03f;
 @define-color active-text-wireplumber #e76f51;
 
+@define-color border-language #e76f51;
+@define-color text-language #faf1c2;
+@define-color language-latam #f6bd60;
+@define-color language-zh #c1121f;
+
 @define-color border-bluetooth #e76f51;
 @define-color text-bluetooth #faf1c2;
 @define-color background-bluetooth #f9a03f;

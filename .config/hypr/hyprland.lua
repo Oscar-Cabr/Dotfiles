@@ -101,10 +101,21 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout  = "us,latam",
+        -- Three groups, cycled by xkb itself with Shift + Alt:
+        --   0 us     English
+        --   1 latam  Spanish, accents work in every app
+        --   2 cn     "Chinese" -- xkb-wise this is literally include "us(basic)",
+        --            so the keys are plain QWERTY for typing pinyin. It exists
+        --            only as a name the rest of the system can recognise:
+        --            input-lang-watch.sh sees the layout become Chinese and
+        --            switches fcitx5 on, which is what actually produces hanzi.
+        --
+        -- Hyprland release-binds on a bare modifier do not fire here, so the
+        -- Shift + Alt gesture is left to xkb, which has always handled it.
+        kb_layout  = "us,latam,cn",
         kb_variant = "",
         kb_model   = "",
-        kb_options = "grp:alt_shift_toggle", -- Shift + Alt alternates us <-> latam
+        kb_options = "grp:alt_shift_toggle",
         kb_rules   = "",
 
         follow_mouse = 1,

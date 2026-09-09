@@ -15,8 +15,11 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
 -- fcitx5 input method
-hl.env("GTK_IM_MODULE", "fcitx")
-hl.env("QT_IM_MODULE",  "fcitx")
-hl.env("XMODIFIERS",    "@im=fcitx")
+-- GTK_IM_MODULE is deliberately NOT set: on Wayland, GTK3/GTK4 talk to fcitx5
+-- through the text-input-v3 protocol. Setting it forces the legacy immodule
+-- path (which needs fcitx5-gtk) and makes fcitx5 warn on every login.
+-- See https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
+hl.env("QT_IM_MODULE",  "fcitx")   -- Qt apps, via fcitx5-qt
+hl.env("XMODIFIERS",    "@im=fcitx") -- XWayland apps
 hl.env("SDL_IM_MODULE", "fcitx")
 hl.env("INPUT_METHOD",  "fcitx")

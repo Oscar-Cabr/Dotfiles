@@ -25,7 +25,9 @@ hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | fuzzel --dmenu | cli
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(edgeNoProfile))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(restartBars))
 
--- Shift + Alt alternates between us and latam keyboard (see input.kb_options in hyprland.lua).
+-- Shift + Alt cycles the input language (us -> latam -> cn). Handled by xkb
+-- via grp:alt_shift_toggle in hyprland.lua, not by a keybind here: Hyprland
+-- does not fire release-binds on a bare modifier key.
 
 -----------------------------
 ---- FOCUS MOVEMENT --------

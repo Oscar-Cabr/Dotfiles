@@ -162,6 +162,17 @@
 	"format": " {:%H:%M:%S | %A %B %d %Y}",
 	"on-click": "gsimplecal"
     },
+    // Input language. State comes from the xkb group; input-lang-watch.sh
+    // raises SIGRTMIN+9 on every switch so the label updates instantly, and
+    // the interval is only a safety net for when the watcher is not running.
+    "custom/language": {
+	"exec": "~/.config/sh-scripts/input-lang.sh status",
+	"return-type": "json",
+	"interval": 2,
+	"signal": 9,
+	"on-click": "~/.config/sh-scripts/input-lang.sh cycle",
+	"tooltip": true
+    },
     "custom/exit": {
 	"format": "",
 	"on-click": "~/.config/sh-scripts/toggle-power.sh",

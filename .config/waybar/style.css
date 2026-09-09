@@ -214,6 +214,23 @@
     color: #f38ba8;
 }
 
+/* Configs for custom/language module */
+#custom-language {
+    color: @text-language;
+    border: 2px solid @border-language;
+    border-radius: 15px;
+    padding: 0px 10px 0px 10px;
+    margin: 10px 0px 10px 0px;
+    font-size: 15px;
+    transition: all 0.3s ease-in-out;
+}
+#custom-language.latam {
+    color: @language-latam;
+}
+#custom-language.zh {
+    color: @language-zh;
+}
+
 /* Configs for custom/exit module */
 #custom-exit {
     font-size: 20px;

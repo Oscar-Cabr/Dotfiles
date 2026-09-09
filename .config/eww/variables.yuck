@@ -2,3 +2,4 @@
 
 (defvar ICON_ROUTE "/home/racso/.config/eww/icons/")
 (defvar STD_SEP 10)
+(defvar SCRIPTS_ROUTE "/home/racso/.config/sh-scripts/")

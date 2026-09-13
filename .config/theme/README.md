@@ -133,6 +133,19 @@ Icon theme
 	Tracked in the dotfiles: ~/.dotfiles_ignore excludes .local/share/* but
 	negates .local/share/icons/, so new icons show in `dotfiles status`.
 
+Folder colour (Papirus carmine / orange / ...)
+	Source of truth:  ~/.config/theme/folder-color.sh <colour>
+	                  --list for the 25 colours Papirus ships, --reset for blue
+	It generates a SECOND icon theme, Leonardita-Sunset-folders, made of
+	~490 symlinks into Papirus's own folder-<colour>-*.svg files, one per
+	variant per size. The hand-made theme lists it first in Inherits, so
+	the chain is  Leonardita-Sunset -> Leonardita-Sunset-folders -> Papirus-Dark.
+	The generated theme is IGNORED by the dotfiles on purpose (a colour
+	switch would otherwise be a 490-file diff); after a restore, run the
+	script once. Nothing under /usr/share is touched, so a Papirus update
+	cannot undo it. Sidebar unaffected -- that is Nemo's own xsi-* set.
+	Current colour: carmine.
+
 Dotfiles tracking
 	These files are now tracked in the bare dotfiles repo
 	(git --git-dir=~/.dotfiles --work-tree=~). Before this rebuild NOTHING

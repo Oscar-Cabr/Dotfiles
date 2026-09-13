@@ -1,0 +1,12 @@
+.cache/
+.local/share/*
+!.local/share/icons/
+.local/share/icons/Leonardita-Sunset-folders/
+.local/state/
+.npm/
+.cargo/registry/
+.wget-hsts
+.lesshst
+.zsh_history
+.bash_history
+.sqlite*

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+ <!-- Leonardita-Sunset: "< / >" code glyph, drawn as FILLED bars.
+      GTK symbolic recolouring drops strokes and forces fills, so the
+      stroke-only original from SVG Repo rendered as two triangles and
+      nothing else. Geometry matches the original centerlines. -->
+ <path d="M7.07,6.37 L1.37,11.63 L2.93,13.32 L8.63,8.07 Z M1.37,11.63 L6.94,17.63 L8.63,16.06 L3.06,10.07 Z M15.37,8.07 L21.07,13.32 L22.63,11.63 L16.93,6.37 Z M20.94,10.07 L15.37,16.06 L17.06,17.63 L22.63,11.63 Z M13.16,2.61 L8.61,20.84 L10.84,21.39 L15.39,3.16 Z"/>
+</svg>

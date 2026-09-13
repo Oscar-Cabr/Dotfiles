@@ -1,0 +1,18 @@
+[Icon Theme]
+Name=Leonardita-Sunset
+Comment=Sunset overlay on Papirus-Dark. Only icons that differ from Papirus live here; everything else falls through via Inherits.
+Inherits=Papirus-Dark
+Directories=16x16/places
+
+# Sidebar / symbolic icons. GTK recolours anything named *-symbolic.svg
+# with the widget's foreground colour, so draw them in any colour you
+# like -- but use FILLED shapes only: GTK drops strokes and forces a
+# fill on every path, so an outline-only icon renders as a silhouette
+# (or, for a lone line, as nothing at all).
+#
+# src/ holds editable originals and is deliberately NOT listed above,
+# so GTK never scans it.
+[16x16/places]
+Size=16
+Context=Places
+Type=Fixed

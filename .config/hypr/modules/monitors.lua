@@ -7,6 +7,15 @@ hl.monitor({
     scale    = 1,
 })
 
+-- Mirror any connected external screen (HDMI, DP, etc.) to the laptop display
+hl.monitor({
+    output   = "",
+    mode     = "preferred",
+    position = "auto",
+    scale    = 1,
+    mirror   = vars.screen,
+})
+
 -- Old: monitor = $screen, addreserved, 0, 0, 52, 0
 -- New equivalent (kept commented, as it was):
 -- hl.monitor({

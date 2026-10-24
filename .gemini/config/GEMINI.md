@@ -1,0 +1,1 @@
+/home/racso/.gemini/config/AGENTS.md
